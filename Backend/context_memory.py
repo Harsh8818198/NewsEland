@@ -9,7 +9,9 @@ class ContextMemory:
     Maps disparate news events into cohesive "Stories" over time.
     """
     def __init__(self, db_file='knowledge_graph.json'):
-        self.db_file = db_file
+        # Store in Backend directory
+        backend_dir = os.path.dirname(os.path.abspath(__file__))
+        self.db_file = os.path.join(backend_dir, db_file)
         self.knowledge_graph = self._load_graph()
 
     def _load_graph(self):

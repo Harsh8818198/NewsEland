@@ -18,6 +18,7 @@ export interface Story {
   sentimentHistory: SentimentPoint[];
   updates: StoryUpdate[];
   relatedEntities: string[];
+  subreport?: string; // Gemini-generated strategic intelligence report
 }
 
 export interface SentimentPoint {

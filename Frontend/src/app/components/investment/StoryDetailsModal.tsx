@@ -1,7 +1,73 @@
 import { Story } from '@/app/types/investment';
 import { SentimentBadge, MaturityBadge } from './Badge';
-import { X, Clock, Tag } from 'lucide-react';
+import { X, Clock, Tag, TrendingUp, AlertCircle, Lightbulb, BarChart3, FileText } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts';
+
+// Simple markdown-like text formatter
+function formatMarkdown(text: string) {
+  if (!text) return null;
+  
+  const lines = text.split('\n');
+  const elements: JSX.Element[] = [];
+  
+  lines.forEach((line, index) => {
+    const trimmed = line.trim();
+    
+    // Headers
+    if (trimmed.startsWith('###')) {
+      elements.push(
+        <h4 key={index} className="text-[15px] font-semibold text-[var(--fintech-text-primary)] mt-4 mb-2">
+          {trimmed.replace(/^###\s*/, '')}
+        </h4>
+      );
+    } else if (trimmed.startsWith('##')) {
+      elements.push(
+        <h3 key={index} className="text-[16px] font-semibold text-[var(--fintech-text-primary)] mt-5 mb-2">
+          {trimmed.replace(/^##\s*/, '')}
+        </h3>
+      );
+    } else if (trimmed.startsWith('#')) {
+      elements.push(
+        <h2 key={index} className="text-[18px] font-semibold text-[var(--fintech-text-primary)] mt-6 mb-3">
+          {trimmed.replace(/^#\s*/, '')}
+        </h2>
+      );
+    }
+    // Bold text
+    else if (trimmed.includes('**')) {
+      const parts = trimmed.split('**');
+      elements.push(
+        <p key={index} className="text-[14px] text-[var(--fintech-text-secondary)] leading-relaxed mb-2">
+          {parts.map((part, i) => 
+            i % 2 === 1 ? <strong key={i} className="font-semibold text-[var(--fintech-text-primary)]">{part}</strong> : part
+          )}
+        </p>
+      );
+    }
+    // Bullet points
+    else if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+      elements.push(
+        <li key={index} className="text-[14px] text-[var(--fintech-text-secondary)] ml-4 mb-1">
+          {trimmed.replace(/^[-*]\s*/, '')}
+        </li>
+      );
+    }
+    // Empty lines
+    else if (trimmed === '') {
+      elements.push(<div key={index} className="h-2" />);
+    }
+    // Regular text
+    else if (trimmed.length > 0) {
+      elements.push(
+        <p key={index} className="text-[14px] text-[var(--fintech-text-secondary)] leading-relaxed mb-2">
+          {trimmed}
+        </p>
+      );
+    }
+  });
+  
+  return <div>{elements}</div>;
+}
 
 interface StoryDetailsModalProps {
   story: Story;
@@ -52,11 +118,167 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
             </p>
           </div>
 
+          {/* Gemini Strategic Intelligence Report */}
+          {story.subreport && (
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <FileText className="w-5 h-5 text-[var(--fintech-accent)]" />
+                <h3 className="text-[16px] font-semibold text-[var(--fintech-text-primary)]">
+                  Gemini Strategic Intelligence Report
+                </h3>
+                <span className="ml-auto px-2 py-1 bg-[#EEF2FF] text-[var(--fintech-accent)] rounded text-[12px] font-medium">
+                  AI-Generated Analysis
+                </span>
+              </div>
+              <div className="bg-gradient-to-br from-[#F0FDF4] to-[#EEF2FF] border-2 border-[var(--fintech-accent)] rounded-lg p-6">
+                {formatMarkdown(story.subreport)}
+              </div>
+            </div>
+          )}
+
+          {/* Key Analysis Insights */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <Lightbulb className="w-5 h-5 text-[var(--fintech-accent)]" />
+              <h3 className="text-[16px] font-semibold text-[var(--fintech-text-primary)]">
+                Key Analysis Insights
+              </h3>
+            </div>
+            <div className="bg-[var(--fintech-bg)] rounded-lg p-5 space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[var(--fintech-accent)] rounded-full mt-2 flex-shrink-0" />
+                <div>
+                  <p className="text-[14px] font-medium text-[var(--fintech-text-primary)] mb-1">
+                    Market Pattern Recognition
+                  </p>
+                  <p className="text-[14px] text-[var(--fintech-text-secondary)]">
+                    This story has been classified under the "{story.topic}" pattern with {story.updateCount} data points collected. 
+                    The system has identified {story.relatedEntities.length} key entities involved in this development.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[var(--fintech-accent)] rounded-full mt-2 flex-shrink-0" />
+                <div>
+                  <p className="text-[14px] font-medium text-[var(--fintech-text-primary)] mb-1">
+                    Sentiment Trajectory
+                  </p>
+                  <p className="text-[14px] text-[var(--fintech-text-secondary)]">
+                    Current sentiment is {story.sentiment}. The story has evolved through {story.sentimentHistory.length} sentiment 
+                    shifts, indicating {story.sentimentHistory.length > 3 ? 'significant market attention' : 'emerging market interest'}.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-2 h-2 bg-[var(--fintech-accent)] rounded-full mt-2 flex-shrink-0" />
+                <div>
+                  <p className="text-[14px] font-medium text-[var(--fintech-text-primary)] mb-1">
+                    Story Maturity Assessment
+                  </p>
+                  <p className="text-[14px] text-[var(--fintech-text-secondary)]">
+                    {story.maturity === 'Mature' 
+                      ? 'This is a mature story with established patterns and sufficient data for high-confidence analysis. Investment decisions can be made with greater certainty.'
+                      : 'This is a developing story with limited historical data. Exercise caution and wait for additional confirmation before making significant investment decisions.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Investment Implications */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <TrendingUp className="w-5 h-5 text-[var(--fintech-accent)]" />
+              <h3 className="text-[16px] font-semibold text-[var(--fintech-text-primary)]">
+                Investment Implications
+              </h3>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-[var(--fintech-bg)] rounded-lg p-4 border-l-4 border-green-500">
+                <p className="text-[13px] font-medium text-[var(--fintech-text-muted)] mb-2">OPPORTUNITIES</p>
+                <p className="text-[14px] text-[var(--fintech-text-secondary)]">
+                  {story.sentiment === 'positive' 
+                    ? `Positive sentiment with ${story.updateCount} updates suggests growing momentum. Consider positions in related entities for medium-term gains.`
+                    : story.sentiment === 'negative'
+                    ? 'Negative sentiment may present contrarian opportunities for risk-tolerant investors once the story stabilizes.'
+                    : 'Neutral sentiment indicates a wait-and-see approach. Monitor for directional clarity before committing capital.'}
+                </p>
+              </div>
+              <div className="bg-[var(--fintech-bg)] rounded-lg p-4 border-l-4 border-red-500">
+                <p className="text-[13px] font-medium text-[var(--fintech-text-muted)] mb-2">RISKS</p>
+                <p className="text-[14px] text-[var(--fintech-text-secondary)]">
+                  {story.maturity === 'Developing'
+                    ? 'Limited data points increase uncertainty. Volatility expected as the story develops. Size positions accordingly.'
+                    : 'Mature story with established patterns. Risk of mean reversion if sentiment becomes too extreme.'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Risk Assessment */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <AlertCircle className="w-5 h-5 text-[var(--fintech-accent)]" />
+              <h3 className="text-[16px] font-semibold text-[var(--fintech-text-primary)]">
+                Risk Assessment
+              </h3>
+            </div>
+            <div className="bg-[var(--fintech-bg)] rounded-lg p-5">
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[14px] text-[var(--fintech-text-secondary)]">Data Confidence</span>
+                    <span className="text-[14px] font-medium text-[var(--fintech-text-primary)]">
+                      {story.maturity === 'Mature' ? 'High' : 'Medium'}
+                    </span>
+                  </div>
+                  <div className="w-full bg-white rounded-full h-2 overflow-hidden border border-[var(--fintech-border)]">
+                    <div
+                      className="bg-[var(--fintech-accent)] h-full"
+                      style={{ width: story.maturity === 'Mature' ? '85%' : '45%' }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[14px] text-[var(--fintech-text-secondary)]">Volatility Risk</span>
+                    <span className="text-[14px] font-medium text-[var(--fintech-text-primary)]">
+                      {story.sentiment === 'neutral' ? 'Low' : 'Medium'}
+                    </span>
+                  </div>
+                  <div className="w-full bg-white rounded-full h-2 overflow-hidden border border-[var(--fintech-border)]">
+                    <div
+                      className="bg-orange-500 h-full"
+                      style={{ width: story.sentiment === 'neutral' ? '30%' : '60%' }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[14px] text-[var(--fintech-text-secondary)]">Information Quality</span>
+                    <span className="text-[14px] font-medium text-[var(--fintech-text-primary)]">
+                      {story.updateCount > 10 ? 'High' : 'Medium'}
+                    </span>
+                  </div>
+                  <div className="w-full bg-white rounded-full h-2 overflow-hidden border border-[var(--fintech-border)]">
+                    <div
+                      className="bg-green-500 h-full"
+                      style={{ width: story.updateCount > 10 ? '80%' : '50%' }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Maturity Progress */}
           <div>
-            <h3 className="text-[16px] font-semibold text-[var(--fintech-text-primary)] mb-3">
-              Story Maturity
-            </h3>
+            <div className="flex items-center gap-2 mb-4">
+              <BarChart3 className="w-5 h-5 text-[var(--fintech-accent)]" />
+              <h3 className="text-[16px] font-semibold text-[var(--fintech-text-primary)]">
+                Story Maturity
+              </h3>
+            </div>
             <div className="bg-[var(--fintech-bg)] rounded-lg p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[14px] text-[var(--fintech-text-secondary)]">

@@ -1,15 +1,17 @@
-import google.generativeai as genai
+import google.genai as genai
 import logging
 import json
 import time
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
 import os
 from dotenv import load_dotenv
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Load .env from the Backend directory
+backend_dir = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(backend_dir, ".env"))
+
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-genai.configure(api_key=GEMINI_API_KEY)
 
 class SubReportGenerator:
     """
@@ -20,7 +22,7 @@ class SubReportGenerator:
         self.mock_mode = mock_mode
         if not self.mock_mode:
             try:
-                self.model = genai.GenerativeModel('gemini-2.0-flash')
+                self.client = genai.Client(api_key=GEMINI_API_KEY)
             except:
                 logging.warning("Failed to init Gemini. Falling back to Mock Mode.")
                 self.mock_mode = True
@@ -34,7 +36,10 @@ class SubReportGenerator:
 
         try:
             prompt = self._construct_prompt(article, analysis_result, story_context)
-            response = self.model.generate_content(prompt)
+            response = self.client.models.generate_content(
+                model='gemini-2.0-flash',
+                contents=prompt
+            )
             return response.text
         except Exception as e:
             logging.error(f"Gemini Report Gen Failed: {e}")

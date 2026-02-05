@@ -66,6 +66,29 @@ def get_stories():
     active_stories = []
     for s_id, data in memory.knowledge_graph.get('stories', {}).items():
         if data.get('status') == 'ACTIVE':
+            # Generate a subreport for each story if it has events
+            if len(data.get('events', [])) > 0:
+                latest_event = data['events'][-1]
+                article = {'title': latest_event['title'], 'source': 'Knowledge Graph'}
+                
+                # Create a minimal analysis result for the report
+                analysis_result = {
+                    'analysis': {
+                        'sentiment': latest_event.get('sentiment', {}),
+                        'matched_patterns': [{'pattern_name': latest_event.get('pattern', 'General Market'), 'historical_outcome': 'Market movement', 'example': 'Historical precedent'}],
+                        'second_order_effects': ['Monitor related sectors', 'Watch for regulatory response']
+                    },
+                    'entities': data.get('entities', [])
+                }
+                
+                # Generate subreport
+                try:
+                    subreport = report_gen.generate_report(article, analysis_result, story_context=data)
+                    data['subreport'] = subreport
+                except Exception as e:
+                    logging.error(f"Failed to generate subreport for {s_id}: {e}")
+                    data['subreport'] = None
+            
             active_stories.append(data)
     
     return {"stories": sorted(active_stories, key=lambda x: x.get('maturity') == 'MATURE', reverse=True)}

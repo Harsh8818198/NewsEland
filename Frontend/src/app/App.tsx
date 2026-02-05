@@ -8,8 +8,8 @@ import { ProfilePage } from './components/investment/pages/ProfilePage';
 import { DecisionLogicPage } from './components/investment/pages/DecisionLogicPage';
 import { SystemStatusPage } from './components/investment/pages/SystemStatusPage';
 import { StoryDetailsModal } from './components/investment/StoryDetailsModal';
-import { getStoryById } from './data/investmentMockData';
-import { ApiProvider } from './services/apiContext';
+import type { Story } from './types/investment';
+import { ApiProvider, useApiContext } from './services/apiContext';
 
 type Page =
   | 'dashboard'
@@ -19,51 +19,59 @@ type Page =
   | 'decision-logic'
   | 'system-status';
 
-export default function App() {
+function AppContent() {
   const [currentPage, setCurrentPage] = useState<Page>('dashboard');
-  const [selectedStoryId, setSelectedStoryId] = useState<string | null>(null);
+  const [selectedStory, setSelectedStory] = useState<Story | null>(null);
+  const { stories } = useApiContext();
 
   const handleNavigate = (page: Page) => {
     setCurrentPage(page);
   };
 
   const handleStoryClick = (storyId: string) => {
-    setSelectedStoryId(storyId);
+    const story = stories.data.find((s) => s.id === storyId);
+    if (story) {
+      setSelectedStory(story);
+    }
   };
 
   const handleCloseStoryModal = () => {
-    setSelectedStoryId(null);
+    setSelectedStory(null);
   };
 
-  const selectedStory = selectedStoryId ? getStoryById(selectedStoryId) : null;
+  return (
+    <div className="min-h-screen bg-[var(--fintech-bg)]">
+      {/* Sidebar */}
+      <Sidebar currentPage={currentPage} onNavigate={handleNavigate} />
 
+      {/* Main Content Area */}
+      <div className="ml-64 pt-16">
+        {/* Navbar */}
+        <Navbar />
+
+        {/* Page Content */}
+        <div className="p-8">
+          {currentPage === 'dashboard' && <DashboardPage onNavigate={handleNavigate} />}
+          {currentPage === 'stories' && <StoriesFeedPage onStoryClick={handleStoryClick} />}
+          {currentPage === 'analyzer' && <AnalyzerPage />}
+          {currentPage === 'profile' && <ProfilePage />}
+          {currentPage === 'decision-logic' && <DecisionLogicPage />}
+          {currentPage === 'system-status' && <SystemStatusPage />}
+        </div>
+      </div>
+
+      {/* Story Details Modal */}
+      {selectedStory && (
+        <StoryDetailsModal story={selectedStory} onClose={handleCloseStoryModal} />
+      )}
+    </div>
+  );
+}
+
+export default function App() {
   return (
     <ApiProvider>
-      <div className="min-h-screen bg-[var(--fintech-bg)]">
-        {/* Sidebar */}
-        <Sidebar currentPage={currentPage} onNavigate={handleNavigate} />
-
-        {/* Main Content Area */}
-        <div className="ml-64 pt-16">
-          {/* Navbar */}
-          <Navbar />
-
-          {/* Page Content */}
-          <div className="p-8">
-            {currentPage === 'dashboard' && <DashboardPage onNavigate={handleNavigate} />}
-            {currentPage === 'stories' && <StoriesFeedPage onStoryClick={handleStoryClick} />}
-            {currentPage === 'analyzer' && <AnalyzerPage />}
-            {currentPage === 'profile' && <ProfilePage />}
-            {currentPage === 'decision-logic' && <DecisionLogicPage />}
-            {currentPage === 'system-status' && <SystemStatusPage />}
-          </div>
-        </div>
-
-        {/* Story Details Modal */}
-        {selectedStory && (
-          <StoryDetailsModal story={selectedStory} onClose={handleCloseStoryModal} />
-        )}
-      </div>
+      <AppContent />
     </ApiProvider>
   );
 }

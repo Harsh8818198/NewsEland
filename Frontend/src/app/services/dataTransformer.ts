@@ -24,20 +24,113 @@ export interface DataTransformer {
 }
 
 export class ApiDataTransformer implements DataTransformer {
-    transformStory(backendStory: BackendStory): Story {
+    transformStory(backendStory: any): Story {
+        // Extract events/updates from the backend story
+        const events = backendStory.events || [];
+        
+        // Build sentiment history from events
+        const sentimentHistory = events.map((event: any, index: number) => {
+            const sentimentLabel = event.sentiment?.sentiment_label?.toLowerCase() || 'neutral';
+            let sentiment: Sentiment = 'neutral';
+            
+            if (sentimentLabel.includes('bullish') || sentimentLabel.includes('positive')) {
+                sentiment = 'positive';
+            } else if (sentimentLabel.includes('bearish') || sentimentLabel.includes('negative')) {
+                sentiment = 'negative';
+            }
+            
+            return {
+                date: new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+                value: event.sentiment?.sentiment_score || 0,
+                sentiment,
+            };
+        }).slice(-5); // Last 5 data points for the chart
+        
+        // Build updates list from events
+        const updates = events.map((event: any, index: number) => {
+            const sentimentLabel = event.sentiment?.sentiment_label?.toLowerCase() || 'neutral';
+            let sentiment: Sentiment = 'neutral';
+            
+            if (sentimentLabel.includes('bullish') || sentimentLabel.includes('positive')) {
+                sentiment = 'positive';
+            } else if (sentimentLabel.includes('bearish') || sentimentLabel.includes('negative')) {
+                sentiment = 'negative';
+            }
+            
+            const eventDate = new Date(event.date);
+            const now = new Date();
+            const diffMs = now.getTime() - eventDate.getTime();
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMs / 3600000);
+            const diffDays = Math.floor(diffMs / 86400000);
+            
+            let timeAgo = 'Recently';
+            if (diffMins < 60) {
+                timeAgo = `${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`;
+            } else if (diffHours < 24) {
+                timeAgo = `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+            } else {
+                timeAgo = `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+            }
+            
+            return {
+                id: `update-${index}`,
+                timestamp: timeAgo,
+                headline: event.title,
+                sentiment,
+            };
+        }).reverse(); // Most recent first
+        
+        // Determine overall sentiment from latest event
+        const latestEvent = events[events.length - 1];
+        const latestSentimentLabel = latestEvent?.sentiment?.sentiment_label?.toLowerCase() || 'neutral';
+        let overallSentiment: Sentiment = 'neutral';
+        
+        if (latestSentimentLabel.includes('bullish') || latestSentimentLabel.includes('positive')) {
+            overallSentiment = 'positive';
+        } else if (latestSentimentLabel.includes('bearish') || latestSentimentLabel.includes('negative')) {
+            overallSentiment = 'negative';
+        }
+        
+        // Calculate time since last update
+        const lastEventDate = latestEvent ? new Date(latestEvent.date) : new Date(backendStory.created_at);
+        const now = new Date();
+        const diffMs = now.getTime() - lastEventDate.getTime();
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+        
+        let lastUpdated = 'Recently';
+        if (diffMins < 60) {
+            lastUpdated = `${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`;
+        } else if (diffHours < 24) {
+            lastUpdated = `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+        } else {
+            lastUpdated = `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+        }
+        
+        // Build comprehensive summary from events
+        const eventTypes = events.map((e: any) => e.sentiment?.key_event_type).filter((t: any) => t && t !== 'None');
+        const uniqueEventTypes = [...new Set(eventTypes)];
+        const summary = `Tracking ${backendStory.main_topic} with ${backendStory.updates_count} updates. ` +
+            (uniqueEventTypes.length > 0 
+                ? `Key events include: ${uniqueEventTypes.slice(0, 3).join(', ')}.` 
+                : 'Monitoring for significant developments.');
+        
         return {
-            id: `story-${Date.now()}-${Math.random()}`,
+            id: backendStory.id || `story-${Date.now()}-${Math.random()}`,
             title: backendStory.main_topic,
-            summary: `Analysis of ${backendStory.main_topic}`,
+            summary,
             maturity: backendStory.maturity === 'MATURE' ? 'Mature' : 'Developing',
             updateCount: backendStory.updates_count,
-            sentiment: (backendStory.sentiment as Sentiment) || 'neutral',
-            topic: backendStory.main_topic,
-            lastUpdated: backendStory.last_updated || 'Recently',
-            sentimentHistory: [],
-            updates: [],
+            sentiment: overallSentiment,
+            topic: backendStory.main_topic.split(' involving ')[0] || backendStory.main_topic,
+            lastUpdated,
+            sentimentHistory,
+            updates,
             relatedEntities: backendStory.entities || [],
-        }
+            subreport: backendStory.subreport || undefined,
+        };
     }
 
     transformSystemStatus(backendStatus: SystemStatusResponse): SystemHealth {
