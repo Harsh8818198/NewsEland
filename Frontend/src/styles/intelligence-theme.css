@@ -1,0 +1,57 @@
+/* AI Intelligence Briefing Platform - Editorial Neutral Theme */
+
+:root {
+  /* Background colors */
+  --intel-bg-primary: #F7F8FA;
+  --intel-bg-secondary: #ECEFF3;
+  --intel-bg-white: #FFFFFF;
+  
+  /* Text colors */
+  --intel-text-primary: #1E1F23;
+  --intel-text-secondary: #4A4F57;
+  --intel-text-muted: #7A808A;
+  
+  /* Borders & Dividers */
+  --intel-border: #D6DAE0;
+  
+  /* Accent (minimal use) */
+  --intel-accent: #4C6FFF;
+  
+  /* Confidence indicators (neutral, no red/green) */
+  --intel-confidence-low: #B8BCC4;
+  --intel-confidence-medium: #7A808A;
+  --intel-confidence-high: #4A4F57;
+  
+  /* Impact horizon colors (neutral) */
+  --intel-horizon-short: #8B92A3;
+  --intel-horizon-medium: #6D7485;
+  --intel-horizon-long: #4A4F57;
+}
+
+.intel-container {
+  background: var(--intel-bg-primary);
+  color: var(--intel-text-secondary);
+  min-height: 100vh;
+}
+
+.intel-card {
+  background: var(--intel-bg-white);
+  border: 1px solid var(--intel-border);
+  border-radius: 4px;
+}
+
+.intel-divider {
+  border-top: 1px solid var(--intel-border);
+}
+
+.intel-text-heading {
+  color: var(--intel-text-primary);
+}
+
+.intel-text-body {
+  color: var(--intel-text-secondary);
+}
+
+.intel-text-muted {
+  color: var(--intel-text-muted);
+}

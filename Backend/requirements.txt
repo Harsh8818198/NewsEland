@@ -1,0 +1,7 @@
+requests
+beautifulsoup4
+spacy
+google-generativeai
+python-dotenv
+fastapi
+uvicorn
