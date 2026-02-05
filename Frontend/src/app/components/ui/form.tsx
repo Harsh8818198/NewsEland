@@ -11,7 +11,7 @@ import {
   type ControllerProps,
   type FieldPath,
   type FieldValues,
-} from "react-hook-form";
+} from "node_modules/react-hook-form/dist";
 
 import { cn } from "./utils";
 import { Label } from "./label";
