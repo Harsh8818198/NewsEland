@@ -274,16 +274,15 @@ export function ApiProvider({ children, apiService }: ApiProviderProps) {
     )
 
     // Refresh news
-    const refreshNews = useCallback(async () => {
+    const refreshNews = useCallback(async (): Promise<void> => {
         try {
-            await api.refreshNews()
-            // Refetch stories after refresh
-            await fetchStories()
+            const response: RefreshResponse = await api.refreshNews()
+            console.log(response.message)
         } catch (error) {
-            const apiError = error instanceof ApiError ? error : new ApiError(0, String(error))
-            throw apiError
+            console.error('Failed to refresh news:', error)
+            throw error
         }
-    }, [api, fetchStories])
+    }, [api])
 
     // Reset memory
     const resetMemory = useCallback(async () => {
@@ -341,4 +340,8 @@ export function useApiContext(): ApiContextValue {
         throw new Error('useApiContext must be used within ApiProvider')
     }
     return context
+}
+
+export interface RefreshResponse {
+    message: string;
 }

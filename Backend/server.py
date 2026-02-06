@@ -15,6 +15,15 @@ load_dotenv(override=True)
 
 app = FastAPI(title="AI Investment Intelligence API", version="1.0")
 
+# Add CORS middleware to allow requests from the frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Allow requests from the frontend
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
+
 memory = ContextMemory()
 
 class ProfileUpdate(BaseModel):
@@ -109,24 +118,17 @@ def analyze_headline(request: AnalysisRequest):
     
     entities = extractor.extract_entities(headline)
     
-    article = {'title': headline, 'source': 'Web API Input'}
-    analysis_result = analyzer.analyze_news(article, entities)
-    
-    story = memory.update_story(article, analysis_result, entities)
-    
-    sub_report = report_gen.generate_report(article, analysis_result, story_context=story)
-    advice = decision_engine.generate_advice(current_user, sub_report, story_context=story)
-    
+    if not entities:
+        raise HTTPException(status_code=400, detail="No entities found in the headline.")
+
+    sentiment = analyzer.analyze_sentiment(headline)
+    memory.update_memory(headline, entities, sentiment)
+
     return {
-        "analysis": analysis_result['analysis'],
+        "headline": headline,
         "entities": entities,
-        "story_context": {
-            "topic": story['main_topic'],
-            "maturity": story['maturity'],
-            "updates": story['updates_count']
-        },
-        "advice": advice,
-        "user_profile": current_user.risk_tolerance
+        "sentiment": sentiment,
+        "message": "Analysis complete. Memory updated."
     }
 
 @app.post("/api/refresh")

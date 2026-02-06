@@ -74,6 +74,13 @@ export class FetchHttpClient implements IHttpClient {
         return this.handleResponse<T>(response)
     }
 
+    async refreshNews(): Promise<void> {
+        const response = await fetch(`${this.baseURL}/api/refresh-news`, {
+            method: 'POST',
+        });
+        await this.handleResponse<{ message: string }>(response);
+    }
+
     private async handleResponse<T>(response: Response): Promise<T> {
         if (!response.ok) {
             let errorMessage = `HTTP ${response.status}`

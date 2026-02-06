@@ -22,7 +22,7 @@ type Page =
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<Page>('dashboard');
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
-  const { stories } = useApiContext();
+  const { stories, actions: { refreshNews } } = useApiContext();
 
   const handleNavigate = (page: Page) => {
     setCurrentPage(page);
@@ -37,6 +37,16 @@ function AppContent() {
 
   const handleCloseStoryModal = () => {
     setSelectedStory(null);
+  };
+
+  const handleRefreshNews = async () => {
+    try {
+      await refreshNews();
+      alert('News refresh started successfully.');
+    } catch (error) {
+      console.error('Failed to refresh news:', error);
+      alert('Failed to refresh news. Please try again.');
+    }
   };
 
   return (
@@ -58,6 +68,11 @@ function AppContent() {
           {currentPage === 'decision-logic' && <DecisionLogicPage />}
           {currentPage === 'system-status' && <SystemStatusPage />}
         </div>
+
+        {/* Refresh News Button */}
+        <button onClick={handleRefreshNews} className="btn btn-primary">
+          Refresh News
+        </button>
       </div>
 
       {/* Story Details Modal */}
