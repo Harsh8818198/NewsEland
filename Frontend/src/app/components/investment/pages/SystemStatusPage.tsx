@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useApiContext } from '@/app/services/apiContext';
 import { SystemStatusBadge } from '../Badge';
 import { mockSystemHealth } from '@/app/data/investmentMockData';
 import {
@@ -15,6 +16,9 @@ import {
 export function SystemStatusPage() {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+  const [resetMessage, setResetMessage] = useState<string | null>(null);
+  const api = useApiContext();
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -22,9 +26,24 @@ export function SystemStatusPage() {
   };
 
   const handleResetMemory = () => {
-    setShowResetConfirm(false);
-    // Handle reset
+    // noop here; actual reset occurs in confirmed handler
+    setShowResetConfirm(true);
   };
+
+  const handleConfirmReset = async () => {
+    setIsResetting(true);
+    setResetMessage(null);
+    try {
+      await api.actions.resetMemory()
+      setResetMessage('Memory reset successfully.')
+    } catch (err) {
+      setResetMessage('Failed to reset memory. See console for details.')
+      console.error('Reset memory error', err)
+    } finally {
+      setIsResetting(false)
+      setShowResetConfirm(false)
+    }
+  }
 
   const modules = [
     {
@@ -225,14 +244,18 @@ export function SystemStatusPage() {
                 Cancel
               </button>
               <button
-                onClick={handleResetMemory}
+                onClick={handleConfirmReset}
+                disabled={isResetting}
                 className="flex-1 px-4 py-2.5 bg-[var(--fintech-danger)] hover:bg-[#B91C1C] text-white rounded-lg font-medium transition-colors"
               >
-                Reset Memory
+                {isResetting ? 'Resetting...' : 'Reset Memory'}
               </button>
             </div>
           </div>
         </div>
+      )}
+      {resetMessage && (
+        <div className="mt-4 text-sm text-[var(--fintech-text-secondary)]">{resetMessage}</div>
       )}
     </div>
   );
