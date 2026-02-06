@@ -16,59 +16,123 @@ class DecisionEngine:
         """
         if self.mock_mode:
             return self._mock_advice(user_profile, sub_report_text, story_context)
-        return self._mock_advice(user_profile, sub_report_text, story_context)
+        
+        try:
+            return self._generate_real_advice(user_profile, sub_report_text, story_context)
+        except Exception as e:
+            logging.error(f"Advice Generation Failed: {e}")
+            return self._mock_advice(user_profile, sub_report_text, story_context)
+
+    def _generate_real_advice(self, user, report, story):
+        if not story:
+             return self._mock_advice(user, report, story)
+
+        # Reuse the heuristic logic to get the 'Signal'
+        topic = story.get('main_topic', 'Unknown')
+        prev_hyp = story.get('previous_hypothesis')
+        curr_hyp = story.get('current_hypothesis')
+        
+        signal = "WATCHLIST"
+        reasoning = "Monitor for developments."
+        
+        # ... (Reusing logic would be better, but for now let's let the LLM deduce it from the report) ...
+        # Actually better to prompt the LLM with the explicit state change
+        
+        prompt = f"""
+        You are an elite Investment Advisor for a '{user.risk_tolerance}' profile client.
+        
+        CONTEXT:
+        We are tracking a story: "{topic}"
+        
+        LATEST NEWS REPORT:
+        {report}
+        
+        EVOLUTION:
+        Previous View: {prev_hyp.get('sentiment_label') if prev_hyp else 'None'}
+        Current View: {curr_hyp.get('sentiment_label') if curr_hyp else 'None'}
+        
+        TASK:
+        Generate a concise, actionable output in this format:
+        
+        🧭 **YOUR FINANCIAL GUIDE ({user.risk_tolerance} Profile)**
+        State: [THESIS SHIFT | CONFIRMATION | DEGRADATION | NEW OPP]
+        
+        🔍 **ANALYSIS**:
+        (1-2 sentences on why the thesis changed or strengthened)
+        
+        👉 **ACTIONABLE ADVICE**:
+        (Specific instructions: Buy, Sell, Hold, Accumulate, or Watch. Be decisive.)
+        """
+        
+        response = self.subreport_gen.model.generate_content(prompt)
+        return response.text
 
     def _mock_advice(self, user, report, story):
         """
-        The "Financial Guide" Logic.
-        Decides based on:
-        1. User Risk (Aggressive vs Conservative)
-        2. Story Maturity (Developing vs Mature) - FROM MEMORY
-        3. Signal Strength (from Report)
+        The "Financial Guide" Logic (v3.0 - Before vs After)
+        Decides based on the **Evolution** of the story.
         """
         advice = f"\n🧭 **YOUR FINANCIAL GUIDE ({user.risk_tolerance} Profile)**\n"
         
         if not story:
-            maturity = "UNKNOWN"
-        else:
-            maturity = story.get('maturity', 'DEVELOPING')
-            advice += f"   Story Context: {story['main_topic']} ({maturity})\n"
+            return advice + "   (No Story Context available yet.)"
 
-        advice += f"   (Capital: ${user.capital_available:,.2f} | Horizon: {user.investment_horizon})\n\n"
+        topic = story.get('main_topic', 'Unknown')
+        maturity = story.get('maturity', 'DEVELOPING')
         
+        # 1. RETRIEVE STATES
+        prev_hyp = story.get('previous_hypothesis')
+        curr_hyp = story.get('current_hypothesis')
         
-        if maturity == "DEVELOPING":
+        # 2. ANALYZE THE DELTA (The "Before vs After" Logic)
+        if not prev_hyp:
+            # SCENARIO: NEW STORY DISCOVERED
+            signal_type = "NEW_OPPORTUNITY"
+            reasoning = "This is a fresh narrative just entering our radar."
             if user.risk_tolerance == "Aggressive":
-                advice += f"👉 **Guidance**: WATCHLIST ONLY (Speculative Entry)\n"
-                advice += f"   - This narrative is just forming. High risk, high reward.\n"
-                advice += f"   - Action: Buy small 'starter position' (max 2% of capital).\n"
+                action = "**WATCHLIST (Pioneer)** - Buy small starter position."
             else:
-                advice += f"👉 **Guidance**: WAIT AND WATCH\n"
-                advice += f"   - This story is too early for your profile.\n"
-                advice += f"   - Action: Set an alert for 'Confirmation'. Do not buy yet.\n"
+                action = "**WATCHLIST (Observer)** - Wait for second confirmation."
         
-        elif maturity == "MATURE":
-            if "Supply Crunch" in report or "Bull" in report:
-                if user.risk_tolerance in ["Aggressive", "Contrarian"]:
-                    allocation = user.capital_available * 0.40
-                    advice += f"👉 **Guidance**: CONFIRMED STRONG BUY\n"
-                    advice += f"   - Pattern is mature and verified. Time to strike.\n"
-                    advice += f"   - Allocation: Up to 40% (${allocation:,.2f}).\n"
-                    advice += f"   - Strategy: OTM Calls or Lev ETF.\n"
-                else:
-                    allocation = user.capital_available * 0.15
-                    advice += f"👉 **Guidance**: ALLOCATE (Defensive)\n"
-                    advice += f"   - Trend is solid. Safe to enter.\n"
-                    advice += f"   - Allocation: 15% (${allocation:,.2f}) into Sector ETF.\n"
-            
-            elif "Regulatory" in report or "Bear" in report:
-                advice += f"👉 **Guidance**: DEFENSIVE ROTATION\n"
-                advice += f"   - Confirmed headwinds. Protect your capital.\n"
-                advice += f"   - Action: Tighten stop losses or move to Cash/Gold.\n"
-
         else:
-            advice += f"👉 **Guidance**: MONITOR\n"
-            advice += f"   - Insufficient data to guide you yet.\n"
+            # COMPARE SENTIMENT & KEY EVENT TYPE
+            prev_sent = prev_hyp.get('sentiment_label', 'Neutral')
+            curr_sent = curr_hyp.get('sentiment_label', 'Neutral')
             
-        advice += "\n⚠️ *AI Guide Logic v2.0*"
+            if prev_sent != curr_sent:
+                # SCENARIO: THESIS SHIFT (Major Event)
+                signal_type = "THESIS_SHIFT"
+                if curr_sent == "Bullish":
+                    reasoning = f"Narrative has flipped BULLISH (was {prev_sent}). Validation received."
+                    action = "**STRONG BUY** - The thesis has been confirmed by new data."
+                elif curr_sent == "Bearish":
+                    reasoning = f"Narrative has turned BEARISH (was {prev_sent}). Warning signs."
+                    action = "**SELL / HEDGE** - The previous thesis is broken. Exit or reduce risk."
+                else:
+                    reasoning = "Narrative momentum has stalled (Neutral)."
+                    action = "**HOLD** - Wait for clarity."
+            
+            else:
+                # SCENARIO: THESIS CONFIRMATION (More of the same)
+                signal_type = "THESIS_CONFIRMATION"
+                reasoning = f"Narrative remains consistent ({curr_sent}). Confidence increasing."
+                if curr_sent == "Bullish":
+                    action = "**ACCUMULATE** - Add to position on dips."
+                elif curr_sent == "Bearish":
+                    action = "**AVOID** - Do not catch the falling knife."
+                else:
+                    action = "**IGNORE** - Noise."
+
+        # 3. DISPLAY ADVICE
+        advice += f"   Story: {topic}\n"
+        advice += f"   State: {signal_type} ({maturity})\n"
+        advice += f"   Capital: ${user.capital_available:,.2f}\n\n"
+        
+        advice += f"🔍 **ANALYSIS (The Shift)**:\n"
+        advice += f"   {reasoning}\n\n"
+        
+        advice += f"👉 **ACTIONABLE ADVICE**:\n"
+        advice += f"   {action}\n"
+            
+        advice += "\n⚠️ *AI Guide Logic v3.0 (Evolutionary Tracking)*"
         return advice

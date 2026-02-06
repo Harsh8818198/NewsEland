@@ -9,9 +9,7 @@ class ContextMemory:
     Maps disparate news events into cohesive "Stories" over time.
     """
     def __init__(self, db_file='knowledge_graph.json'):
-        # Store in Backend directory
-        backend_dir = os.path.dirname(os.path.abspath(__file__))
-        self.db_file = os.path.join(backend_dir, db_file)
+        self.db_file = db_file
         self.knowledge_graph = self._load_graph()
 
     def _load_graph(self):
@@ -58,6 +56,11 @@ class ContextMemory:
         
         if topic_id:
             story = self.knowledge_graph['stories'][topic_id]
+            # STATE SNAPSHOT LOGIC:
+            # Shift current hypothesis to previous to track evolution ("Before vs After")
+            story['previous_hypothesis'] = story.get('current_hypothesis', {})
+            story['current_hypothesis'] = analysis['analysis']['sentiment'] # Contains Why/What/How
+
             story['events'].append({
                 "date": timestamp,
                 "title": article['title'],
@@ -86,6 +89,8 @@ class ContextMemory:
                 "maturity": "DEVELOPING", # Developing -> Mature -> Archived
                 "entities": related_entities,
                 "updates_count": 1,
+                "current_hypothesis": analysis['analysis']['sentiment'], # Initial State
+                "previous_hypothesis": None,
                 "events": [{
                     "date": timestamp,
                     "title": article['title'],

@@ -8,21 +8,12 @@ from user_profile import UserProfile
 from analysis_engine import AnalysisEngine
 from gemini_subreport import SubReportGenerator
 from decision_engine import DecisionEngine
-from data_ingestion import EntityExtractor
+from data_ingestion import EntityExtractor, NewsScraper
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
 app = FastAPI(title="AI Investment Intelligence API", version="1.0")
-
-# Enable CORS for frontend development
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 memory = ContextMemory()
 
@@ -30,29 +21,24 @@ class ProfileUpdate(BaseModel):
     user_id: str
     risk_tolerance: str
     capital_available: float
+    investment_horizon: str
+
+# Initialize Brains
+print("Initializing Brains...")
 extractor = EntityExtractor()
+scraper = NewsScraper()
 analyzer = AnalysisEngine()
 report_gen = SubReportGenerator(mock_mode=False)
 decision_engine = DecisionEngine(mock_mode=False)
+print("Brains Online.")
 
 class AnalysisRequest(BaseModel):
     text: str
-
-class ProfileUpdate(BaseModel):
-    user_id: str
-    risk_tolerance: str
-    capital_available: float
-    investment_horizon: str
 
 current_user = UserProfile("U1", "Conservative", 100000, "Long-term")
 
 @app.get("/")
 def health_check():
-    return {"status": "online", "message": "AI Financial Guide is active."}
-
-@app.get("/api/health")
-def api_health():
-    """API health check endpoint"""
     return {"status": "online", "message": "AI Financial Guide is active."}
 
 @app.get("/api/stories")
@@ -66,29 +52,6 @@ def get_stories():
     active_stories = []
     for s_id, data in memory.knowledge_graph.get('stories', {}).items():
         if data.get('status') == 'ACTIVE':
-            # Generate a subreport for each story if it has events
-            if len(data.get('events', [])) > 0:
-                latest_event = data['events'][-1]
-                article = {'title': latest_event['title'], 'source': 'Knowledge Graph'}
-                
-                # Create a minimal analysis result for the report
-                analysis_result = {
-                    'analysis': {
-                        'sentiment': latest_event.get('sentiment', {}),
-                        'matched_patterns': [{'pattern_name': latest_event.get('pattern', 'General Market'), 'historical_outcome': 'Market movement', 'example': 'Historical precedent'}],
-                        'second_order_effects': ['Monitor related sectors', 'Watch for regulatory response']
-                    },
-                    'entities': data.get('entities', [])
-                }
-                
-                # Generate subreport
-                try:
-                    subreport = report_gen.generate_report(article, analysis_result, story_context=data)
-                    data['subreport'] = subreport
-                except Exception as e:
-                    logging.error(f"Failed to generate subreport for {s_id}: {e}")
-                    data['subreport'] = None
-            
             active_stories.append(data)
     
     return {"stories": sorted(active_stories, key=lambda x: x.get('maturity') == 'MATURE', reverse=True)}
@@ -141,58 +104,29 @@ def analyze_headline(request: AnalysisRequest):
     3. Updates Memory (Hippocampus)
     4. Generates Device (Brain 2)
     """
-    try:
-        headline = request.text
-        
-        entities_dict = extractor.extract_entities(headline)
-        # Ensure entities_dict is a dictionary
-        if not isinstance(entities_dict, dict):
-            entities_dict = {"ORG": [], "GPE": [], "PRODUCT": [], "PERSON": []}
-        
-        article = {'title': headline, 'source': 'Web API Input'}
-        analysis_result = analyzer.analyze_news(article, entities_dict)
-        
-        story = memory.update_story(article, analysis_result, entities_dict)
-        
-        sub_report = report_gen.generate_report(article, analysis_result, story_context=story)
-        advice = decision_engine.generate_advice(current_user, sub_report, story_context=story)
-        
-        # Convert entities dict to flat list for API response
-        entities_list = []
-        if isinstance(entities_dict, dict):
-            for entity_type, entity_values in entities_dict.items():
-                if isinstance(entity_values, list):
-                    entities_list.extend(entity_values)
-        
-        return {
-            "analysis": analysis_result.get('analysis', {'text': headline, 'sentiment': 'neutral', 'sentiment_score': 0.5}),
-            "entities": entities_list,
-            "story_context": {
-                "topic": story['main_topic'],
-                "maturity": story['maturity'],
-                "updates": story['updates_count']
-            },
-            "advice": advice,
-            "user_profile": current_user.risk_tolerance
-        }
-    except Exception as e:
-        logging.error(f"Analyze endpoint error: {str(e)}")
-        return {
-            "analysis": {'text': request.text if 'request' in locals() else '', 'sentiment': {'sentiment_label': 'Neutral', 'sentiment_score': 0.5}, 'error': str(e)},
-            "entities": [],
-            "story_context": {"topic": "Unknown", "maturity": "Developing", "updates": 0},
-            "advice": f"Analysis failed: {str(e)}",
-            "user_profile": "moderate"
-        }
-
-from data_ingestion import EntityExtractor, NewsScraper
-
-extractor = EntityExtractor()
-scraper = NewsScraper()
-analyzer = AnalysisEngine()
-report_gen = SubReportGenerator(mock_mode=False)
-decision_engine = DecisionEngine(mock_mode=False)
-
+    headline = request.text
+    
+    entities = extractor.extract_entities(headline)
+    
+    article = {'title': headline, 'source': 'Web API Input'}
+    analysis_result = analyzer.analyze_news(article, entities)
+    
+    story = memory.update_story(article, analysis_result, entities)
+    
+    sub_report = report_gen.generate_report(article, analysis_result, story_context=story)
+    advice = decision_engine.generate_advice(current_user, sub_report, story_context=story)
+    
+    return {
+        "analysis": analysis_result['analysis'],
+        "entities": entities,
+        "story_context": {
+            "topic": story['main_topic'],
+            "maturity": story['maturity'],
+            "updates": story['updates_count']
+        },
+        "advice": advice,
+        "user_profile": current_user.risk_tolerance
+    }
 
 @app.post("/api/refresh-news")
 def refresh_news():
@@ -209,7 +143,7 @@ def refresh_news():
         story = memory.update_story(article, analysis_result, entities)
         new_stories.append(story['main_topic'])
 
-    return {"success": True, "message": f"Refreshed {len(articles)} articles", "new_stories": len(articles), "updated_stories": 0}
+    return {"status": "refreshed", "articles_found": len(articles), "updates": new_stories}
 
 @app.post("/api/reset-memory")
 def reset_memory():
@@ -217,26 +151,13 @@ def reset_memory():
     Wipes the brain. Good for demos.
     """
     memory.reset()
-    return {"success": True, "message": "Memory initialized."}
-
-@app.post("/api/refresh")
-def refresh_endpoint():
-    """Alias endpoint for /api/refresh-news"""
-    return refresh_news()
-
-@app.post("/api/reset")
-def reset_endpoint():
-    """Alias endpoint for /api/reset-memory"""
-    return reset_memory()
+    return {"status": "reset", "message": "Memory initialized."}
 
 @app.get("/api/status")
 def get_status():
     """
     System Health.
     """
-    memory.knowledge_graph = memory._load_graph()
-    stories = memory.knowledge_graph.get('stories', {})
-    
     return {
         "status": "online",
         "brains": {
@@ -244,25 +165,7 @@ def get_status():
             "analysis": "active",
             "memory": "connected"
         },
-        "stories_tracked": len(stories)
-    }
-
-@app.get("/api/system/status")
-def get_system_status():
-    """
-    System Health Status endpoint for frontend.
-    Returns ingestion, analysis, and memory components status.
-    """
-    memory.knowledge_graph = memory._load_graph()
-    stories = memory.knowledge_graph.get('stories', {})
-    
-    return {
-        "brains": {
-            "ingestion": "healthy",
-            "analysis": "healthy",
-            "memory": "healthy"
-        },
-        "stories_tracked": len(stories)
+        "stories_tracked": len(memory.knowledge_graph.get('stories', {}))
     }
 
 if __name__ == "__main__":

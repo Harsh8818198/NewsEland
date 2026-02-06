@@ -1,17 +1,16 @@
-import google.genai as genai
+import google.generativeai as genai
 import logging
 import json
 import time
-import os
-from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-# Load .env from the Backend directory
-backend_dir = os.path.dirname(os.path.abspath(__file__))
-load_dotenv(os.path.join(backend_dir, ".env"))
+import os
+from dotenv import load_dotenv
+load_dotenv(override=True)
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+genai.configure(api_key=GEMINI_API_KEY)
 
 class SubReportGenerator:
     """
@@ -22,12 +21,12 @@ class SubReportGenerator:
         self.mock_mode = mock_mode
         if not self.mock_mode:
             try:
-                self.client = genai.Client(api_key=GEMINI_API_KEY)
+                self.model = genai.GenerativeModel('gemini-2.0-flash')
             except:
                 logging.warning("Failed to init Gemini. Falling back to Mock Mode.")
                 self.mock_mode = True
 
-    def generate_report(self, article, analysis_result, story_context=None):
+    def generate_sub_report(self, article, analysis_result, story_context=None):
         """
         Synthesizes BRAIN 1 (News) and BRAIN 3 (Analysis) into a readable report.
         """
@@ -36,10 +35,7 @@ class SubReportGenerator:
 
         try:
             prompt = self._construct_prompt(article, analysis_result, story_context)
-            response = self.client.models.generate_content(
-                model='gemini-2.0-flash',
-                contents=prompt
-            )
+            response = self.model.generate_content(prompt)
             return response.text
         except Exception as e:
             logging.error(f"Gemini Report Gen Failed: {e}")
@@ -50,9 +46,27 @@ class SubReportGenerator:
         Detailed prompt engineering for the Sub-Report (NOW WITH MEMORY).
         """
         history_str = "No prior events."
-        if story_context and len(story_context.get('events', [])) > 1:
-            events_list = story_context['events'][:-1] # All except current
-            history_str = "\n".join([f"- {e['date'][:10]}: {e['title']} ({e['sentiment'].get('sentiment_label')})" for e in events_list])
+        state_comparison = "No prior state recorded."
+
+        if story_context:
+            if len(story_context.get('events', [])) > 1:
+                events_list = story_context['events'][:-1] # All except current
+                history_str = "\n".join([f"- {e['date'][:10]}: {e.get('title', 'Unknown Event')} ({e['sentiment'].get('sentiment_label')})" for e in events_list])
+            
+            # BEFORE VS AFTER LOGIC
+            prev = story_context.get('previous_hypothesis')
+            curr = story_context.get('current_hypothesis', analysis['analysis']['sentiment'])
+            
+            if prev:
+                state_comparison = f"""
+                **PREVIOUS HYPOTHESIS (Before this event)**:
+                - Why: {prev.get('why')}
+                - Expected Impact: {prev.get('expected_impact')}
+                
+                **CURRENT HYPOTHESIS (After this event)**:
+                - Why: {curr.get('why')}
+                - Expected Impact: {curr.get('expected_impact')}
+                """
 
         patterns_str = "\n".join([f"- {p['pattern_name']}: {p['historical_outcome']}" for p in analysis['analysis']['matched_patterns']])
         second_order_str = "\n".join([f"- {s}" for s in analysis['analysis']['second_order_effects']])
@@ -60,14 +74,18 @@ class SubReportGenerator:
         return f"""
         You are an elite financial intelligence analyst (The Dialectical Synthesizer).
         
-        **CURRENT NEWS**: "{article['title']}"
+        **CURRENT NEWS**: "{article.get('title', 'Unknown Title')}"
         **SOURCE**: {article.get('source', 'Unknown')}
         
         **CONTEXTUAL HISTORY (The Narrative Arc)**:
         {history_str}
         
+        **EVOLUTION SENSOR (Before vs After)**:
+        {state_comparison}
+
         **SYSTEM ANALYSIS (BRAIN 3)**:
-        - Sentiment: {analysis['analysis']['sentiment'].get('sentiment_label')}
+        - Deep Insight (Why): {analysis['analysis']['sentiment'].get('why')}
+        - Deep Insight (How): {analysis['analysis']['sentiment'].get('how')}
         - Historical Patterns Detected:
         {patterns_str}
         - Potential Second-Order Effects:
@@ -79,7 +97,7 @@ class SubReportGenerator:
         1. **Narrative Evolution**: strictly compare the PAST history with THIS new event. 
            - Is the story accelerating? 
            - Is this a contradiction?
-           - What is the *relation* between what we knew before and what we know now?
+           - **Explicitly mention the shift from the Previous Hypothesis to Current.**
         
         2. **The Historical Lens**: Compare this sequence to the identified historical patterns. 
         
@@ -93,7 +111,7 @@ class SubReportGenerator:
         
         5. **Confidence Score**: 0-100.
         
-        Format as Markdown.
+        Format as Markdown. Use vivid language.
         """
 
     def _generate_mock_report(self, article, analysis):
@@ -103,11 +121,6 @@ class SubReportGenerator:
         logging.info("Generating MOCK Sub-Report...")
         patterns = analysis['analysis']['matched_patterns']
         pattern_name = patterns[0]['pattern_name'] if patterns else "None"
-        
-        # Extract entities and effects from analysis
-        entities = analysis.get('entities', {})
-        org_list = entities.get('ORG', []) if isinstance(entities, dict) else ['Review Sector']
-        second_order = analysis.get('analysis', {}).get('second_order_effects', [])
         
         return f"""
 
@@ -119,9 +132,9 @@ This event structurally mirrors:
 - **Scenario A (65%)**: Supply constraints drive pricing power. Margins likely to expand for top-tier suppliers.
 - **Scenario B (35%)**: Demand destruction occurs faster than expected due to macro headwinds.
 
-- **Direct Plays**: {', '.join(org_list if org_list else ['Review Sector'])}
+- **Direct Plays**: {', '.join(analysis['entities'].get('ORG', ['Review Sector']))}
 - **Hidden Gems (2nd Order)**:
-{chr(10).join([f"  * {eff}" for eff in second_order])}
+{chr(10).join([f"  * {eff}" for eff in analysis['analysis']['second_order_effects']])}
 
 *Analysis derived from Knowledge Graph v1.0*
         """

@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+.env
+knowledge_graph.json
+test_*.py
+main.py
+interactive_session.py
+*.log

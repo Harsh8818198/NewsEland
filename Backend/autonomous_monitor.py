@@ -43,7 +43,7 @@ def autonomous_loop():
     print("ONLINE.")
     
     print("🧠 BRAIN 2 (Synthesizer)... ", end="", flush=True)
-    report_gen = SubReportGenerator(mock_mode=False) 
+    reporter = SubReportGenerator(mock_mode=False) 
     decision_engine = DecisionEngine(mock_mode=False)
     print("ONLINE.")
     
@@ -55,43 +55,55 @@ def autonomous_loop():
     print(f"\n👤 Guiding User: {user.risk_tolerance} | ${user.capital_available:,}\n")
     print("🔴 BUILDING NARRATIVES FROM NEWS STREAM...\n")
 
-    seen_urls = set()
-
+    print("   ✅ Monitor Active. Press Ctrl+C to stop.")
+    
     while True:
         try:
-            logging.info("Scanning for updates...")
+            print(f"\n[{time.strftime('%H:%M:%S')}] 📡 Scanning for financial news...")
+            
+            # 1. SCALP
             articles = scraper.fetch_articles()
-            new_articles = [a for a in articles if a['url'] not in seen_urls]
             
-            if not new_articles:
-                print("No new articles found.")
+            if not articles:
+                print("   💤 No new impactful news found. Sleeping...")
             
-            for article in new_articles:
-                seen_urls.add(article['url'])
-                print(f"\nScanning: {article['title']}...")
+            for article in articles:
+                print(f"   🔎 Found: {article['title']}")
                 
-                entities = extractor.extract_entities(article['title'])
+                # 1.5 EXTRACT ENTITIES
+                raw_entities = extractor.extract_entities(article['title'])
 
-                analysis_result = analyzer.analyze_news(article, entities)
+                # 2. ANALYZE (Brain 3)
+                print("   ⚖️  ANALYZING (Why/What/How)...")
+                analysis_result = analyzer.analyze_news(article, raw_entities)
+                
+                # 3. MEMORY (Brain 1)
+                print("   🧠 UPDATING MEMORY...")
+                # Fetch related entities for graph connections
+                entities = analysis_result.get('entities', [])
                 
                 story = memory.update_story(article, analysis_result, entities)
                 
                 if check_user_relevance(user, analysis_result):
+                    # 4. REPORT & ADVISE (Brain 2)
+                    print(f"   📖 STORY UPDATE: {story.get('main_topic', 'Unknown')}")
+                    print(f"   ⏳ Maturity: {story.get('maturity', 'DEVELOPING')} (Events: {story.get('updates_count', 0)})")
                     
-                    print(f"   📖 STORY UPDATE: {story['main_topic']}")
-                    print(f"   ⏳ Maturity: {story['maturity']} (Events: {story['updates_count']})")
-                    
-                    sub_report = report_gen.generate_report(article, analysis_result, story_context=story)
-                    advice = decision_engine.generate_advice(user, sub_report, story_context=story)
+                    # ALERT SYSTEM
+                    try:
+                        import winsound
+                        winsound.Beep(1000, 500) # Frequency 1000Hz, Duration 500ms
+                    except:
+                        pass
+
+                    report = reporter.generate_sub_report(story, analysis_result)
+                    advice = decision_engine.generate_advice(user, report, story)
                     
                     print("\n" + "!"*60)
                     print(f" >> FINANCIAL GUIDE ALERT <<")
                     print("-" * 60)
                     print(advice)
                     print("!" * 60 + "\n")
-                    
-                else:
-                    print("   ❌ IGNORE: Noise.")
             
             print("\n💤 Sleeping for 30s (Demo Mode)...")
             time.sleep(30) 

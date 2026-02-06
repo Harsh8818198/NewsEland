@@ -49,7 +49,7 @@ class AnalysisEngine:
         """
         logging.info(f"Analyzing article: {article.get('title')}")
         
-        sentiment_data = self._get_gemini_sentiment(article['title'])
+        sentiment_data = self._get_deep_analysis(article['title'])
         
         patterns = self._match_patterns(article['title'], entities)
         
@@ -65,25 +65,36 @@ class AnalysisEngine:
             }
         }
 
-    def _get_gemini_sentiment(self, text: str) -> Dict[str, Any]:
+    def _get_deep_analysis(self, text: str) -> Dict[str, Any]:
         """
-        BRAIN 3: Uses Gemini to understand sentiment and context.
+        BRAIN 3: Uses Gemini to generate "Deep Insights" (Why, What, How).
         """
         try:
             prompt = f"""
-            Analyze the sentiment and financial context of this news headline: "{text}"
+            Act as an elite Financial Intelligence Analyst. Analyze this news headline/snippet: "{text}"
             
-            Return ONLY a JSON object with:
-            - sentiment_score (-1.0 to 1.0)
-            - sentiment_label (Bullish/Bearish/Neutral)
-            - key_event_type (e.g., Earnings, M&A, Product Launch, Regulation)
+            Return ONLY a JSON object with the following keys:
+            - "sentiment_score": float (-1.0 to 1.0)
+            - "sentiment_label": string (Bullish/Bearish/Neutral)
+            - "key_event_type": string (e.g., Earnings, M&A, Regulation)
+            - "why": string (The root cause/driver of this event)
+            - "what": string (The core event summary)
+            - "how": string (The mechanism of impact on the company/sector)
+            - "expected_impact": string (Short-term prediction, less than 1 month)
             """
             response = model.generate_content(prompt)
             cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
             return json.loads(cleaned_text)
         except Exception as e:
             logging.error(f"Gemini Analysis Failed: {e}")
-            return {"sentiment_score": 0, "sentiment_label": "Unknown", "error": str(e)}
+            return {
+                "sentiment_score": 0, 
+                "sentiment_label": "Unknown", 
+                "why": "Analysis failed",
+                "what": "Unknown",
+                "how": "Unknown",
+                "error": str(e)
+            }
 
     def _match_patterns(self, text: str, entities: Dict[str, List[str]]) -> List[Dict]:
         """
