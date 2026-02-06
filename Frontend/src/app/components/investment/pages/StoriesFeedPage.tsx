@@ -26,15 +26,20 @@ export function StoriesFeedPage({ onStoryClick }: StoriesFeedPageProps) {
   });
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-[28px] font-semibold text-[var(--fintech-text-primary)] mb-2">
-          Stories Feed
-        </h1>
-        <p className="text-[15px] text-[var(--fintech-text-secondary)]">
-          Tracking {stories.data.length} market stories and developments
-        </p>
+    <div className="space-y-8">
+      {/* Header - Professional Paper Style */}
+      <div className="relative">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-1 h-12 bg-gradient-to-b from-[#d4af37] to-[#b8941f] rounded-full"></div>
+          <div>
+            <h1 className="text-4xl font-serif text-[#2c3e50] font-light tracking-tight mb-2">
+              Stories Feed
+            </h1>
+            <p className="text-base text-[#6b7280] font-serif">
+              Tracking {stories.data.length} market stories and developments
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Error Display */}
@@ -45,11 +50,11 @@ export function StoriesFeedPage({ onStoryClick }: StoriesFeedPageProps) {
         />
       )}
 
-      {/* Filter Bar */}
-      <div className="bg-[var(--fintech-card)] border border-[var(--fintech-border)] rounded-lg p-4 shadow-sm">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 text-[14px] text-[var(--fintech-text-secondary)] font-medium">
-            <Filter className="w-4 h-4" />
+      {/* Filter Bar - Elegant Design */}
+      <div className="bg-gradient-to-br from-white/80 to-[#faf9f6] backdrop-blur-sm border-2 border-[#e5e3df] rounded-xl p-5 shadow-lg">
+        <div className="flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-2 text-sm text-[#6b7280] font-serif uppercase tracking-wider">
+            <Filter className="w-4 h-4 text-[#d4af37]" />
             <span>Filters:</span>
           </div>
 
@@ -57,7 +62,7 @@ export function StoriesFeedPage({ onStoryClick }: StoriesFeedPageProps) {
           <select
             value={topicFilter}
             onChange={(e) => setTopicFilter(e.target.value)}
-            className="px-3 py-2 bg-[var(--fintech-bg)] border border-[var(--fintech-border)] rounded-md text-[14px] text-[var(--fintech-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fintech-accent)] focus:border-transparent"
+            className="px-4 py-2.5 bg-white border-2 border-[#e5e3df] rounded-lg text-sm text-[#2c3e50] font-serif focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all shadow-sm hover:shadow-md"
           >
             <option value="all">All Topics</option>
             {topics.map((topic) => (
@@ -71,7 +76,7 @@ export function StoriesFeedPage({ onStoryClick }: StoriesFeedPageProps) {
           <select
             value={maturityFilter}
             onChange={(e) => setMaturityFilter(e.target.value as Maturity | 'all')}
-            className="px-3 py-2 bg-[var(--fintech-bg)] border border-[var(--fintech-border)] rounded-md text-[14px] text-[var(--fintech-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fintech-accent)] focus:border-transparent"
+            className="px-4 py-2.5 bg-white border-2 border-[#e5e3df] rounded-lg text-sm text-[#2c3e50] font-serif focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all shadow-sm hover:shadow-md"
           >
             <option value="all">All Maturity</option>
             <option value="Developing">Developing</option>
@@ -82,7 +87,7 @@ export function StoriesFeedPage({ onStoryClick }: StoriesFeedPageProps) {
           <select
             value={sentimentFilter}
             onChange={(e) => setSentimentFilter(e.target.value as Sentiment | 'all')}
-            className="px-3 py-2 bg-[var(--fintech-bg)] border border-[var(--fintech-border)] rounded-md text-[14px] text-[var(--fintech-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fintech-accent)] focus:border-transparent"
+            className="px-4 py-2.5 bg-white border-2 border-[#e5e3df] rounded-lg text-sm text-[#2c3e50] font-serif focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all shadow-sm hover:shadow-md"
           >
             <option value="all">All Sentiment</option>
             <option value="positive">Positive</option>
@@ -91,7 +96,7 @@ export function StoriesFeedPage({ onStoryClick }: StoriesFeedPageProps) {
           </select>
 
           {/* Results count */}
-          <div className="ml-auto text-[14px] text-[var(--fintech-text-muted)]">
+          <div className="ml-auto px-4 py-2 bg-gradient-to-r from-[#d4af37]/10 to-[#b8941f]/10 border border-[#d4af37]/30 rounded-lg text-sm text-[#2c3e50] font-serif font-medium">
             {filteredStories.length} {filteredStories.length === 1 ? 'story' : 'stories'}
           </div>
         </div>
@@ -101,97 +106,15 @@ export function StoriesFeedPage({ onStoryClick }: StoriesFeedPageProps) {
       {stories.loading ? (
         <LoadingSkeleton count={4} height="h-32" />
       ) : filteredStories.length > 0 ? (
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredStories.map((story) => (
             <StoryCard key={story.id} story={story} onClick={() => onStoryClick(story.id)} />
           ))}
         </div>
       ) : (
-        <div className="bg-[var(--fintech-card)] border border-[var(--fintech-border)] rounded-lg p-12 text-center">
-          <p className="text-[15px] text-[var(--fintech-text-secondary)]">
+        <div className="bg-gradient-to-br from-white/80 to-[#faf9f6] backdrop-blur-sm border-2 border-[#e5e3df] rounded-xl p-16 text-center shadow-lg">
+          <p className="text-lg text-[#6b7280] font-serif">
             {stories.data.length === 0 ? 'No stories available' : 'No stories match your filter criteria'}
-          </p>
-        </div>
-      )}
-    </div>
-  );
-
-  return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-[28px] font-semibold text-[var(--fintech-text-primary)] mb-2">
-          Stories Feed
-        </h1>
-        <p className="text-[15px] text-[var(--fintech-text-secondary)]">
-          Tracking {mockStories.length} market stories and developments
-        </p>
-      </div>
-
-      {/* Filter Bar */}
-      <div className="bg-[var(--fintech-card)] border border-[var(--fintech-border)] rounded-lg p-4 shadow-sm">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 text-[14px] text-[var(--fintech-text-secondary)] font-medium">
-            <Filter className="w-4 h-4" />
-            <span>Filters:</span>
-          </div>
-
-          {/* Topic Filter */}
-          <select
-            value={topicFilter}
-            onChange={(e) => setTopicFilter(e.target.value)}
-            className="px-3 py-2 bg-[var(--fintech-bg)] border border-[var(--fintech-border)] rounded-md text-[14px] text-[var(--fintech-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fintech-accent)] focus:border-transparent"
-          >
-            <option value="all">All Topics</option>
-            {topics.map((topic) => (
-              <option key={topic} value={topic}>
-                {topic}
-              </option>
-            ))}
-          </select>
-
-          {/* Maturity Filter */}
-          <select
-            value={maturityFilter}
-            onChange={(e) => setMaturityFilter(e.target.value as Maturity | 'all')}
-            className="px-3 py-2 bg-[var(--fintech-bg)] border border-[var(--fintech-border)] rounded-md text-[14px] text-[var(--fintech-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fintech-accent)] focus:border-transparent"
-          >
-            <option value="all">All Maturity</option>
-            <option value="Developing">Developing</option>
-            <option value="Mature">Mature</option>
-          </select>
-
-          {/* Sentiment Filter */}
-          <select
-            value={sentimentFilter}
-            onChange={(e) => setSentimentFilter(e.target.value as Sentiment | 'all')}
-            className="px-3 py-2 bg-[var(--fintech-bg)] border border-[var(--fintech-border)] rounded-md text-[14px] text-[var(--fintech-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--fintech-accent)] focus:border-transparent"
-          >
-            <option value="all">All Sentiment</option>
-            <option value="positive">Positive</option>
-            <option value="neutral">Neutral</option>
-            <option value="negative">Negative</option>
-          </select>
-
-          {/* Results count */}
-          <div className="ml-auto text-[14px] text-[var(--fintech-text-muted)]">
-            {filteredStories.length} {filteredStories.length === 1 ? 'story' : 'stories'}
-          </div>
-        </div>
-      </div>
-
-      {/* Stories Grid */}
-      <div className="grid grid-cols-2 gap-6">
-        {filteredStories.map((story) => (
-          <StoryCard key={story.id} story={story} onClick={() => onStoryClick(story.id)} />
-        ))}
-      </div>
-
-      {/* Empty State */}
-      {filteredStories.length === 0 && (
-        <div className="bg-[var(--fintech-card)] border border-[var(--fintech-border)] rounded-lg p-12 text-center">
-          <p className="text-[15px] text-[var(--fintech-text-secondary)]">
-            No stories match your filter criteria
           </p>
         </div>
       )}

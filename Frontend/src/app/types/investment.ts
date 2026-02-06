@@ -1,24 +1,50 @@
 // Type definitions for AI Investment Intelligence platform
 
 export type Sentiment = 'positive' | 'neutral' | 'negative';
+export type SentimentLabel = 'Bullish' | 'Bearish' | 'Neutral';
 export type Maturity = 'Developing' | 'Mature';
 export type RiskTolerance = 'Conservative' | 'Aggressive' | 'Contrarian';
 export type InvestmentHorizon = 'Short' | 'Medium' | 'Long';
 export type SystemStatus = 'healthy' | 'warning' | 'error';
+export type StoryStatus = 'ACTIVE' | 'INACTIVE';
+
+export interface Hypothesis {
+  sentiment_score: number; // -1 to 1
+  sentiment_label: SentimentLabel;
+  key_event_type: string;
+  why: string;
+  what: string;
+  how: string;
+  expected_impact: string;
+}
+
+export interface StoryEvent {
+  date: string;
+  title: string;
+  sentiment: Hypothesis;
+  pattern: string;
+}
 
 export interface Story {
   id: string;
   title: string;
   summary: string;
   maturity: Maturity;
+  status: StoryStatus;
   updateCount: number;
   sentiment: Sentiment;
+  sentimentScore: number; // Numeric score from -1 to 1
+  sentimentLabel: SentimentLabel;
   topic: string;
   lastUpdated: string;
   sentimentHistory: SentimentPoint[];
   updates: StoryUpdate[];
   relatedEntities: string[];
   subreport?: string; // Gemini-generated strategic intelligence report
+  currentHypothesis: Hypothesis | null;
+  previousHypothesis: Hypothesis | null;
+  events: StoryEvent[];
+  createdAt: string;
 }
 
 export interface SentimentPoint {
@@ -32,6 +58,9 @@ export interface StoryUpdate {
   timestamp: string;
   headline: string;
   sentiment: Sentiment;
+  sentimentScore?: number;
+  keyEventType?: string;
+  pattern?: string;
 }
 
 export interface AnalysisResult {

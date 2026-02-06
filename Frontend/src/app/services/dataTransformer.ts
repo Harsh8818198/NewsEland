@@ -28,34 +28,33 @@ export class ApiDataTransformer implements DataTransformer {
         // Extract events/updates from the backend story
         const events = backendStory.events || [];
         
-        // Build sentiment history from events
-        const sentimentHistory = events.map((event: any, index: number) => {
-            const sentimentLabel = event.sentiment?.sentiment_label?.toLowerCase() || 'neutral';
-            let sentiment: Sentiment = 'neutral';
-            
-            if (sentimentLabel.includes('bullish') || sentimentLabel.includes('positive')) {
-                sentiment = 'positive';
-            } else if (sentimentLabel.includes('bearish') || sentimentLabel.includes('negative')) {
-                sentiment = 'negative';
+        // Helper function to convert sentiment label to Sentiment type
+        const mapSentimentLabel = (label: string): Sentiment => {
+            const lowerLabel = label?.toLowerCase() || 'neutral';
+            if (lowerLabel.includes('bullish') || lowerLabel.includes('positive')) {
+                return 'positive';
+            } else if (lowerLabel.includes('bearish') || lowerLabel.includes('negative')) {
+                return 'negative';
             }
+            return 'neutral';
+        };
+        
+        // Build sentiment history from events
+        const sentimentHistory = events.map((event: any) => {
+            const sentimentLabel = event.sentiment?.sentiment_label || 'Neutral';
+            const sentiment = mapSentimentLabel(sentimentLabel);
             
             return {
                 date: new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
                 value: event.sentiment?.sentiment_score || 0,
                 sentiment,
             };
-        }).slice(-5); // Last 5 data points for the chart
+        }).slice(-10); // Last 10 data points for the chart
         
         // Build updates list from events
         const updates = events.map((event: any, index: number) => {
-            const sentimentLabel = event.sentiment?.sentiment_label?.toLowerCase() || 'neutral';
-            let sentiment: Sentiment = 'neutral';
-            
-            if (sentimentLabel.includes('bullish') || sentimentLabel.includes('positive')) {
-                sentiment = 'positive';
-            } else if (sentimentLabel.includes('bearish') || sentimentLabel.includes('negative')) {
-                sentiment = 'negative';
-            }
+            const sentimentLabel = event.sentiment?.sentiment_label || 'Neutral';
+            const sentiment = mapSentimentLabel(sentimentLabel);
             
             const eventDate = new Date(event.date);
             const now = new Date();
@@ -78,22 +77,34 @@ export class ApiDataTransformer implements DataTransformer {
                 timestamp: timeAgo,
                 headline: event.title,
                 sentiment,
+                sentimentScore: event.sentiment?.sentiment_score,
+                keyEventType: event.sentiment?.key_event_type,
+                pattern: event.pattern,
             };
         }).reverse(); // Most recent first
         
-        // Determine overall sentiment from latest event
-        const latestEvent = events[events.length - 1];
-        const latestSentimentLabel = latestEvent?.sentiment?.sentiment_label?.toLowerCase() || 'neutral';
-        let overallSentiment: Sentiment = 'neutral';
+        // Deduplicate updates by headline (case-insensitive)
+        const seenHeadlines = new Set<string>();
+        const uniqueUpdates = updates.filter((update: any) => {
+            const normalizedHeadline = update.headline.trim().toLowerCase();
+            if (seenHeadlines.has(normalizedHeadline)) {
+                return false;
+            }
+            seenHeadlines.add(normalizedHeadline);
+            return true;
+        });
         
-        if (latestSentimentLabel.includes('bullish') || latestSentimentLabel.includes('positive')) {
-            overallSentiment = 'positive';
-        } else if (latestSentimentLabel.includes('bearish') || latestSentimentLabel.includes('negative')) {
-            overallSentiment = 'negative';
-        }
+        // Get current hypothesis or use latest event sentiment
+        const currentHypothesis = backendStory.current_hypothesis || 
+            (events.length > 0 ? events[events.length - 1]?.sentiment : null);
+        
+        // Determine overall sentiment from current hypothesis
+        const sentimentLabel = currentHypothesis?.sentiment_label || 'Neutral';
+        const overallSentiment = mapSentimentLabel(sentimentLabel);
+        const sentimentScore = currentHypothesis?.sentiment_score || 0;
         
         // Calculate time since last update
-        const lastEventDate = latestEvent ? new Date(latestEvent.date) : new Date(backendStory.created_at);
+        const lastEventDate = events.length > 0 ? new Date(events[events.length - 1].date) : new Date(backendStory.created_at);
         const now = new Date();
         const diffMs = now.getTime() - lastEventDate.getTime();
         const diffMins = Math.floor(diffMs / 60000);
@@ -109,27 +120,64 @@ export class ApiDataTransformer implements DataTransformer {
             lastUpdated = `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
         }
         
-        // Build comprehensive summary from events
-        const eventTypes = events.map((e: any) => e.sentiment?.key_event_type).filter((t: any) => t && t !== 'None');
-        const uniqueEventTypes = [...new Set(eventTypes)];
-        const summary = `Tracking ${backendStory.main_topic} with ${backendStory.updates_count} updates. ` +
-            (uniqueEventTypes.length > 0 
-                ? `Key events include: ${uniqueEventTypes.slice(0, 3).join(', ')}.` 
-                : 'Monitoring for significant developments.');
+        // Build summary from current hypothesis if available
+        let summary = backendStory.main_topic;
+        if (currentHypothesis?.what) {
+            summary = currentHypothesis.what;
+        } else if (events.length > 0) {
+            summary = events[events.length - 1].title;
+        }
+        
+        // Transform events to StoryEvent format
+        const transformedEvents: any[] = events.map((event: any) => ({
+            date: event.date,
+            title: event.title,
+            sentiment: {
+                sentiment_score: event.sentiment?.sentiment_score || 0,
+                sentiment_label: event.sentiment?.sentiment_label || 'Neutral',
+                key_event_type: event.sentiment?.key_event_type || 'None',
+                why: event.sentiment?.why || '',
+                what: event.sentiment?.what || '',
+                how: event.sentiment?.how || '',
+                expected_impact: event.sentiment?.expected_impact || '',
+            },
+            pattern: event.pattern || 'None',
+        }));
+        
+        // Transform hypotheses
+        const transformHypothesis = (hyp: any): any => {
+            if (!hyp) return null;
+            return {
+                sentiment_score: hyp.sentiment_score || 0,
+                sentiment_label: hyp.sentiment_label || 'Neutral',
+                key_event_type: hyp.key_event_type || 'None',
+                why: hyp.why || '',
+                what: hyp.what || '',
+                how: hyp.how || '',
+                expected_impact: hyp.expected_impact || '',
+            };
+        };
         
         return {
             id: backendStory.id || `story-${Date.now()}-${Math.random()}`,
             title: backendStory.main_topic,
             summary,
             maturity: backendStory.maturity === 'MATURE' ? 'Mature' : 'Developing',
-            updateCount: backendStory.updates_count,
+            status: backendStory.status || 'ACTIVE',
+            updateCount: backendStory.updates_count || uniqueUpdates.length,
             sentiment: overallSentiment,
+            sentimentScore,
+            sentimentLabel: sentimentLabel as any,
             topic: backendStory.main_topic.split(' involving ')[0] || backendStory.main_topic,
             lastUpdated,
             sentimentHistory,
-            updates,
+            updates: uniqueUpdates,
             relatedEntities: backendStory.entities || [],
             subreport: backendStory.subreport || undefined,
+            currentHypothesis: transformHypothesis(backendStory.current_hypothesis),
+            previousHypothesis: transformHypothesis(backendStory.previous_hypothesis),
+            events: transformedEvents,
+            createdAt: backendStory.created_at,
         };
     }
 

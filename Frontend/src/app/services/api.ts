@@ -107,14 +107,35 @@ export interface HealthResponse {
     message: string
 }
 
+export interface BackendHypothesis {
+    sentiment_score: number
+    sentiment_label: 'Bullish' | 'Bearish' | 'Neutral'
+    key_event_type: string
+    why: string
+    what: string
+    how: string
+    expected_impact: string
+}
+
+export interface BackendEvent {
+    date: string
+    title: string
+    sentiment: BackendHypothesis
+    pattern: string
+}
+
 export interface BackendStory {
+    id: string
+    created_at: string
     main_topic: string
     maturity: 'DEVELOPING' | 'MATURE'
-    updates_count: number
     status: 'ACTIVE' | 'INACTIVE'
-    sentiment?: 'positive' | 'neutral' | 'negative'
-    last_updated?: string
+    updates_count: number
     entities?: string[]
+    current_hypothesis: BackendHypothesis | null
+    previous_hypothesis: BackendHypothesis | null
+    events: BackendEvent[]
+    subreport?: string
 }
 
 export interface StoriesResponse {

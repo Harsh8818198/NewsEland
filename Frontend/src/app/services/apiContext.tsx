@@ -104,10 +104,12 @@ export function ApiProvider({ children, apiService }: ApiProviderProps) {
             const response = await api.getStories()
             const transformedStories = response.stories.map((story) => transformer.transformStory(story))
 
+            const uniqueStories = Array.from(new Map(transformedStories.map(story => [story.id, story])).values());
+
             setState((prev) => ({
                 ...prev,
                 stories: {
-                    data: transformedStories,
+                    data: uniqueStories,
                     loading: false,
                     error: null,
                     lastFetch: new Date(),
@@ -276,10 +278,8 @@ export function ApiProvider({ children, apiService }: ApiProviderProps) {
     // Refresh news
     const refreshNews = useCallback(async (): Promise<void> => {
         try {
-            const response: RefreshResponse = await api.refreshNews()
-            console.log(response.message)
+            await api.refreshNews()
         } catch (error) {
-            console.error('Failed to refresh news:', error)
             throw error
         }
     }, [api])
@@ -305,7 +305,7 @@ export function ApiProvider({ children, apiService }: ApiProviderProps) {
                 await Promise.all([fetchStories(), fetchUserProfile(), fetchSystemStatus()])
             } catch (error) {
                 if (isMounted) {
-                    console.error('Failed to fetch initial data:', error)
+                    // Error is handled by individual fetch functions
                 }
             }
         }

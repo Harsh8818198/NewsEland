@@ -50,14 +50,14 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--fintech-bg)]">
+    <div className="min-h-screen bg-gradient-to-br from-[#faf9f6] via-[#f5f3ef] to-[#f0ede8]">
       {/* Sidebar */}
       <Sidebar currentPage={currentPage} onNavigate={handleNavigate} />
 
       {/* Main Content Area */}
       <div className="ml-64 pt-16">
         {/* Navbar */}
-        <Navbar />
+        <Navbar onRefreshNews={handleRefreshNews} />
 
         {/* Page Content */}
         <div className="p-8">
@@ -68,11 +68,6 @@ function AppContent() {
           {currentPage === 'decision-logic' && <DecisionLogicPage />}
           {currentPage === 'system-status' && <SystemStatusPage />}
         </div>
-
-        {/* Refresh News Button */}
-        <button onClick={handleRefreshNews} className="btn btn-primary">
-          Refresh News
-        </button>
       </div>
 
       {/* Story Details Modal */}
