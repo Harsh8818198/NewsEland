@@ -38,6 +38,7 @@ class AnalysisRequest(BaseModel):
 current_user = UserProfile("U1", "Conservative", 100000, "Long-term")
 
 @app.get("/")
+@app.get("/api/health")
 def health_check():
     return {"status": "online", "message": "AI Financial Guide is active."}
 
@@ -128,32 +129,43 @@ def analyze_headline(request: AnalysisRequest):
         "user_profile": current_user.risk_tolerance
     }
 
+@app.post("/api/refresh")
 @app.post("/api/refresh-news")
 def refresh_news():
     """
     Triggers the Scraper immediately.
+    Supports both legacy /api/refresh-news and new Frontend /api/refresh.
     """
     articles = scraper.fetch_articles()
     new_stories = []
     
     for article in articles:
-        
         entities = extractor.extract_entities(article['title'])
         analysis_result = analyzer.analyze_news(article, entities)
         story = memory.update_story(article, analysis_result, entities)
         new_stories.append(story['main_topic'])
 
-    return {"status": "refreshed", "articles_found": len(articles), "updates": new_stories}
+    return {
+        "status": "refreshed", 
+        "success": True, # Frontend Expectation
+        "articles_found": len(articles), 
+        "updates": new_stories, 
+        "new_stories": len(new_stories),  # Frontend Expectation
+        "message": f"Refreshed {len(articles)} articles" # Frontend Expectation
+    }
 
+@app.post("/api/reset")
 @app.post("/api/reset-memory")
 def reset_memory():
     """
     Wipes the brain. Good for demos.
+    Supports both legacy and new endpoints.
     """
     memory.reset()
-    return {"status": "reset", "message": "Memory initialized."}
+    return {"status": "reset", "success": True, "message": "Memory initialized."}
 
 @app.get("/api/status")
+@app.get("/api/system/status")
 def get_status():
     """
     System Health.
