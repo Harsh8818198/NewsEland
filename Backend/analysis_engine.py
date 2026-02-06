@@ -19,39 +19,22 @@ class AnalysisEngine:
     BRAIN 3: The Temporal Prophet & Layer 3 Analysis
     """
     def __init__(self):
-        self.historical_patterns = [
-            {
-                "trigger_keywords": ["regulation", "antitrust", "ban", "fine"],
-                "sector": "Tech",
-                "pattern_name": "Regulatory Headwind",
-                "historical_outcome": "Sector typically dips 5-8% short term.",
-                "example": "GDPR (2018), China Tech Crackdown (2021)"
-            },
-            {
-                "trigger_keywords": ["shortage", "supply chain", "capacity", "supply"],
-                "sector": "Semiconductors",
-                "pattern_name": "Supply Crunch",
-                "historical_outcome": "Pricing power increases, margins expand for suppliers.",
-                "example": "Chip Shortage (2020), RAM Price Spike (2013)"
-            },
-            {
-                "trigger_keywords": ["funding", "raise", "series b", "series c"],
-                "sector": "Startup",
-                "pattern_name": "Capital Injection",
-                "historical_outcome": "Talent war intensifies, ad spend increases on platforms.",
-                "example": "OpenAI Investment (2023), Uber/Lyft Wars (2015)"
-            }
-        ]
+        # Dynamic Mode on: No hardcoded patterns.
+        pass
 
     def analyze_news(self, article: Dict[str, Any], entities: Dict[str, List[str]]) -> Dict[str, Any]:
         """
         Orchestrates the analysis: Sentiment -> Patterns -> Second Order Effects
+        Now uses full article content if available.
         """
-        logging.info(f"Analyzing article: {article.get('title')}")
+        # Use full content if available, otherwise fall back to title
+        text_to_analyze = article.get('content', article.get('title', ''))
         
-        sentiment_data = self._get_deep_analysis(article['title'])
+        logging.info(f"Analyzing article: {article.get('title')} ({len(text_to_analyze)} chars)")
         
-        patterns = self._match_patterns(article['title'], entities)
+        sentiment_data = self._get_deep_analysis(text_to_analyze)
+        
+        patterns = self._match_patterns(text_to_analyze, entities)
         
         second_order = self._derive_second_order(entities)
         
@@ -98,37 +81,64 @@ class AnalysisEngine:
 
     def _match_patterns(self, text: str, entities: Dict[str, List[str]]) -> List[Dict]:
         """
-        BRAIN 3: The Temporal Prophet - Matching current news to history.
+        BRAIN 3: The Temporal Prophet (Dynamic AI Version).
+        Asks Gemini: 'What historical event corresponds to this?'
         """
-        matches = []
-        text_lower = text.lower()
-        
-        for pattern in self.historical_patterns:
-            if any(k in text_lower for k in pattern['trigger_keywords']):
-                matches.append(pattern)
-        
-        return matches
+        try:
+            prompt = f"""
+            You are a Financial Historian. Analyze this news: "{text}"
+            
+            TASK:
+            1. Identify the core economic pattern (e.g., "Supply Shock", "Regulatory Crackdown", "Merger Arbitrage").
+            2. Search your training data for the BEST historical parallel (e.g., "Similar to the 2008 Housing Crisis" or "Like the Dotcom Bubble").
+            3. Predict the typical outcome based on history.
+            
+            Return ONLY a raw JSON list of objects (max 1 best match):
+            [
+                {{
+                    "pattern_name": "Name of the Pattern",
+                    "historical_outcome": "What usually happens next?",
+                    "example": "Specific Historical Event (Year)",
+                    "score": 0.95
+                }}
+            ]
+            """
+            response = model.generate_content(prompt)
+            cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
+            return json.loads(cleaned_text)
+        except Exception as e:
+            logging.error(f"Pattern Matching Failed: {e}")
+            # Fallback to a generic pattern if AI fails
+            return [{
+                "pattern_name": "Unprecedented Event", 
+                "historical_outcome": "Volatility expected as market digests data.", 
+                "example": "None detected",
+                "score": 0.0
+            }]
 
     def _derive_second_order(self, entities: Dict[str, List[str]]) -> List[str]:
         """
-        Layer 3: Inferring indirect impacts.
+        Layer 3: Inferring indirect impacts (AI Version).
         """
-        effects = []
-        for org in entities.get('ORG', []):
-            if "Nvidia" in org or "Intel" in org or "AMD" in org:
-                effects.append("Data Center Power Consumption (Utilities)")
-                effects.append("Advanced Packaging (TSMC/Amkor)")
-            if "Tesla" in org or "BYD" in org:
-                effects.append("Lithium/Cobalt Miners")
-                effects.append("Charging Infrastructure")
-                
-        if not effects:
-            effects.append("No specific second-order effects inferred for these entities.")
-            
-        return list(set(effects)) # Deduplicate
+        # We can also make this dynamic if needed, but for now, let's keep it simple or upgrade it 
+        # to use the entities explicitly in the prompt above.
+        # But per the plan, let's inject creativity here too.
+        
+        prompt = f"""
+        Given these entities involved in a major news event: {json.dumps(entities)}
+        
+        List 3 "Second-Order Effects" (Ripple effects on other industries/sectors).
+        Return purely a JSON list of strings. Example: ["Copper Miners (due to EV demand)", "Logistics firms"]
+        """
+        try:
+            response = model.generate_content(prompt)
+            cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
+            return json.loads(cleaned_text)
+        except:
+             return ["Market Volatility", "Sector Rotation"]
 
 if __name__ == "__main__":
-    print("--- BRAIN 3: INITIALIZATION ---")
+    print("--- BRAIN 3: INITIALIZATION (Generative Mode) ---")
     
     engine = AnalysisEngine()
     

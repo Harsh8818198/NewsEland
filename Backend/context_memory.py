@@ -33,6 +33,7 @@ class ContextMemory:
         """
         Checks if incoming entities match an existing active story.
         Returns topic_id or None.
+        NOW USES STRICT MATCHING: Requires at least 2 shared entities OR 50% overlap.
         """
         for topic_id, story in self.knowledge_graph['stories'].items():
             if story['status'] == 'ARCHIVED':
@@ -41,7 +42,12 @@ class ContextMemory:
             cached_entities = set(story['entities'])
             new_entities = set(entities['ORG'] + entities['GPE'] + entities['PRODUCT'])
             
-            if len(cached_entities.intersection(new_entities)) > 0:
+            overlap = cached_entities.intersection(new_entities)
+            
+            # STRICT RULE: Require significant overlap
+            # Option 1: At least 2 shared entities (prevents "AI" alone from merging everything)
+            # Option 2: At least 50% of the smaller set overlaps
+            if len(overlap) >= 2 or (len(overlap) > 0 and len(overlap) / min(len(cached_entities), len(new_entities)) >= 0.5):
                 return topic_id
         return None
 

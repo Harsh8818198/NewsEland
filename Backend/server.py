@@ -8,7 +8,7 @@ from user_profile import UserProfile
 from analysis_engine import AnalysisEngine
 from gemini_subreport import SubReportGenerator
 from decision_engine import DecisionEngine
-from data_ingestion import EntityExtractor, NewsScraper
+from data_ingestion import EntityExtractor, NewsScraper, ArticleContentFetcher
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
@@ -36,6 +36,7 @@ class ProfileUpdate(BaseModel):
 print("Initializing Brains...")
 extractor = EntityExtractor()
 scraper = NewsScraper()
+content_fetcher = ArticleContentFetcher()  # NEW: Full-text scraper
 analyzer = AnalysisEngine()
 report_gen = SubReportGenerator(mock_mode=False)
 decision_engine = DecisionEngine(mock_mode=False)
@@ -137,13 +138,26 @@ def refresh_news():
     """
     Triggers the Scraper immediately.
     Supports both legacy /api/refresh-news and new Frontend /api/refresh.
+    NOW FETCHES FULL ARTICLE CONTENT.
     """
     articles = scraper.fetch_articles()
     new_stories = []
     
     for article in articles:
-        entities = extractor.extract_entities(article['title'])
+        # Fetch full content
+        full_content = content_fetcher.fetch_content(article['url'])
+        if full_content:
+            article['content'] = full_content
+        else:
+            article['content'] = article['title']  # Fallback
+        
+        # Extract entities from full content
+        entities = extractor.extract_entities(article.get('content', article['title']))
+        
+        # Analyze with full content
         analysis_result = analyzer.analyze_news(article, entities)
+        
+        # Update memory
         story = memory.update_story(article, analysis_result, entities)
         new_stories.append(story['main_topic'])
 

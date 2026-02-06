@@ -161,6 +161,70 @@ class NewsScraper:
         logging.info(f"Total Unique Articles Aggregated: {len(unique_articles)}")
         return unique_articles
 
+class ArticleContentFetcher:
+    """
+    BRAIN 1 (Part C): Full-Text Extractor
+    Fetches the actual article content from URLs (not just headlines).
+    """
+    def __init__(self):
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+    
+    def fetch_content(self, url: str, max_length: int = 5000) -> str:
+        """
+        Fetches and extracts the main text content from an article URL.
+        Returns: Article text (truncated to max_length to avoid token limits)
+        """
+        try:
+            response = requests.get(url, headers=self.headers, timeout=10)
+            if response.status_code != 200:
+                logging.warning(f"Failed to fetch {url}: Status {response.status_code}")
+                return ""
+            
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Remove script, style, nav, footer, ads
+            for tag in soup(['script', 'style', 'nav', 'footer', 'aside', 'header']):
+                tag.decompose()
+            
+            # Try common article content selectors (priority order)
+            content_selectors = [
+                'article',  # Semantic HTML5
+                '.article-content',
+                '.post-content',
+                '.entry-content',
+                'main',
+                '.content',
+                'p'  # Fallback: all paragraphs
+            ]
+            
+            text = ""
+            for selector in content_selectors:
+                elements = soup.select(selector)
+                if elements:
+                    # If we found article/main, use it. Otherwise accumulate paragraphs
+                    if selector in ['article', 'main']:
+                        text = elements[0].get_text(separator=' ', strip=True)
+                        break
+                    else:
+                        text = ' '.join([el.get_text(separator=' ', strip=True) for el in elements])
+                        if len(text) > 200:  # Only use if we got substantial text
+                            break
+            
+            # Clean up whitespace
+            text = ' '.join(text.split())
+            
+            # Truncate to avoid overwhelming the LLM
+            if len(text) > max_length:
+                text = text[:max_length] + "..."
+            
+            return text
+        
+        except Exception as e:
+            logging.error(f"Content fetch error for {url}: {e}")
+            return ""
+
 class EntityExtractor:
     """
     BRAIN 1: The Omniscient Observer (Part B)
@@ -175,9 +239,10 @@ class EntityExtractor:
             logging.error("SpaCy model 'en_core_web_sm' not found. Please run: python -m spacy download en_core_web_sm")
             self.nlp = None
 
-    def extract_entities(self, text: str) -> Dict[str, List[str]]:
+    def extract_entities(self, text: str, max_chars: int = 10000) -> Dict[str, List[str]]:
         """
         Extracts Organizations, GPE (Countries/Cities), and Products from text.
+        Now supports full article content (truncated to avoid SpaCy limits).
         """
         if not self.nlp:
             return {
@@ -186,6 +251,10 @@ class EntityExtractor:
                 "PRODUCT": [],
                 "PERSON": []
             }
+
+        # SpaCy has a default max length of ~1M chars, but we'll be conservative
+        if len(text) > max_chars:
+            text = text[:max_chars]
 
         doc = self.nlp(text)
         entities = {

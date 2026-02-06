@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-from data_ingestion import NewsScraper, EntityExtractor
+from data_ingestion import NewsScraper, EntityExtractor, ArticleContentFetcher
 from analysis_engine import AnalysisEngine
 from gemini_subreport import SubReportGenerator
 from user_profile import UserProfile
@@ -36,6 +36,7 @@ def autonomous_loop():
     print("🧠 BRAIN 1 (Observer)... ", end="", flush=True)
     scraper = NewsScraper() 
     extractor = EntityExtractor()
+    content_fetcher = ArticleContentFetcher()  # NEW: Full-text scraper
     print("ONLINE.")
     
     print("🧠 BRAIN 3 (Prophet)... ", end="", flush=True)
@@ -70,8 +71,21 @@ def autonomous_loop():
             for article in articles:
                 print(f"   🔎 Found: {article['title']}")
                 
-                # 1.5 EXTRACT ENTITIES
-                raw_entities = extractor.extract_entities(article['title'])
+                # 1.5 FETCH FULL CONTENT (NEW)
+                print(f"   📄 Fetching full article content...")
+                full_content = content_fetcher.fetch_content(article['url'])
+                
+                if not full_content:
+                    print(f"   ⚠️  Could not fetch content, using title only.")
+                    full_content = article['title']
+                else:
+                    print(f"   ✅ Extracted {len(full_content)} characters.")
+                
+                # Store content in article dict for later use
+                article['content'] = full_content
+                
+                # 1.6 EXTRACT ENTITIES (Now from full content)
+                raw_entities = extractor.extract_entities(full_content)
 
                 # 2. ANALYZE (Brain 3)
                 print("   ⚖️  ANALYZING (Why/What/How)...")
