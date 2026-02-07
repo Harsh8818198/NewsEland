@@ -27,7 +27,7 @@ export class ApiDataTransformer implements DataTransformer {
     transformStory(backendStory: any): Story {
         // Extract events/updates from the backend story
         const events = backendStory.events || [];
-        
+
         // Helper function to convert sentiment label to Sentiment type
         const mapSentimentLabel = (label: string): Sentiment => {
             const lowerLabel = label?.toLowerCase() || 'neutral';
@@ -38,31 +38,31 @@ export class ApiDataTransformer implements DataTransformer {
             }
             return 'neutral';
         };
-        
+
         // Build sentiment history from events
         const sentimentHistory = events.map((event: any) => {
             const sentimentLabel = event.sentiment?.sentiment_label || 'Neutral';
             const sentiment = mapSentimentLabel(sentimentLabel);
-            
+
             return {
                 date: new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
                 value: event.sentiment?.sentiment_score || 0,
                 sentiment,
             };
         }).slice(-10); // Last 10 data points for the chart
-        
+
         // Build updates list from events
         const updates = events.map((event: any, index: number) => {
             const sentimentLabel = event.sentiment?.sentiment_label || 'Neutral';
             const sentiment = mapSentimentLabel(sentimentLabel);
-            
+
             const eventDate = new Date(event.date);
             const now = new Date();
             const diffMs = now.getTime() - eventDate.getTime();
             const diffMins = Math.floor(diffMs / 60000);
             const diffHours = Math.floor(diffMs / 3600000);
             const diffDays = Math.floor(diffMs / 86400000);
-            
+
             let timeAgo = 'Recently';
             if (diffMins < 60) {
                 timeAgo = `${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`;
@@ -71,7 +71,7 @@ export class ApiDataTransformer implements DataTransformer {
             } else {
                 timeAgo = `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
             }
-            
+
             return {
                 id: `update-${index}`,
                 timestamp: timeAgo,
@@ -82,7 +82,7 @@ export class ApiDataTransformer implements DataTransformer {
                 pattern: event.pattern,
             };
         }).reverse(); // Most recent first
-        
+
         // Deduplicate updates by headline (case-insensitive)
         const seenHeadlines = new Set<string>();
         const uniqueUpdates = updates.filter((update: any) => {
@@ -93,16 +93,16 @@ export class ApiDataTransformer implements DataTransformer {
             seenHeadlines.add(normalizedHeadline);
             return true;
         });
-        
+
         // Get current hypothesis or use latest event sentiment
-        const currentHypothesis = backendStory.current_hypothesis || 
+        const currentHypothesis = backendStory.current_hypothesis ||
             (events.length > 0 ? events[events.length - 1]?.sentiment : null);
-        
+
         // Determine overall sentiment from current hypothesis
         const sentimentLabel = currentHypothesis?.sentiment_label || 'Neutral';
         const overallSentiment = mapSentimentLabel(sentimentLabel);
         const sentimentScore = currentHypothesis?.sentiment_score || 0;
-        
+
         // Calculate time since last update
         const lastEventDate = events.length > 0 ? new Date(events[events.length - 1].date) : new Date(backendStory.created_at);
         const now = new Date();
@@ -110,7 +110,7 @@ export class ApiDataTransformer implements DataTransformer {
         const diffMins = Math.floor(diffMs / 60000);
         const diffHours = Math.floor(diffMs / 3600000);
         const diffDays = Math.floor(diffMs / 86400000);
-        
+
         let lastUpdated = 'Recently';
         if (diffMins < 60) {
             lastUpdated = `${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`;
@@ -119,7 +119,7 @@ export class ApiDataTransformer implements DataTransformer {
         } else {
             lastUpdated = `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
         }
-        
+
         // Build summary from current hypothesis if available
         let summary = backendStory.main_topic;
         if (currentHypothesis?.what) {
@@ -128,6 +128,18 @@ export class ApiDataTransformer implements DataTransformer {
             summary = events[events.length - 1].title;
         }
         
+        // Extract topic - try to get from pattern first, otherwise use main_topic
+        let topic = backendStory.main_topic || 'Unknown Topic';
+        if (events.length > 0 && events[0]?.pattern) {
+            topic = events[0].pattern;
+        }
+        // Clean up topic to be shorter and more readable
+        topic = topic.split(' involving ')[0] || topic;
+        // Limit topic length to avoid UI issues
+        if (topic.length > 100) {
+            topic = topic.substring(0, 100) + '...';
+        }
+
         // Transform events to StoryEvent format
         const transformedEvents: any[] = events.map((event: any) => ({
             date: event.date,
@@ -143,7 +155,7 @@ export class ApiDataTransformer implements DataTransformer {
             },
             pattern: event.pattern || 'None',
         }));
-        
+
         // Transform hypotheses
         const transformHypothesis = (hyp: any): any => {
             if (!hyp) return null;
@@ -157,18 +169,18 @@ export class ApiDataTransformer implements DataTransformer {
                 expected_impact: hyp.expected_impact || '',
             };
         };
-        
+
         return {
             id: backendStory.id || `story-${Date.now()}-${Math.random()}`,
-            title: backendStory.main_topic,
+            title: (backendStory.main_topic || 'Unknown Story').substring(0, 150),
             summary,
-            maturity: backendStory.maturity === 'MATURE' ? 'Mature' : 'Developing',
+            maturity: (backendStory.maturity === 'MATURE' || backendStory.maturity === 'ACTIONABLE') ? 'Mature' : 'Developing',
             status: backendStory.status || 'ACTIVE',
             updateCount: backendStory.updates_count || uniqueUpdates.length,
             sentiment: overallSentiment,
             sentimentScore,
             sentimentLabel: sentimentLabel as any,
-            topic: backendStory.main_topic.split(' involving ')[0] || backendStory.main_topic,
+            topic,
             lastUpdated,
             sentimentHistory,
             updates: uniqueUpdates,

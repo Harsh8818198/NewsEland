@@ -122,7 +122,7 @@ def get_stories():
             
             active_stories.append(story_copy)
     
-    return {"stories": sorted(active_stories, key=lambda x: x.get('maturity') == 'MATURE', reverse=True)}
+    return {"stories": sorted(active_stories, key=lambda x: x.get('maturity') in ['MATURE', 'ACTIONABLE'], reverse=True)}
 
 @app.get("/api/profile")
 def get_profile():

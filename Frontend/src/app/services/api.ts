@@ -128,7 +128,7 @@ export interface BackendStory {
     id: string
     created_at: string
     main_topic: string
-    maturity: 'DEVELOPING' | 'MATURE'
+    maturity: 'DEVELOPING' | 'MATURE' | 'ACTIONABLE'
     status: 'ACTIVE' | 'INACTIVE'
     updates_count: number
     entities?: string[]
