@@ -1,4 +1,5 @@
 import { Story } from '@/app/types/investment';
+import { TradeModal } from './TradeModal';
 import { X, Clock, Calendar, Share2, Printer, ChevronDown, ChevronUp, Archive, DollarSign, Activity } from 'lucide-react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import React, { useState } from 'react';
@@ -46,8 +47,17 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
   const { actions } = useApiContext();
   const [isArchiving, setIsArchiving] = useState(false);
   const [isEditingThesis, setIsEditingThesis] = useState(false);
+  const [isTrading, setIsTrading] = useState(false);
+  const [tradingTicker, setTradingTicker] = useState<string>('');
   const [thesisConviction, setThesisConviction] = useState(story.cognitive_analysis?.conviction || 5);
   const [thesisContrarian, setThesisContrarian] = useState(story.cognitive_analysis?.contrarian_angle || '');
+
+  // Deduced Ticker/Sector for trading
+  // Deduced Ticker/Sector for trading
+  // relatedEntities is string[], winners is MarketEntity[]
+  const tradeTicker = story.cognitive_analysis?.winners?.[0]?.entity || story.relatedEntities?.[0] || 'SPY';
+  const tradeSector = story.topic || 'Technology';
+  const currentPrice = 150.00; // Mock price if not available
 
   const handleUpdateThesis = async () => {
     try {
@@ -90,11 +100,9 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
     }
   };
 
-  const handleTrade = (ticker: string) => {
-    // This would typically open a trade modal. For now, we'll just log or alert.
-    // In a real app, you'd open a "New Order" modal pre-filled with ticker and story_id.
-    console.log(`Initiating trade for ${ticker} linked to story ${story.id}`);
-    alert(`Opening trade ticket for ${ticker} (Linked to Story ID: ${story.id})`);
+  const handleTrade = (ticker?: string) => {
+    setTradingTicker(ticker || tradeTicker);
+    setIsTrading(true);
   };
 
   // Compute Sentiment Distribution
@@ -620,6 +628,19 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
           </article>
         </div>
       </div>
+      {isTrading && (
+        <TradeModal
+          ticker={tradingTicker || tradeTicker}
+          sector={tradeSector}
+          currentPrice={currentPrice}
+          storyId={story.id}
+          onClose={() => setIsTrading(false)}
+          onSuccess={() => {
+            setIsTrading(false);
+            // Optional: refresh story or show success message
+          }}
+        />
+      )}
     </div>
   );
 }

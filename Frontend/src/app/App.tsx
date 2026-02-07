@@ -6,6 +6,7 @@ import { StoriesFeedPage } from './components/investment/pages/StoriesFeedPage';
 import { AnalyzerPage } from './components/investment/pages/AnalyzerPage';
 import { ProfilePage } from './components/investment/pages/ProfilePage';
 import { DecisionLogicPage } from './components/investment/pages/DecisionLogicPage';
+import { PortfolioPage } from './components/investment/pages/PortfolioPage';
 import { SystemStatusPage } from './components/investment/pages/SystemStatusPage';
 import { StoryDetailsModal } from './components/investment/StoryDetailsModal';
 import type { Story } from './types/investment';
@@ -17,6 +18,7 @@ type Page =
   | 'analyzer'
   | 'profile'
   | 'decision-logic'
+  | 'portfolio'
   | 'system-status';
 
 function AppContent() {
@@ -66,6 +68,7 @@ function AppContent() {
           {currentPage === 'analyzer' && <AnalyzerPage />}
           {currentPage === 'profile' && <ProfilePage />}
           {currentPage === 'decision-logic' && <DecisionLogicPage />}
+          {currentPage === 'portfolio' && <PortfolioPage onNavigateToStory={handleStoryClick} />}
           {currentPage === 'system-status' && <SystemStatusPage />}
         </div>
       </div>

@@ -5,6 +5,7 @@ import {
   User,
   Activity,
   Brain,
+  Wallet,
 } from 'lucide-react';
 
 type Page =
@@ -13,6 +14,7 @@ type Page =
   | 'analyzer'
   | 'profile'
   | 'decision-logic'
+  | 'portfolio'
   | 'system-status';
 
 interface SidebarProps {
@@ -27,6 +29,7 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
     { id: 'analyzer' as Page, label: 'Analyzer', icon: Sparkles },
     { id: 'profile' as Page, label: 'Profile', icon: User },
     { id: 'decision-logic' as Page, label: 'Decision Logic', icon: Brain },
+    { id: 'portfolio' as Page, label: 'Portfolio', icon: Wallet },
     { id: 'system-status' as Page, label: 'System Status', icon: Activity },
   ];
 
@@ -61,10 +64,9 @@ export function Sidebar({ currentPage, onNavigate }: SidebarProps) {
               onClick={() => onNavigate(item.id)}
               className={`
                 w-full px-4 py-3.5 flex items-center gap-3 text-[15px] font-serif transition-all duration-200 rounded-lg mb-1
-                ${
-                  isActive
-                    ? 'bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-white shadow-lg transform scale-[1.02]'
-                    : 'text-white/70 hover:bg-white/10 hover:text-white'
+                ${isActive
+                  ? 'bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-white shadow-lg transform scale-[1.02]'
+                  : 'text-white/70 hover:bg-white/10 hover:text-white'
                 }
               `}
             >
