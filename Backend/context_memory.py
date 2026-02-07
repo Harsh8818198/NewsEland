@@ -2,6 +2,7 @@ import json
 import os
 import logging
 from datetime import datetime
+from maturity_engine import MaturityEngine
 
 class ContextMemory:
     """
@@ -11,6 +12,7 @@ class ContextMemory:
     def __init__(self, db_file='knowledge_graph.json'):
         self.db_file = db_file
         self.knowledge_graph = self._load_graph()
+        self.maturity_engine = MaturityEngine()  # NEW: AI-driven maturity assessment
 
     def _load_graph(self):
         if os.path.exists(self.db_file):
@@ -76,10 +78,19 @@ class ContextMemory:
             story['updates_count'] += 1
             story['entities'] = list(set(story['entities'] + related_entities))
             
-            if story['updates_count'] >= 2:
-                story['maturity'] = 'MATURE'
+            # NEW: AI-Driven Maturity Assessment
+            maturity_assessment = self.maturity_engine.assess_maturity(story)
+            story['maturity_assessment'] = maturity_assessment
+            story['maturity'] = maturity_assessment['maturity_level']  # For backward compatibility
             
-            logging.info(f"Updated Story: {topic_id} (Maturity: {story['maturity']})")
+            # Alert if story became actionable
+            if maturity_assessment['maturity_level'] == 'ACTIONABLE':
+                logging.warning(f"🚨 STORY ACTIONABLE: {story['main_topic']}")
+                logging.warning(f"   Market Cycle: {maturity_assessment['market_cycle_phase']}")
+                logging.warning(f"   Confidence: {maturity_assessment['confidence_score']:.0%}")
+                logging.warning(f"   Recommendation: {maturity_assessment['investment_recommendation']}")
+            
+            logging.info(f"Updated Story: {topic_id} (Maturity: {story['maturity']}, Cycle: {maturity_assessment.get('market_cycle_phase', 'Unknown')})")
             self._save_graph()
             return story
 

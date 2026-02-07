@@ -1,0 +1,44 @@
+{
+  "stories": {
+    "STORY_1770403070": {
+      "id": "STORY_1770403070",
+      "created_at": "2026-02-07T00:07:50.129685",
+      "main_topic": "Merger Rumor involving Positron",
+      "status": "ACTIVE",
+      "maturity": "MATURE",
+      "entities": [
+        "Intel",
+        "Positron"
+      ],
+      "updates_count": 2,
+      "current_hypothesis": {
+        "sentiment_score": 0.9,
+        "label": "POSITIVE"
+      },
+      "previous_hypothesis": {
+        "sentiment_score": 0.2,
+        "label": "NEUTRAL"
+      },
+      "events": [
+        {
+          "date": "2026-02-07T00:07:50.129685",
+          "title": "Rumors of Positron acquiring Intel",
+          "sentiment": {
+            "sentiment_score": 0.2,
+            "label": "NEUTRAL"
+          },
+          "pattern": "Merger Rumor"
+        },
+        {
+          "date": "2026-02-07T00:07:50.131400",
+          "title": "Positron OFFICIALLY Announces Intel Acquisition",
+          "sentiment": {
+            "sentiment_score": 0.9,
+            "label": "POSITIVE"
+          },
+          "pattern": "Acquisition Confirmed"
+        }
+      ]
+    }
+  }
+}
