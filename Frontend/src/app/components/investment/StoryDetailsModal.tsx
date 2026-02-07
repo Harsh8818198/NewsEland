@@ -57,6 +57,7 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
   const [isReportExpanded, setIsReportExpanded] = useState(true);
   const [showAnalysisResult, setShowAnalysisResult] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
+  const [isCognitiveExpanded, setIsCognitiveExpanded] = useState(false);
 
   // Deduced Ticker/Sector for trading
   // Deduced Ticker/Sector for trading
@@ -347,7 +348,7 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
                             <ChevronUp className="w-4 h-4" /> Winners
                           </h4>
                           <div className="space-y-4">
-                            {cognitive.winners.map((winner, idx) => (
+                            {(isCognitiveExpanded ? cognitive.winners : cognitive.winners.slice(0, 2)).map((winner, idx) => (
                               <div key={idx} className="bg-white p-4 rounded border border-[#e5e3df] shadow-sm">
                                 <div className="flex justify-between items-start mb-1">
                                   <span className="font-bold text-[#1a1a1a]">{winner.entity}</span>
@@ -377,7 +378,7 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
                             <ChevronDown className="w-4 h-4" /> Losers
                           </h4>
                           <div className="space-y-4">
-                            {cognitive.losers.map((loser, idx) => (
+                            {(isCognitiveExpanded ? cognitive.losers : cognitive.losers.slice(0, 2)).map((loser, idx) => (
                               <div key={idx} className="bg-white p-4 rounded border border-[#e5e3df] shadow-sm">
                                 <div className="flex justify-between items-start mb-1">
                                   <span className="font-bold text-[#1a1a1a]">{loser.entity}</span>
@@ -400,7 +401,7 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
                             🌍 Real-World Actions
                           </h4>
                           <div className="grid grid-cols-1 gap-4">
-                            {cognitive.real_world_opportunities.map((opp, idx) => (
+                            {(isCognitiveExpanded ? cognitive.real_world_opportunities : cognitive.real_world_opportunities.slice(0, 3)).map((opp, idx) => (
                               <div key={idx} className="flex gap-4 p-4 bg-amber-50/50 border border-amber-100 rounded-lg">
                                 <div className="flex-shrink-0 mt-1">
                                   <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-bold text-xs">
@@ -430,6 +431,41 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
                           </div>
                         </div>
                       )}
+
+                      {/* See More / See Less Button */}
+                      {(() => {
+                        const totalWinners = cognitive.winners.length;
+                        const totalLosers = cognitive.losers.length;
+                        const totalOpportunities = cognitive.real_world_opportunities?.length || 0;
+                        const hiddenWinners = Math.max(0, totalWinners - 2);
+                        const hiddenLosers = Math.max(0, totalLosers - 2);
+                        const hiddenOpportunities = Math.max(0, totalOpportunities - 3);
+                        const totalHidden = hiddenWinners + hiddenLosers + hiddenOpportunities;
+
+                        if (totalHidden > 0) {
+                          return (
+                            <div className="mt-8 pt-6 border-t border-[#e5e3df] flex justify-center">
+                              <button
+                                onClick={() => setIsCognitiveExpanded(!isCognitiveExpanded)}
+                                className="px-6 py-2.5 bg-[#d4af37] hover:bg-[#b8941f] text-[#1a1a1a] font-bold text-sm rounded-lg transition-colors flex items-center gap-2 shadow-sm"
+                              >
+                                {isCognitiveExpanded ? (
+                                  <>
+                                    <ChevronUp className="w-4 h-4" />
+                                    See Less
+                                  </>
+                                ) : (
+                                  <>
+                                    <ChevronDown className="w-4 h-4" />
+                                    See More ({totalHidden} more item{totalHidden !== 1 ? 's' : ''})
+                                  </>
+                                )}
+                              </button>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })()}
 
                     </div>
                   </div>
@@ -634,18 +670,27 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
                     <div className="mt-4 pt-4 border-t border-[#e5e5e5]">
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-xs font-bold text-[#333]">Confidence Score</span>
-                        <span className="text-xs font-mono font-bold">{story.maturityAssessment.confidence.toFixed(1)}/1.0</span>
+                        <span className="text-xs font-mono font-bold">
+                          {story.maturityAssessment.confidence != null
+                            ? `${story.maturityAssessment.confidence.toFixed(1)}/1.0`
+                            : 'N/A'}
+                        </span>
                       </div>
-                      <div className="h-1.5 w-full bg-[#f0f0f0] rounded-full overflow-hidden mb-3">
-                        <div
-                          className="h-full bg-[#1a1a1a]"
-                          style={{ width: `${story.maturityAssessment.confidence * 100}%` }}
-                        />
-                      </div>
+                      {story.maturityAssessment.confidence != null && (
+                        <div className="h-1.5 w-full bg-[#f0f0f0] rounded-full overflow-hidden mb-3">
+                          <div
+                            className="h-full bg-[#1a1a1a]"
+                            style={{ width: `${story.maturityAssessment.confidence * 100}%` }}
+                          />
+                        </div>
+                      )}
                       <div className="flex gap-4 text-xs text-[#666]">
-                        <span className="flex items-center gap-1"><Activity className="w-3 h-3" /> {story.maturityAssessment.evidence_count} Evidence Points</span>
+                        <span className="flex items-center gap-1">
+                          <Activity className="w-3 h-3" />
+                          {story.maturityAssessment.evidence_count || 0} Evidence Points
+                        </span>
                       </div>
-                      {story.maturityAssessment.missing_factors.length > 0 && (
+                      {story.maturityAssessment.missing_factors && story.maturityAssessment.missing_factors.length > 0 && (
                         <div className="mt-3">
                           <span className="text-[10px] font-bold uppercase text-[#999] block mb-1">Missing Factors</span>
                           <div className="flex flex-wrap gap-1">
