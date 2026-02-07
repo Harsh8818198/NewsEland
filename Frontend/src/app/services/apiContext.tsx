@@ -37,6 +37,7 @@ export interface ApiContextValue extends ApiState {
         updateUserProfile: (profile: ProfileUpdateRequest) => Promise<void>
         fetchSystemStatus: () => Promise<void>
         analyzeHeadline: (text: string) => Promise<void>
+        analyzeStory: (story: Story) => Promise<void>
         refreshNews: () => Promise<void>
         resetMemory: () => Promise<void>
         clearError: (section: keyof ApiState) => void
@@ -275,6 +276,49 @@ export function ApiProvider({ children, apiService }: ApiProviderProps) {
         [api, transformer]
     )
 
+    // Analyze story
+    const analyzeStory = useCallback(
+        async (story: Story) => {
+            setState((prev) => ({
+                ...prev,
+                analysis: {
+                    ...prev.analysis,
+                    loading: true,
+                    error: null,
+                },
+            }))
+
+            try {
+                const response = await api.analyzeHeadline(story.title)
+                const transformedResult = transformer.transformAnalysis(response)
+
+                setState((prev) => ({
+                    ...prev,
+                    analysis: {
+                        results: [transformedResult, ...prev.analysis.results],
+                        loading: false,
+                        error: null,
+                    },
+                }))
+
+                // Refresh stories to get updated data
+                await fetchStories()
+            } catch (error) {
+                const apiError = error instanceof ApiError ? error : new ApiError(0, String(error))
+                setState((prev) => ({
+                    ...prev,
+                    analysis: {
+                        ...prev.analysis,
+                        loading: false,
+                        error: apiError,
+                    },
+                }))
+                throw apiError
+            }
+        },
+        [api, transformer, fetchStories]
+    )
+
     // Refresh news
     const refreshNews = useCallback(async (): Promise<void> => {
         try {
@@ -325,6 +369,7 @@ export function ApiProvider({ children, apiService }: ApiProviderProps) {
             updateUserProfile,
             fetchSystemStatus,
             analyzeHeadline,
+            analyzeStory,
             refreshNews,
             resetMemory,
             clearError,

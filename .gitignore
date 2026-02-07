@@ -102,6 +102,8 @@ temp/
 
 # Project specific
 knowledge_graph.json
+dedup_cache.json
+entity_cache.json
 test_*.py
 main.py
 interactive_session.py

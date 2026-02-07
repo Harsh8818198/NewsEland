@@ -1,9 +1,11 @@
-import { Story } from '@/app/types/investment';
+import { Story, AnalysisResult } from '@/app/types/investment';
 import { TradeModal } from './TradeModal';
-import { X, Clock, Calendar, Share2, Printer, ChevronDown, ChevronUp, Archive, DollarSign, Activity } from 'lucide-react';
+import { AnalysisResultModal } from './AnalysisResultModal';
+import { X, Clock, Calendar, Share2, Printer, ChevronDown, ChevronUp, Archive, DollarSign, Activity, Sparkles, FileText } from 'lucide-react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApiContext } from '../../services/apiContext';
+
 
 // Simple markdown-like text formatter
 function formatMarkdown(text: string) {
@@ -44,13 +46,17 @@ interface StoryDetailsModalProps {
 }
 
 export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
-  const { actions } = useApiContext();
+  const { actions, analysis } = useApiContext();
   const [isArchiving, setIsArchiving] = useState(false);
   const [isEditingThesis, setIsEditingThesis] = useState(false);
   const [isTrading, setIsTrading] = useState(false);
   const [tradingTicker, setTradingTicker] = useState<string>('');
   const [thesisConviction, setThesisConviction] = useState(story.cognitive_analysis?.conviction || 5);
   const [thesisContrarian, setThesisContrarian] = useState(story.cognitive_analysis?.contrarian_angle || '');
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isReportExpanded, setIsReportExpanded] = useState(true);
+  const [showAnalysisResult, setShowAnalysisResult] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
 
   // Deduced Ticker/Sector for trading
   // Deduced Ticker/Sector for trading
@@ -104,6 +110,32 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
     setTradingTicker(ticker || tradeTicker);
     setIsTrading(true);
   };
+
+  const handleAnalyze = async () => {
+    setIsAnalyzing(true);
+    try {
+      await actions.analyzeStory(story);
+    } catch (error) {
+      console.error('Analysis failed:', error);
+      alert('Failed to analyze story. Please try again.');
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  // Watch for new analysis results
+  useEffect(() => {
+    if (!isAnalyzing && analysis.results.length > 0) {
+      const latestResult = analysis.results[0];
+      // Check if this is a new result (within last 2 seconds)
+      const resultTime = new Date(latestResult.timestamp).getTime();
+      const now = Date.now();
+      if (now - resultTime < 2000) {
+        setAnalysisResult(latestResult);
+        setShowAnalysisResult(true);
+      }
+    }
+  }, [analysis.results, isAnalyzing]);
 
   // Compute Sentiment Distribution
   const sentimentCounts = { positive: 0, neutral: 0, negative: 0 };
@@ -165,6 +197,14 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
 
         {/* Desktop: Close Button & Actions - Fixed position relative to modal */}
         <div className="hidden md:flex absolute top-6 right-6 z-50 items-center gap-3">
+          <button
+            onClick={handleAnalyze}
+            disabled={isAnalyzing}
+            className="p-2.5 bg-white hover:bg-[#faf9f6] rounded-full transition-colors border border-[#e5e5e5] shadow-sm text-[#d4af37] hover:text-[#b8941f] disabled:opacity-50 disabled:cursor-not-allowed"
+            title="Analyze Story"
+          >
+            <Sparkles className={`w-4 h-4 ${isAnalyzing ? 'animate-spin' : ''}`} />
+          </button>
           <button className="p-2.5 bg-white hover:bg-[#faf9f6] rounded-full transition-colors border border-[#e5e5e5] shadow-sm text-[#666] hover:text-[#1a1a1a]" title="Print">
             <Printer className="w-4 h-4" />
           </button>
@@ -423,6 +463,33 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
                     </>
                   )}
 
+                  {/* Strategic Intelligence Report */}
+                  {story.subreport && (
+                    <div className="mt-12 pt-8 border-t border-[#e5e5e5]">
+                      <div className="bg-gradient-to-br from-slate-50 to-blue-50 border border-[#e5e3df] rounded-xl overflow-hidden shadow-sm">
+                        <div
+                          className="bg-[#1a1a1a] px-6 py-4 flex justify-between items-center cursor-pointer hover:bg-[#2a2a2a] transition-colors"
+                          onClick={() => setIsReportExpanded(!isReportExpanded)}
+                        >
+                          <h3 className="text-white font-bold tracking-wider uppercase text-sm flex items-center gap-2">
+                            <FileText className="w-4 h-4 text-[#d4af37]" />
+                            Strategic Intelligence Report
+                          </h3>
+                          <button className="text-white/60 hover:text-white transition-colors">
+                            {isReportExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                          </button>
+                        </div>
+                        {isReportExpanded && (
+                          <div className="p-6 md:p-8">
+                            <div className="prose prose-lg max-w-none">
+                              {formatMarkdown(story.subreport)}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Detailed Event Analysis */}
                   {story.events && story.events.length > 0 && (
                     <div className="mt-12 pt-8 border-t border-[#e5e5e5]">
@@ -470,13 +537,6 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
                           </div>
                         ))}
                       </div>
-                    </div>
-                  )}
-
-                  {/* Subreport if available */}
-                  {story.subreport && (
-                    <div className="mt-12 pt-8 border-t border-[#e5e5e5]">
-                      {formatMarkdown(story.subreport)}
                     </div>
                   )}
 
@@ -639,6 +699,13 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
             setIsTrading(false);
             // Optional: refresh story or show success message
           }}
+        />
+      )}
+
+      {showAnalysisResult && analysisResult !== null && (
+        <AnalysisResultModal
+          analysis={analysisResult}
+          onClose={() => setShowAnalysisResult(false)}
         />
       )}
     </div>
