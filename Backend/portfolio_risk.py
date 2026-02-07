@@ -79,7 +79,7 @@ class PortfolioManager:
         
         return {"approved": True, "reason": "Approved", "warnings": warnings}
     
-    def execute_trade(self, recommendation: Dict, entry_price: float):
+    def execute_trade(self, recommendation: Dict, entry_price: float, story_id: str = None):
         allocation_pct = recommendation.get('capital_allocation_pct', 0) / 100
         allocation_amount = self.user.capital_available * allocation_pct
         sector = recommendation.get('sector', 'Unknown')
@@ -92,7 +92,8 @@ class PortfolioManager:
             "entry_price": entry_price,
             "entry_date": datetime.now().isoformat(),
             "sector": sector,
-            "recommendation": recommendation
+            "recommendation": recommendation,
+            "story_id": story_id  # Link to story
         }
         
         self.sector_exposure[sector] = self.sector_exposure.get(sector, 0) + allocation_pct

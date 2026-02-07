@@ -6,9 +6,9 @@ class DecisionEngine:
     BRAIN 2: The Dialectical Synthesizer (Part B)
     Generates the "Investment Decision Tree" based on Report + User Profile.
     """
-    def __init__(self, mock_mode=False):
+    def __init__(self, mock_mode=False, subreport_gen=None):
         self.mock_mode = mock_mode
-        self.subreport_gen = SubReportGenerator(mock_mode=mock_mode)
+        self.subreport_gen = subreport_gen or SubReportGenerator(mock_mode=mock_mode)
 
     def generate_advice(self, user_profile, sub_report_text, story_context=None):
         """

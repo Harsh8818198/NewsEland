@@ -53,7 +53,7 @@ class ContextMemory:
                 return topic_id
         return None
 
-    def update_story(self, article, analysis, entities):
+    def update_story(self, article, analysis, entities, cognitive_analysis=None, subreport=None):
         """
         Main Logic: Ingest News -> Update Graph -> Return Advice Context
         """
@@ -68,13 +68,27 @@ class ContextMemory:
             # Shift current hypothesis to previous to track evolution ("Before vs After")
             story['previous_hypothesis'] = story.get('current_hypothesis', {})
             story['current_hypothesis'] = analysis['analysis']['sentiment'] # Contains Why/What/How
+            
+            # Store latest cognitive analysis
+            if cognitive_analysis:
+                story['cognitive_analysis'] = cognitive_analysis
 
-            story['events'].append({
+            event_data = {
                 "date": timestamp,
                 "title": article['title'],
                 "sentiment": analysis['analysis']['sentiment'],
-                "pattern": analysis['analysis']['matched_patterns'][0]['pattern_name'] if analysis['analysis']['matched_patterns'] else "None"
-            })
+                "pattern": analysis['analysis']['matched_patterns'][0]['pattern_name'] if analysis['analysis']['matched_patterns'] else "None",
+                "subreport": subreport  # Store subreport
+            }
+            
+            # Add cognitive insights to event if available
+            if cognitive_analysis:
+                event_data['cognitive_insight'] = cognitive_analysis.get('so_what', 'N/A')
+                event_data['winners'] = cognitive_analysis.get('winners', [])
+                event_data['losers'] = cognitive_analysis.get('losers', [])
+                event_data['real_world_opportunities'] = cognitive_analysis.get('real_world_opportunities', [])
+
+            story['events'].append(event_data)
             story['updates_count'] += 1
             story['entities'] = list(set(story['entities'] + related_entities))
             
@@ -108,11 +122,17 @@ class ContextMemory:
                 "updates_count": 1,
                 "current_hypothesis": analysis['analysis']['sentiment'], # Initial State
                 "previous_hypothesis": None,
+                "cognitive_analysis": cognitive_analysis, # Store initial cognitive analysis
                 "events": [{
                     "date": timestamp,
                     "title": article['title'],
                     "sentiment": analysis['analysis']['sentiment'],
-                    "pattern": pattern_name
+                    "pattern": pattern_name,
+                    "subreport": subreport, # Store initial subreport
+                    "cognitive_insight": cognitive_analysis.get('so_what', 'N/A') if cognitive_analysis else "N/A",
+                    "winners": cognitive_analysis.get('winners', []) if cognitive_analysis else [],
+                    "losers": cognitive_analysis.get('losers', []) if cognitive_analysis else [],
+                    "real_world_opportunities": cognitive_analysis.get('real_world_opportunities', []) if cognitive_analysis else []
                 }]
             }
             self.knowledge_graph['stories'][new_topic_id] = new_story

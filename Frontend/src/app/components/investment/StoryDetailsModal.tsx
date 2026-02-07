@@ -1,7 +1,8 @@
 import { Story } from '@/app/types/investment';
-import { X, Clock, Calendar, Share2, Printer, ChevronDown, ChevronUp } from 'lucide-react';
+import { X, Clock, Calendar, Share2, Printer, ChevronDown, ChevronUp, Archive, DollarSign, Activity } from 'lucide-react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
 import React, { useState } from 'react';
+import { useApiContext } from '../../services/apiContext';
 
 // Simple markdown-like text formatter
 function formatMarkdown(text: string) {
@@ -42,6 +43,60 @@ interface StoryDetailsModalProps {
 }
 
 export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
+  const { actions } = useApiContext();
+  const [isArchiving, setIsArchiving] = useState(false);
+  const [isEditingThesis, setIsEditingThesis] = useState(false);
+  const [thesisConviction, setThesisConviction] = useState(story.cognitive_analysis?.conviction || 5);
+  const [thesisContrarian, setThesisContrarian] = useState(story.cognitive_analysis?.contrarian_angle || '');
+
+  const handleUpdateThesis = async () => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/stories/${story.id}/thesis`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          conviction: thesisConviction,
+          contrarian_angle: thesisContrarian
+        })
+      });
+      if (response.ok) {
+        setIsEditingThesis(false);
+        actions.fetchStories(); // Refresh data
+        alert('Thesis updated successfully');
+      } else {
+        alert('Failed to update thesis');
+      }
+    } catch (error) {
+      console.error('Update failed:', error);
+      alert('Error updating thesis');
+    }
+  };
+
+  const handleArchive = async () => {
+    if (confirm('Are you sure you want to archive this story?')) {
+      try {
+        setIsArchiving(true);
+        const response = await fetch(`http://localhost:8000/api/stories/${story.id}/archive`, { method: 'POST' });
+        if (response.ok) {
+          onClose(); // Close modal on success
+          // Ideally refresh stories list here
+          actions.fetchStories();
+        }
+      } catch (error) {
+        console.error('Failed to archive:', error);
+      } finally {
+        setIsArchiving(false);
+      }
+    }
+  };
+
+  const handleTrade = (ticker: string) => {
+    // This would typically open a trade modal. For now, we'll just log or alert.
+    // In a real app, you'd open a "New Order" modal pre-filled with ticker and story_id.
+    console.log(`Initiating trade for ${ticker} linked to story ${story.id}`);
+    alert(`Opening trade ticket for ${ticker} (Linked to Story ID: ${story.id})`);
+  };
+
   // Compute Sentiment Distribution
   const sentimentCounts = { positive: 0, neutral: 0, negative: 0 };
 
@@ -76,6 +131,8 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
   const maturityLevel = story.maturity === 'Mature' ? 100 : story.maturity === 'Developing' ? 50 : 25;
   const maturityLabel = story.maturity ? (story.maturity.charAt(0).toUpperCase() + story.maturity.slice(1).toLowerCase()) : 'Emerging';
 
+  const cognitive = story.cognitive_analysis;
+
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50 p-0 md:p-6">
       <div className="bg-white w-full max-w-6xl h-[100vh] md:h-[90vh] md:rounded-2xl flex flex-col shadow-2xl overflow-hidden relative">
@@ -102,6 +159,14 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
         <div className="hidden md:flex absolute top-6 right-6 z-50 items-center gap-3">
           <button className="p-2.5 bg-white hover:bg-[#faf9f6] rounded-full transition-colors border border-[#e5e5e5] shadow-sm text-[#666] hover:text-[#1a1a1a]" title="Print">
             <Printer className="w-4 h-4" />
+          </button>
+          <button
+            onClick={handleArchive}
+            disabled={isArchiving}
+            className="p-2.5 bg-white hover:bg-[#faf9f6] rounded-full transition-colors border border-[#e5e5e5] shadow-sm text-[#666] hover:text-red-600 disabled:opacity-50"
+            title="Archive Story"
+          >
+            <Archive className="w-4 h-4" />
           </button>
           <button className="p-2.5 bg-white hover:bg-[#faf9f6] rounded-full transition-colors border border-[#e5e5e5] shadow-sm text-[#666] hover:text-[#1a1a1a]" title="Share">
             <Share2 className="w-4 h-4" />
@@ -153,7 +218,177 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
 
               {/* Main Content Column */}
               <div className="lg:col-span-8">
-                {/* Lead Paragraph */}
+
+                {/* --- PROFIT LOGIC SECTION (NEW) --- */}
+                {cognitive && (
+                  <div className="mb-12 bg-[#faf9f6] border border-[#e5e3df] rounded-xl overflow-hidden">
+                    <div className="bg-[#1a1a1a] px-6 py-4 flex justify-between items-center">
+                      <h3 className="text-white font-bold tracking-wider uppercase text-sm flex items-center gap-2">
+                        <span className="text-[#d4af37]">✦</span> Profit Logic
+                      </h3>
+                      <div className="flex items-center gap-3">
+                        {isEditingThesis ? (
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={handleUpdateThesis}
+                              className="px-3 py-1 bg-[#d4af37] text-[#1a1a1a] text-xs font-bold rounded hover:bg-[#b8941f]"
+                            >
+                              Save
+                            </button>
+                            <button
+                              onClick={() => setIsEditingThesis(false)}
+                              className="px-3 py-1 bg-white/10 text-white text-xs font-bold rounded hover:bg-white/20"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => setIsEditingThesis(true)}
+                            className="text-[10px] text-white/60 hover:text-white underline"
+                          >
+                            Edit Thesis
+                          </button>
+                        )}
+                        <span className="px-2 py-1 bg-white/10 text-white/80 text-xs rounded border border-white/20">
+                          Conviction: {cognitive.conviction}/10
+                        </span>
+                      </div>
+                    </div>
+
+                    {isEditingThesis && (
+                      <div className="bg-[#1a1a1a] border-t border-white/10 p-6">
+                        <div className="mb-4">
+                          <label className="block text-white/60 text-xs font-bold uppercase mb-2">Conviction Score (1-10)</label>
+                          <input
+                            type="number"
+                            min="1"
+                            max="10"
+                            value={thesisConviction}
+                            onChange={(e) => setThesisConviction(Number(e.target.value))}
+                            className="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-white focus:outline-none focus:border-[#d4af37]"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-white/60 text-xs font-bold uppercase mb-2">Contrarian Angle</label>
+                          <textarea
+                            value={thesisContrarian}
+                            onChange={(e) => setThesisContrarian(e.target.value)}
+                            rows={3}
+                            className="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-white focus:outline-none focus:border-[#d4af37]"
+                            placeholder="Enter the contrarian view..."
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="p-6 md:p-8">
+                      {/* So What? */}
+                      <div className="mb-8">
+                        <h4 className="text-sm font-bold uppercase tracking-widest text-[#999] mb-3">The Bottom Line</h4>
+                        <p className="text-xl font-serif leading-relaxed text-[#1a1a1a]">
+                          {cognitive.so_what}
+                        </p>
+                      </div>
+
+                      {/* Winners & Losers Grid */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        {/* Winners */}
+                        <div>
+                          <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-emerald-700 mb-4 border-b border-emerald-100 pb-2">
+                            <ChevronUp className="w-4 h-4" /> Winners
+                          </h4>
+                          <div className="space-y-4">
+                            {cognitive.winners.map((winner, idx) => (
+                              <div key={idx} className="bg-white p-4 rounded border border-[#e5e3df] shadow-sm">
+                                <div className="flex justify-between items-start mb-1">
+                                  <span className="font-bold text-[#1a1a1a]">{winner.entity}</span>
+                                  <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                                    {winner.expected_impact}
+                                  </span>
+                                </div>
+                                <div className="flex justify-between items-end mt-1">
+                                  <p className="text-sm text-[#666] leading-snug flex-1">{winner.reason}</p>
+                                  <button
+                                    onClick={() => handleTrade(winner.entity)}
+                                    className="ml-2 p-1 bg-emerald-50 text-emerald-700 rounded hover:bg-emerald-100 transition-colors"
+                                    title="Trade this Asset"
+                                  >
+                                    <DollarSign className="w-3 h-3" />
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                            {cognitive.winners.length === 0 && <p className="text-sm text-[#999] italic">None identified yet.</p>}
+                          </div>
+                        </div>
+
+                        {/* Losers */}
+                        <div>
+                          <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-rose-700 mb-4 border-b border-rose-100 pb-2">
+                            <ChevronDown className="w-4 h-4" /> Losers
+                          </h4>
+                          <div className="space-y-4">
+                            {cognitive.losers.map((loser, idx) => (
+                              <div key={idx} className="bg-white p-4 rounded border border-[#e5e3df] shadow-sm">
+                                <div className="flex justify-between items-start mb-1">
+                                  <span className="font-bold text-[#1a1a1a]">{loser.entity}</span>
+                                  <span className="text-xs font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">
+                                    {loser.expected_impact}
+                                  </span>
+                                </div>
+                                <p className="text-sm text-[#666] leading-snug">{loser.reason}</p>
+                              </div>
+                            ))}
+                            {cognitive.losers.length === 0 && <p className="text-sm text-[#999] italic">None identified yet.</p>}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Real World Opportunities */}
+                      {cognitive.real_world_opportunities?.length > 0 && (
+                        <div className="mt-8 pt-8 border-t border-[#e5e3df]">
+                          <h4 className="text-sm font-bold uppercase tracking-widest text-[#1a1a1a] mb-4 flex items-center gap-2">
+                            🌍 Real-World Actions
+                          </h4>
+                          <div className="grid grid-cols-1 gap-4">
+                            {cognitive.real_world_opportunities.map((opp, idx) => (
+                              <div key={idx} className="flex gap-4 p-4 bg-amber-50/50 border border-amber-100 rounded-lg">
+                                <div className="flex-shrink-0 mt-1">
+                                  <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-bold text-xs">
+                                    {idx + 1}
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="flex flex-wrap gap-2 items-center mb-1">
+                                    <span className="font-bold text-[#1a1a1a]">{opp.action}</span>
+                                    <span className="text-[10px] font-bold uppercase bg-white border border-amber-200 text-amber-800 px-1.5 py-0.5 rounded">
+                                      {opp.type.replace('_', ' ')}
+                                    </span>
+                                    {opp.timing.includes('URGENT') && (
+                                      <span className="text-[10px] font-bold uppercase bg-red-100 text-red-700 px-1.5 py-0.5 rounded animate-pulse">
+                                        Urgent
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className="text-sm text-[#555] mb-2">{opp.reasoning}</p>
+                                  <div className="flex gap-4 text-xs text-[#777] font-sans">
+                                    <span>Investment: <strong>{opp.investment}</strong></span>
+                                    <span>Est. Gain: <strong>{opp.expected_savings}</strong></span>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                    </div>
+                  </div>
+                )}
+
+
+                {/* Lead Paragraph (Hypothesis) */}
                 {story.currentHypothesis && (
                   <div className="prose prose-lg max-w-none mb-10">
                     <p className="text-xl md:text-2xl font-serif leading-relaxed text-[#1a1a1a] border-l-4 border-[#d4af37] pl-6 italic">
@@ -243,6 +478,21 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
               {/* Sidebar Column */}
               <div className="lg:col-span-4 space-y-8">
 
+                {/* Contrarian Angle (NEW) */}
+                {cognitive?.contrarian_angle && (
+                  <div className="bg-[#1a1a1a] text-white p-6 rounded-xl shadow-lg relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-4 opacity-10">
+                      <Share2 className="w-24 h-24" />
+                    </div>
+                    <h4 className="text-xs font-bold uppercase tracking-widest text-[#d4af37] mb-3 relative z-10">
+                      The Contrarian View
+                    </h4>
+                    <p className="font-serif text-lg leading-relaxed relative z-10">
+                      "{cognitive.contrarian_angle}"
+                    </p>
+                  </div>
+                )}
+
                 {/* Sentiment Analysis Graph */}
                 <div className="bg-white rounded-xl border border-[#e5e3df] p-6 shadow-sm">
                   <h4 className="text-xs font-bold uppercase tracking-widest text-[#999] mb-6">
@@ -311,6 +561,36 @@ export function StoryDetailsModal({ story, onClose }: StoryDetailsModalProps) {
                       ? 'This story has high confidence with established facts and widespread coverage.'
                       : 'This story is still developing. Information may change rapidly.'}
                   </p>
+
+                  {story.maturityAssessment && (
+                    <div className="mt-4 pt-4 border-t border-[#e5e5e5]">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs font-bold text-[#333]">Confidence Score</span>
+                        <span className="text-xs font-mono font-bold">{story.maturityAssessment.confidence.toFixed(1)}/1.0</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-[#f0f0f0] rounded-full overflow-hidden mb-3">
+                        <div
+                          className="h-full bg-[#1a1a1a]"
+                          style={{ width: `${story.maturityAssessment.confidence * 100}%` }}
+                        />
+                      </div>
+                      <div className="flex gap-4 text-xs text-[#666]">
+                        <span className="flex items-center gap-1"><Activity className="w-3 h-3" /> {story.maturityAssessment.evidence_count} Evidence Points</span>
+                      </div>
+                      {story.maturityAssessment.missing_factors.length > 0 && (
+                        <div className="mt-3">
+                          <span className="text-[10px] font-bold uppercase text-[#999] block mb-1">Missing Factors</span>
+                          <div className="flex flex-wrap gap-1">
+                            {story.maturityAssessment.missing_factors.map((factor, i) => (
+                              <span key={i} className="px-1.5 py-0.5 bg-red-50 text-red-600 text-[10px] rounded border border-red-100">
+                                {factor}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Coverage Stats (Simplified) */}

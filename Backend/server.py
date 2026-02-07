@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from typing import List
 import logging
 import json
 from context_memory import ContextMemory
@@ -11,6 +12,7 @@ from decision_engine import DecisionEngine
 from data_ingestion import EntityExtractor, NewsScraper, ArticleContentFetcher
 from cognitive_layer import CognitiveLayer
 from entity_graph import EntityGraph
+from deduplication_engine import DeduplicationEngine
 from dotenv import load_dotenv
 
 # Import consolidated modules
@@ -42,9 +44,10 @@ scraper = NewsScraper()
 content_fetcher = ArticleContentFetcher()
 analyzer = AnalysisEngine()
 report_gen = SubReportGenerator(mock_mode=False)
-decision_engine = DecisionEngine(mock_mode=False)
+decision_engine = DecisionEngine(mock_mode=False, subreport_gen=report_gen)
 cognitive = CognitiveLayer()
 entity_graph = EntityGraph()
+dedup = DeduplicationEngine()
 
 # Initialize New Systems
 portfolio = PortfolioManager(current_user)
@@ -56,7 +59,11 @@ market_timing = MarketTimingEngine()
 pattern_validator = PatternValidator()
 sentiment_analyzer = SentimentTrendAnalyzer()
 backtest = BacktestEngine()
+
 feedback = FeedbackSystem()
+
+# Remove unused initializations or integrate them if needed
+# cognitive & entity_graph are now actively used.
 
 print("All Systems Online ✅")
 
@@ -73,11 +80,15 @@ class ProfileUpdate(BaseModel):
 class AnalysisRequest(BaseModel):
     text: str
 
+class BatchAnalysisRequest(BaseModel):
+    texts: List[str]
+
 class TradeRequest(BaseModel):
     ticker: str
     sector: str
     capital_allocation_pct: float
     entry_price: float
+    story_id: str = None # Link to story
 
 class ClosePositionRequest(BaseModel):
     ticker: str
@@ -145,6 +156,101 @@ def update_profile(profile: ProfileUpdate):
     )
     return {"status": "updated", "profile": get_profile()}
 
+@app.post("/api/stories/{story_id}/archive")
+def archive_story(story_id: str):
+    """Archive a completed story"""
+    story = memory.knowledge_graph.get('stories', {}).get(story_id)
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    
+    story['status'] = 'ARCHIVED'
+    memory._save_graph()
+    return {"success": True, "message": "Story archived"}
+
+@app.get("/api/stories/archived")
+def get_archived_stories():
+    """Get list of archived stories"""
+    memory.knowledge_graph = memory._load_graph()
+    archived = [s for s in memory.knowledge_graph.get('stories', {}).values() if s.get('status') == 'ARCHIVED']
+    return {"stories": archived}
+
+@app.post("/api/stories/{story_id}/thesis")
+def update_thesis(story_id: str, thesis_update: dict):
+    """Manually update the thesis or conviction"""
+    story = memory.knowledge_graph.get('stories', {}).get(story_id)
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    
+    # Update thesis fields if provided
+    if 'conviction' in thesis_update:
+        if not story.get('cognitive_analysis'): story['cognitive_analysis'] = {}
+        story['cognitive_analysis']['conviction'] = thesis_update['conviction']
+    
+    if 'contrarian_angle' in thesis_update:
+        if not story.get('cognitive_analysis'): story['cognitive_analysis'] = {}
+        story['cognitive_analysis']['contrarian_angle'] = thesis_update['contrarian_angle']
+
+    memory._save_graph()
+    return {"success": True, "message": "Thesis updated", "story": story}
+
+@app.get("/api/stories/{story_id}/subreport")
+def get_story_subreport(story_id: str):
+    """Get the latest subreport for a story"""
+    story = memory.knowledge_graph.get('stories', {}).get(story_id)
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    
+    # Try to get subreport from latest event
+    if story.get('events'):
+        latest_event = story['events'][-1]
+        if latest_event.get('subreport'):
+            return {"story_id": story_id, "subreport": latest_event['subreport']}
+    
+    # Fallback: Generate one on the fly if missing (e.g. old events)
+    latest_event = story['events'][-1] if story.get('events') else {'title': story['main_topic'], 'sentiment': {}}
+    subreport = report_gen.generate_sub_report(
+        article=latest_event,
+        analysis_result={'analysis': {'sentiment': latest_event.get('sentiment', {}), 'matched_patterns': [], 'second_order_effects': []}, 'entities': {}},
+        story_context=story
+    )
+    return {"story_id": story_id, "subreport": subreport, "generated": "true"}
+
+
+
+@app.get("/api/stories/{story_id}/cognitive")
+def get_story_cognitive(story_id: str):
+    """Get cognitive analysis for a story"""
+    story = memory.knowledge_graph.get('stories', {}).get(story_id)
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    return story.get('cognitive_analysis', {}) or {}
+
+@app.get("/api/stories/{story_id}/opportunities")
+def get_story_opportunities(story_id: str):
+    """Get real-world opportunities for a story"""
+    story = memory.knowledge_graph.get('stories', {}).get(story_id)
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    cognitive = story.get('cognitive_analysis', {})
+    return {"opportunities": cognitive.get('real_world_opportunities', [])}
+
+@app.get("/api/stories/{story_id}/winners-losers")
+def get_story_winners_losers(story_id: str):
+    """Get winners and losers analysis for a story"""
+    story = memory.knowledge_graph.get('stories', {}).get(story_id)
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    cognitive = story.get('cognitive_analysis', {})
+    return {
+        "winners": cognitive.get('winners', []),
+        "losers": cognitive.get('losers', [])
+    }
+
+@app.get("/api/entities/graph")
+def get_entity_graph_data():
+    """Get full entity graph data"""
+    return entity_graph.entities
+
 @app.get("/api/decision-logic")
 def get_decision_logic():
     return {
@@ -157,28 +263,93 @@ def get_decision_logic():
 @app.post("/api/analyze")
 def analyze_headline(request: AnalysisRequest):
     headline = request.text
+    # define article object
+    article = {'title': headline, 'content': headline}
+    
     entities = extractor.extract_entities(headline)
     
     if not entities:
-        raise HTTPException(status_code=400, detail="No entities found")
+        # Fallback if no entities found, still try to analyze
+        entities = {'ORG': [], 'GPE': [], 'PRODUCT': []}
 
-    sentiment = analyzer.analyze_sentiment(headline)
-    memory.update_memory(headline, entities, sentiment)
+    # 1. Basic Analysis (Brain 3)
+    analysis_result = analyzer.analyze_news(article, entities)
+    
+    # 2. Cognitive Analysis (Brain 2 - NEW)
+    cognitive_insight = cognitive.reason_about_news(article, entities, analysis_result)
+    
+    # 3. Store in Memory
+    # First, get the story context to see if it exists (for subreport generation)
+    topic_id = memory.find_related_story(entities)
+    story_context = memory.knowledge_graph['stories'].get(topic_id) if topic_id else None
+
+    # Generate Sub-Report (Brain 3 Synthesis)
+    subreport = report_gen.generate_sub_report(article, analysis_result, story_context)
+
+    # Update Story with new event and subreport
+    story = memory.update_story(article, analysis_result, entities, cognitive_analysis=cognitive_insight, subreport=subreport)
+
+    # 4. Update Entity Graph
+    for entity_type, entity_list in entities.items():
+        for entity_name in entity_list:
+            entity_graph.add_entity(entity_name, entity_type)
+
+    # 5. Generate Strategic Advice via DecisionEngine
+    advice = decision_engine.generate_advice(current_user, subreport, story)
 
     return {
         "headline": headline,
         "entities": entities,
-        "sentiment": sentiment,
-        "message": "Analysis complete"
+        "sentiment": analysis_result['analysis']['sentiment'],
+        "cognitive_analysis": cognitive_insight,
+        "story_id": story.get('id'),
+        "advice": advice,
+        "subreport": subreport,
+        "story_context": {
+            "topic": story.get('main_topic', 'Unknown'),
+            "maturity": story.get('maturity', 'DEVELOPING'),
+            "updates": story.get('updates_count', 1)
+        },
+        "user_profile": current_user.get_risk_profile_description(),
+        "message": "Analysis complete with Cognitive Layer & Strategic Synthesis"
+    }
+
+@app.post("/api/analyze/batch")
+def batch_analyze(request: BatchAnalysisRequest):
+    """Analyze multiple headlines in batch"""
+    results = []
+    for text in request.texts:
+        try:
+            # Re-use existing analysis logic
+            # Validating text length to avoid empty inputs
+            if not text or len(text.strip()) < 5:
+                continue
+                
+            logging.info(f"Batch processing: {text[:30]}...")
+            result = analyze_headline(AnalysisRequest(text=text))
+            results.append(result)
+        except Exception as e:
+            logging.error(f"Error processing batch item '{text[:20]}...': {e}")
+            results.append({"error": str(e), "input": text, "status": "failed"})
+            
+    return {
+        "status": "completed",
+        "processed": len(results),
+        "results": results
     }
 
 @app.post("/api/refresh")
-@app.post("/api/refresh-news")
 def refresh_news():
     articles = scraper.fetch_articles()
     new_stories = []
     
     for article in articles:
+        # Deduplication Check
+        is_dup = dedup.is_duplicate(article)
+        if is_dup['is_duplicate']:
+            logging.info(f"Skipping duplicate: {article['title']} ({is_dup['reason']})")
+            continue
+            
         full_content = content_fetcher.fetch_content(article['url'])
         if full_content:
             article['content'] = full_content
@@ -187,8 +358,26 @@ def refresh_news():
         
         entities = extractor.extract_entities(article.get('content', article['title']))
         analysis_result = analyzer.analyze_news(article, entities)
-        story = memory.update_story(article, analysis_result, entities)
+        
+        # Cognitive Layer
+        cognitive_insight = cognitive.reason_about_news(article, entities, analysis_result)
+        
+        # Sub-Report Generation
+        topic_id = memory.find_related_story(entities)
+        story_context = memory.knowledge_graph['stories'].get(topic_id) if topic_id else None
+        subreport = report_gen.generate_sub_report(article, analysis_result, story_context)
+        
+        # Update Story
+        story = memory.update_story(article, analysis_result, entities, cognitive_analysis=cognitive_insight, subreport=subreport)
         new_stories.append(story['main_topic'])
+        
+        # Update Entity Graph
+        for entity_type, entity_list in entities.items():
+            for entity_name in entity_list:
+                entity_graph.add_entity(entity_name, entity_type)
+
+        # Mark as processed in Dedup Engine
+        dedup.mark_processed(article)
 
     return {
         "status": "refreshed",
@@ -199,13 +388,11 @@ def refresh_news():
     }
 
 @app.post("/api/reset")
-@app.post("/api/reset-memory")
 def reset_memory():
     memory.reset()
     return {"status": "reset", "success": True, "message": "Memory reset"}
 
 @app.get("/api/status")
-@app.get("/api/system/status")
 def get_status():
     return {
         "status": "online",
@@ -242,7 +429,7 @@ def execute_trade(request: TradeRequest):
         if not validation['approved']:
             raise HTTPException(status_code=400, detail=validation['reason'])
         
-        portfolio.execute_trade(recommendation, request.entry_price)
+        portfolio.execute_trade(recommendation, request.entry_price, request.story_id)
         return {"success": True, "message": "Trade executed", "warnings": validation.get('warnings', [])}
     
     except Exception as e:

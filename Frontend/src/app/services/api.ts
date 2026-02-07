@@ -136,6 +136,7 @@ export interface BackendStory {
     previous_hypothesis: BackendHypothesis | null
     events: BackendEvent[]
     subreport?: string
+    cognitive_analysis?: any
 }
 
 export interface StoriesResponse {
@@ -174,7 +175,7 @@ export interface ProfileUpdateResponse {
 
 export interface AnalysisResponse {
     analysis: any
-    entities: string[]
+    entities: Record<string, string[]> // Changed from string[] to match backend dict
     story_context: {
         topic: string
         maturity: string
@@ -182,6 +183,7 @@ export interface AnalysisResponse {
     }
     advice: string
     user_profile: string
+    cognitive_analysis?: any // New field
 }
 
 export interface DecisionLogicResponse {

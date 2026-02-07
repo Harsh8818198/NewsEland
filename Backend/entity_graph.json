@@ -1,0 +1,7127 @@
+{
+  "AI": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 30,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Cerebras Systems": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Benchmark Capital": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Cerebras": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 3,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "GPU": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "OpenAI": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 14,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "TechCrunch": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 29,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "TechCrunch Founder Summit 2026": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 18,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "G42": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Committee on Foreign Investment": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "IPO": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 3,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Reuters": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Nvidia": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sunnyvale": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Calif.": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Boston": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 18,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "MA": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 18,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "UAE": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the United States": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 7,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Tiger Global": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Benchmark": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sam Altman": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 6,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Billionaire\u2019s Tax": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The San Francisco Examiner": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Examiner": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Service Employees International Union": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kaufmann": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "California": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "San Francisco": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "RunRL": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "US": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sweden": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Derik Kaufmann": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "TC": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Gavin Newsom": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Lucid Motors": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ford": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "EV": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Faraday Future": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Department of Justice\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Google": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 4,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Justice Department\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "DOJ": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "AGC Capital": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the University of London": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "China Millennium Capital": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Millennium Capital Partners": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Siemens": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Joint Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "State": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Deutsche Bank": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Lucid": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Saudi Arabia\u2019s": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Canoo": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "china": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Florida": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "China": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Shanghai": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Epstein": {
+    "type": "PRODUCT",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Jia Yueting": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "David Stern": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Prince Andrew": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Jeffrey Epstein": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Jia": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Stern": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "John Stillwell": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Prince Andrew\u2019s": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Andrew": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Li Bota": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Svedka": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The Wall Street Journal": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Coca-Cola": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Claude": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 10,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "OpenAI\u2019s Sam Altman": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Instagram": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 3,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Search Party": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Svedka Vodka": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Brobot": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Oakley": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "new Alexa+": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "U.S.": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 8,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Fembot": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sazerac": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Silverside": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Silverside AI": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kendrick": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Drake": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Meta Meta": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Spike Lee": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Chris Pratt": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Chris Hemsworth": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kris Jenner": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ray-Ban Meta": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Amazon Amazon\u2019s": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Hemsworth": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Alexa+": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ring Ring\u2019s": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Altman": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 3,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Meta": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 3,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Discord": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Stanford": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Reddit": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "monthslong": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "n\u2019t": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Nick Haber": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Haber": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Mercor": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Anthropic\u2019s Opus": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The APEX-Agents Leaderboard": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Anthropic": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Brendan Foody": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Amazon": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kindle Paperwhite": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Amazon Announced": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Fig": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kindles": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "iPad": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Home": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "LCD": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Microsoft OneDrive": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "PDF": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "DOC": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "TXT": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "RTF": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "HTM": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "HTML": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "PNG": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "GIF": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "BMP": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Microsoft OneNote": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Apple Pencil": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Kindle\u2019s Premium Pen": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kindle": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kindle Scribe Colorsoft": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kindle Scribe": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Colorsoft": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Scribe Colorsoft": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The Scribe Colorsoft": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sudoku": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Library": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Central Intelligence Agency": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Senate Intelligence Committee": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "CIA": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Wall Street Journal\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Senate": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Congress": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the National Security Agency": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Justice Department": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Apple": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Wyden": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Verizon": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "CISA": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ron Wyden": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Edward Snowden": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Techdirt\u2019s": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Mike Masnick": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "HBO": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "CFO": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Tender\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "DEI": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Moritz": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Whitney": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Yasmin": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 3,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ghana": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "UK": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Harper Stern": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Harper": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Henry": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Tender": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Hayley": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ghislaine Maxwell": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Apple CarPlay": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "CarPlay": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "iPhone": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Apple Music": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "CarPlay Ultra": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Google\u2019s Gemini": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Bloomberg": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 3,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Siri": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Anthropic\u2019s Claude": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "WordPress": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "CMS": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "WP": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "MCP": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Eion": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "EWR": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Terradot\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Terradot": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Gigascale Capital": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Microsoft": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "AgFunder": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Overture": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Brazil": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Anastasia Pavlovic Hans": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kleiner Perkins": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Mercator Partners": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Q&A": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Vollero": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "adtech players": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Memorable AI": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "MeaningCloud": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Andrew Vollero": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Spiketrap": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Oterlu": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "API": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 3,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "PowerPoint": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "White": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Scott White": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Golden Encounters": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "@sama": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "ChatGPT": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The Department of Homeland Security": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Homeland Security": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Trump": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "@montocowatch": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The American Civil Liberties Union": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "ACLU": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The Washington Post": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Montgomery County": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Pennsylvania": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Francis Brennan": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Joseph Dernbach": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "FTX": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "G\u00fcven": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the International Air Transport Association": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The U.S. Department of Justice": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "New York": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "VC": {
+    "type": "PRODUCT",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 4,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Forbes": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sam Bankman-Fried": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Frank": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Charlie Javice": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Joanna Smith-Griffin": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Martin Shkreli": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "G\u00f6k\u00e7e G\u00fcven": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kalder": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "visa fraud": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Godiva": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kalder\u2019s": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Breakthrough Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Scott": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Mayfield": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Collide Capital": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "UC Berkeley": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Free Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "MIT": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sandbox Innovation Fund": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "LaunchPad": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Cardinal Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Stanford\u2019s Treehacks": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Nvidia Inception": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Roman Scott": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Itbaan Nafi": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Breakthrough": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Nafi": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Raihan Ahmed": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "SolarWinds": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Departments of Commerce, Energy": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Justice": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Beaumont": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Don Ho": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ho": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Lotus Blossom": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kevin Beaumont": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "EU Inc": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Aikido Security": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "DST Global": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "PSG Equity, Singular": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Notion Capital": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Vilnius": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Pacific Alliance Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Shinsegae Group": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Cast AI": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "OMNI Compute for AI": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Dassault Aviation": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Osapiens German ESG": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Osapiens raised": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Decarbonization Partners": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Belgium": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ukraine": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Delaware": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Stockholm": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Aikido": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Palo Alto": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Tel Aviv": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Lithuania": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Harmattan": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Harmattan AI": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Skyeton": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "BlackRock": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Temasek": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Mannheim": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Osapiens": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Preply": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ukrainian": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Rafale": {
+    "type": "PRODUCT",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Take Lovable": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Lovable": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Cast AI\u2019s": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kirill Bigai": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sam Altman Co-Founder &": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Daniel Acheampong": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Visible Hands": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Roelof Botha Managing Partner": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Steward Sequoia Capital": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "GE": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Equity on YouTube": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 7,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Apple Podcasts": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 8,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Overcast": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 8,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Spotify": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 11,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Elon Musk": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "SpaceX": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 4,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Alphabet": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Intel": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Tesla": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "ElevenLabs": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 4,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "AI Positron\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Subscribe": {
+    "type": "PRODUCT",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Big New Thing": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "ARR": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Li": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 3,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Cursor": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Andreessen Horowitz": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Jennifer Li\u2060": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Fundamental": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Nexus": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Valor Equity Partners": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Battery Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Salesforce Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Hetz Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Perplexity": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Datadog": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "LTM": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Fundamental\u2019s Nexus": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "AWS": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Oak HC/FT": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Jeremy Fraenkel": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Aravind Srinivas": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Brex": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Henrique Dubugras": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Olivier Pomel": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Black Forrest Labs": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ideogram": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Venture": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Startups": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Jennifer": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Julie Bort": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "AV": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Uber\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Waabi": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Raquel Urtasun": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kirsten Korosec": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sean O\u2019Kane": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Anthony Ha": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Rebecca Bellan": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Rainmaker Securities": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Databricks": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Stripe": {
+    "type": "PRODUCT",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Greg Martin": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The World Economic Forum\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Meta and Salesforce": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Davos": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Gl\u012bd": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kevin Damoa": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Torch": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "MergeLabs": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ballistic Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Witness AI": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Barmak Meftah": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Rick Caccia": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Boston Dynamic\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Las Vegas": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "COO": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "GTMfund": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Irving": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "GTM": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Morgan Little": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Foundry": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Cheddar": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Isabelle Johannessen": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Paul Irving": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Paul": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Mode": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Maggie Nye": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Audience Development": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the Norwegian Police Security Service": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Norway": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Canada": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Salt Typhoon": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "La Sapienza": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sapienza": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Signal": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Telegram": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "BabLock": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "ShinyHunters": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Harvard University": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "University of Pennsylvania": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Rome": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Italy": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Agenzia": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Il Corriere": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Lorenzo Franceschi-Bicchierai": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Keybase": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Rorschach": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Conduent\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Social Security": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Safeway": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "SEC": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Texas": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Oregon": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Massachusetts": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "New Hampshire": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Conduent": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sean Collins": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Collins": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Zack Whittaker": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Substack": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "BOND": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The Chernin Group": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Klutch Sports Group": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Chris Best": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Rich Paul": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Jens Grede": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sapiom": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Twilio for SMS": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Accel": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Sapiom\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Okta Ventures, Gradient Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Menlo Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Coinbase Ventures": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Twilio": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Twilio\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Shopify": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ilan Zerbib": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Zerbib": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kumar": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Array Ventures": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Bolt": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Clay": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Linear": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "NewView Capital": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Saints Capital": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Hopin": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Johnny Boufarhat": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Nick Bunick": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kareem Amin": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ken Sawyer": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Wired": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "eBay": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Jacobs": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Kentucky": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Louisiana": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Roblox": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Persona": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Eliza Jacobs": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "David Baszucki": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Baszucki": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "The European Commission": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "TikTok": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the European Union\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Digital Services Act": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Commission": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "EU": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Scientific": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the European Commission": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "the European Commission\u2019s": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "DSA": {
+    "type": "ORG",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Australia": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "U.K.": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 2,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Spain": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "France": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Denmark": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Ireland": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "New Zealand": {
+    "type": "GPE",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  },
+  "Developer Mode": {
+    "type": "PERSON",
+    "relationships": {
+      "PARTNERS_WITH": [],
+      "COMPETES_WITH": [],
+      "SUPPLIES_TO": [],
+      "DEPENDS_ON": [],
+      "OWNS": [],
+      "INVESTED_IN": []
+    },
+    "sentiment_history": [],
+    "mention_count": 1,
+    "first_seen": "",
+    "last_seen": ""
+  }
+}

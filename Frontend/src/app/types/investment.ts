@@ -25,6 +25,47 @@ export interface StoryEvent {
   pattern: string;
 }
 
+export interface RealWorldOpportunity {
+  type: string;
+  item: string;
+  action: string;
+  timing: string;
+  investment: string;
+  expected_savings: string;
+  reasoning: string;
+}
+
+export interface MarketEntity {
+  entity: string;
+  reason: string;
+  expected_impact: string;
+}
+
+export interface NextMove {
+  move: string;
+  timeframe: string;
+  probability: number;
+}
+
+export interface CognitiveAnalysis {
+  so_what: string;
+  winners: MarketEntity[];
+  losers: MarketEntity[];
+  unsaid: string;
+  next_moves: NextMove[];
+  conviction: number;
+  contrarian_angle: string;
+  real_world_opportunities: RealWorldOpportunity[];
+}
+
+export interface MaturityAssessment {
+  score: number;
+  maturity_level: Maturity;
+  confidence: number;
+  evidence_count: number;
+  missing_factors: string[];
+}
+
 export interface Story {
   id: string;
   title: string;
@@ -43,6 +84,8 @@ export interface Story {
   subreport?: string; // Gemini-generated strategic intelligence report
   currentHypothesis: Hypothesis | null;
   previousHypothesis: Hypothesis | null;
+  cognitive_analysis?: CognitiveAnalysis; // NEW: Brain 2 Data
+  maturityAssessment?: MaturityAssessment; // NEW: Detailed Maturity Data
   events: StoryEvent[];
   createdAt: string;
 }
@@ -72,6 +115,7 @@ export interface AnalysisResult {
   sentimentScore: number;
   storyContext: string | null;
   personalizedAdvice: string;
+  cognitive_analysis?: CognitiveAnalysis;
 }
 
 export interface UserProfile {

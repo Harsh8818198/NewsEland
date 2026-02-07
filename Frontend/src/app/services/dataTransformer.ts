@@ -127,7 +127,7 @@ export class ApiDataTransformer implements DataTransformer {
         } else if (events.length > 0) {
             summary = events[events.length - 1].title;
         }
-        
+
         // Extract topic - try to get from pattern first, otherwise use main_topic
         let topic = backendStory.main_topic || 'Unknown Topic';
         if (events.length > 0 && events[0]?.pattern) {
@@ -185,11 +185,19 @@ export class ApiDataTransformer implements DataTransformer {
             sentimentHistory,
             updates: uniqueUpdates,
             relatedEntities: backendStory.entities || [],
-            subreport: backendStory.subreport || undefined,
+            subreport: backendStory.subreport || (events.length > 0 ? events[events.length - 1].subreport : undefined),
             currentHypothesis: transformHypothesis(backendStory.current_hypothesis),
             previousHypothesis: transformHypothesis(backendStory.previous_hypothesis),
             events: transformedEvents,
             createdAt: backendStory.created_at,
+            cognitive_analysis: backendStory.cognitive_analysis,
+            maturityAssessment: backendStory.maturity_assessment ? {
+                score: backendStory.maturity_assessment.score || 0,
+                maturity_level: (backendStory.maturity_assessment.maturity_level === 'MATURE' || backendStory.maturity_assessment.maturity_level === 'ACTIONABLE') ? 'Mature' : 'Developing',
+                confidence: backendStory.maturity_assessment.confidence || 0,
+                evidence_count: backendStory.maturity_assessment.evidence_count || 0,
+                missing_factors: backendStory.maturity_assessment.missing_factors || []
+            } : undefined,
         };
     }
 
@@ -262,15 +270,34 @@ export class ApiDataTransformer implements DataTransformer {
             }
         }
 
+        // Flatten entities object to array of strings
+        let entitiesList: string[] = [];
+        if (backendAnalysis.entities) {
+            if (Array.isArray(backendAnalysis.entities)) {
+                entitiesList = backendAnalysis.entities;
+            } else if (typeof backendAnalysis.entities === 'object') {
+                // Flatten the dictionary values: {'ORG': ['Google'], 'GPE': ['US']} -> ['Google', 'US']
+                Object.values(backendAnalysis.entities).forEach((entityGroup: any) => {
+                    if (Array.isArray(entityGroup)) {
+                        entitiesList = [...entitiesList, ...entityGroup];
+                    }
+                });
+            }
+        }
+
+        // Remove duplicates
+        entitiesList = Array.from(new Set(entitiesList));
+
         return {
             id: `analysis-${Date.now()}`,
             timestamp: new Date().toISOString(),
             inputText: backendAnalysis.analysis?.text || '',
-            entities: backendAnalysis.entities || [],
+            entities: entitiesList,
             sentiment,
             sentimentScore: backendAnalysis.analysis?.sentiment_score || 0,
             storyContext: backendAnalysis.story_context?.topic || null,
             personalizedAdvice: backendAnalysis.advice || '',
+            cognitive_analysis: backendAnalysis.cognitive_analysis,
         }
     }
 }

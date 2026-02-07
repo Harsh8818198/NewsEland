@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sparkles, Tag, TrendingUp, AlertCircle, Lightbulb, Clock, FileText } from 'lucide-react';
+import { Sparkles, Tag, TrendingUp, AlertCircle, Clock, FileText, ChevronUp, ChevronDown } from 'lucide-react';
 import { SentimentBadge } from '../Badge';
 import { AnalysisResult } from '../../../types/investment'
 import { useApiContext } from '../../../services/apiContext'
@@ -8,13 +8,13 @@ import { ErrorMessage } from '../../ErrorBoundary'
 // Simple markdown-like text formatter
 function formatMarkdown(text: string) {
   if (!text) return null;
-  
+
   const lines = text.split('\n');
-  const elements: JSX.Element[] = [];
-  
+  const elements: React.JSX.Element[] = [];
+
   lines.forEach((line, index) => {
     const trimmed = line.trim();
-    
+
     // Headers
     if (trimmed.startsWith('###')) {
       elements.push(
@@ -40,7 +40,7 @@ function formatMarkdown(text: string) {
       const parts = trimmed.split('**');
       elements.push(
         <p key={index} className="text-[14px] text-[var(--fintech-text-secondary)] leading-relaxed mb-2">
-          {parts.map((part, i) => 
+          {parts.map((part, i) =>
             i % 2 === 1 ? <strong key={i} className="font-semibold text-[var(--fintech-text-primary)]">{part}</strong> : part
           )}
         </p>
@@ -67,7 +67,7 @@ function formatMarkdown(text: string) {
       );
     }
   });
-  
+
   return <div>{elements}</div>;
 }
 
@@ -191,6 +191,123 @@ export function AnalyzerPage() {
                 </div>
               </div>
             </div>
+
+            {/* Profit Logic Section (NEW) */}
+            {displayAnalysis.cognitive_analysis && (
+              <div className="col-span-2 bg-[#faf9f6] border border-[#e5e3df] rounded-lg overflow-hidden">
+                <div className="bg-[#1a1a1a] px-6 py-4 flex justify-between items-center">
+                  <h3 className="text-white font-bold tracking-wider uppercase text-sm flex items-center gap-2">
+                    <span className="text-[#d4af37]">✦</span> Profit Logic
+                  </h3>
+                  <span className="px-2 py-1 bg-white/10 text-white/80 text-xs rounded border border-white/20">
+                    Conviction: {displayAnalysis.cognitive_analysis.conviction}/10
+                  </span>
+                </div>
+
+                <div className="p-6">
+                  {/* So What? */}
+                  <div className="mb-6">
+                    <h4 className="text-sm font-bold uppercase tracking-widest text-[#999] mb-2">The Bottom Line</h4>
+                    <p className="text-[16px] font-serif leading-relaxed text-[#1a1a1a]">
+                      {displayAnalysis.cognitive_analysis.so_what}
+                    </p>
+                  </div>
+
+                  {/* Winners & Losers Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    {/* Winners */}
+                    <div>
+                      <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-emerald-700 mb-3 border-b border-emerald-100 pb-2">
+                        <ChevronUp className="w-4 h-4" /> Winners
+                      </h4>
+                      <div className="space-y-3">
+                        {displayAnalysis.cognitive_analysis.winners.map((winner: any, idx: number) => (
+                          <div key={idx} className="bg-white p-3 rounded border border-[#e5e3df] shadow-sm">
+                            <div className="flex justify-between items-start mb-1">
+                              <span className="font-bold text-[#1a1a1a] text-sm">{winner.entity}</span>
+                              <span className="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                                {winner.expected_impact}
+                              </span>
+                            </div>
+                            <p className="text-xs text-[#666] leading-snug">{winner.reason}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Losers */}
+                    <div>
+                      <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-rose-700 mb-3 border-b border-rose-100 pb-2">
+                        <ChevronDown className="w-4 h-4" /> Losers
+                      </h4>
+                      <div className="space-y-3">
+                        {displayAnalysis.cognitive_analysis.losers.map((loser: any, idx: number) => (
+                          <div key={idx} className="bg-white p-3 rounded border border-[#e5e3df] shadow-sm">
+                            <div className="flex justify-between items-start mb-1">
+                              <span className="font-bold text-[#1a1a1a] text-sm">{loser.entity}</span>
+                              <span className="text-[11px] font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded">
+                                {loser.expected_impact}
+                              </span>
+                            </div>
+                            <p className="text-xs text-[#666] leading-snug">{loser.reason}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Real World Opportunities */}
+                  {displayAnalysis.cognitive_analysis.real_world_opportunities?.length > 0 && (
+                    <div className="mt-6 pt-6 border-t border-[#e5e3df]">
+                      <h4 className="text-sm font-bold uppercase tracking-widest text-[#1a1a1a] mb-4 flex items-center gap-2">
+                        🌍 Real-World Actions
+                      </h4>
+                      <div className="grid grid-cols-1 gap-3">
+                        {displayAnalysis.cognitive_analysis.real_world_opportunities.map((opp: any, idx: number) => (
+                          <div key={idx} className="flex gap-3 p-3 bg-amber-50/50 border border-amber-100 rounded-lg">
+                            <div className="flex-shrink-0 mt-1">
+                              <div className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-bold text-[10px]">
+                                {idx + 1}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="flex flex-wrap gap-2 items-center mb-1">
+                                <span className="font-bold text-[#1a1a1a] text-sm">{opp.action}</span>
+                                <span className="text-[10px] font-bold uppercase bg-white border border-amber-200 text-amber-800 px-1.5 py-0.5 rounded">
+                                  {opp.type.replace('_', ' ')}
+                                </span>
+                                {opp.timing.includes('URGENT') && (
+                                  <span className="text-[10px] font-bold uppercase bg-red-100 text-red-700 px-1.5 py-0.5 rounded animate-pulse">
+                                    Urgent
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-xs text-[#555] mb-1">{opp.reasoning}</p>
+                              <div className="flex gap-3 text-[11px] text-[#777] font-sans">
+                                <span>Inv: <strong>{opp.investment}</strong></span>
+                                <span>Gain: <strong>{opp.expected_savings}</strong></span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Contrarian Angle */}
+                  {displayAnalysis.cognitive_analysis.contrarian_angle && (
+                    <div className="mt-6 pt-6 border-t border-[#e5e3df]">
+                      <h4 className="text-sm font-bold uppercase tracking-widest text-[#1a1a1a] mb-2">
+                        The Contrarian View
+                      </h4>
+                      <p className="text-sm font-serif italic text-[#555] bg-white p-3 border border-[#e5e3df] rounded">
+                        "{displayAnalysis.cognitive_analysis.contrarian_angle}"
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Story Context */}
             <div className="bg-[var(--fintech-card)] border border-[var(--fintech-border)] rounded-lg p-6 shadow-sm col-span-2">
