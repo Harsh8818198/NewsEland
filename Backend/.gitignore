@@ -7,3 +7,5 @@ test_*.py
 main.py
 interactive_session.py
 *.log
+dedup_cache.json
+entity_cache.json
