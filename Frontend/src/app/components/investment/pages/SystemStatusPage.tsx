@@ -14,36 +14,42 @@ import {
 } from 'lucide-react';
 
 export function SystemStatusPage() {
+  const { systemStatus, actions } = useApiContext();
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
   const [resetMessage, setResetMessage] = useState<string | null>(null);
-  const api = useApiContext();
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     setIsRefreshing(true);
-    setTimeout(() => setIsRefreshing(false), 2000);
-  };
-
-  const handleResetMemory = () => {
-    // noop here; actual reset occurs in confirmed handler
-    setShowResetConfirm(true);
+    try {
+      if (actions?.refreshNews) await actions.refreshNews();
+      if (actions?.fetchSystemStatus) await actions.fetchSystemStatus();
+    } catch (error) {
+      console.error('Failed to refresh news:', error);
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   const handleConfirmReset = async () => {
     setIsResetting(true);
     setResetMessage(null);
     try {
-      await api.actions.resetMemory()
-      setResetMessage('Memory reset successfully.')
+      if (actions?.resetMemory) await actions.resetMemory();
+      if (actions?.fetchSystemStatus) await actions.fetchSystemStatus();
+      setResetMessage('Memory reset successfully.');
     } catch (err) {
-      setResetMessage('Failed to reset memory. See console for details.')
-      console.error('Reset memory error', err)
+      console.error('Reset memory error', err);
+      setResetMessage('Failed to reset memory. See console for details.');
     } finally {
-      setIsResetting(false)
-      setShowResetConfirm(false)
+      setIsResetting(false);
+      setShowResetConfirm(false);
     }
-  }
+  };
+
+  // prefer real system status, fall back to mock for local dev
+  const health = systemStatus?.data ?? mockSystemHealth;
 
   const modules = [
     {
@@ -51,10 +57,10 @@ export function SystemStatusPage() {
       name: 'Ingestion Module',
       icon: Database,
       description: 'Collects and processes financial news from multiple sources',
-      status: mockSystemHealth.ingestion.status,
-      lastUpdate: mockSystemHealth.ingestion.lastUpdate,
+      status: health.ingestion.status,
+      lastUpdate: health.ingestion.lastUpdate,
       metrics: [
-        { label: 'Articles Processed', value: mockSystemHealth.ingestion.articlesProcessed },
+        { label: 'Articles Processed', value: health.ingestion.articlesProcessed },
         { label: 'Sources Active', value: 12 },
         { label: 'Average Latency', value: '2.3s' },
       ],
@@ -64,10 +70,10 @@ export function SystemStatusPage() {
       name: 'Analysis Module',
       icon: Zap,
       description: 'Extracts entities, evaluates sentiment, and generates insights',
-      status: mockSystemHealth.analysis.status,
-      lastUpdate: mockSystemHealth.analysis.lastUpdate,
+      status: health.analysis.status,
+      lastUpdate: health.analysis.lastUpdate,
       metrics: [
-        { label: 'Analyses Completed', value: mockSystemHealth.analysis.analysisCount },
+        { label: 'Analyses Completed', value: health.analysis.analysisCount },
         { label: 'Average Processing Time', value: '1.8s' },
         { label: 'Accuracy Score', value: '94.2%' },
       ],
@@ -77,10 +83,10 @@ export function SystemStatusPage() {
       name: 'Memory Module',
       icon: Layers,
       description: 'Tracks stories over time and maintains historical context',
-      status: mockSystemHealth.memory.status,
-      lastUpdate: mockSystemHealth.memory.lastUpdate,
+      status: health.memory.status,
+      lastUpdate: health.memory.lastUpdate,
       metrics: [
-        { label: 'Stories Tracked', value: mockSystemHealth.memory.storiesTracked },
+        { label: 'Stories Tracked', value: health.memory.storiesTracked },
         { label: 'Total Updates', value: 327 },
         { label: 'Average Story Age', value: '14 days' },
       ],

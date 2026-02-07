@@ -34,7 +34,11 @@ class DecisionEngine:
         else:
             narrative_arc = "STORY EVOLUTION: This is a Breaking Story (First Event)."
 
-        # 2. Deep Persona Prompt
+        # 2. Extract Maturity Intelligence (NEW)
+        maturity_data = story.get('maturity_assessment', {}) if story else {}
+        investment_rec = maturity_data.get('investment_recommendation', {})
+        
+        # 3. Deep Persona Prompt (Enhanced with Maturity Data)
         prompt = f"""
         ACT AS AN ELITE FINANCIAL ADVISOR.
         
@@ -53,25 +57,39 @@ class DecisionEngine:
         LATEST INTELLIGENCE:
         {report}
         
+        MATURITY INTELLIGENCE (AI Market Cycle Analysis):
+        - Market Cycle Phase: {maturity_data.get('market_cycle_phase', 'Unknown')}
+        - Confidence Score: {maturity_data.get('confidence_score', 0):.0%}
+        - Data Sufficiency: {maturity_data.get('data_sufficiency', 'Unknown')}
+        - Recommended Allocation: {investment_rec.get('capital_allocation_pct', 0):.1f}% of capital
+        - Optimal Timing: {investment_rec.get('optimal_timing', 'Unknown')}
+        - Exit Strategy: {investment_rec.get('exit_strategy', 'TBD')}
+        - AI Reasoning: {investment_rec.get('reasoning', 'N/A')}
+        
         YOUR TASK:
         Synthesize a deep, strategic move. Do NOT be generic.
         1. Compare the LATEST news with the PAST evolution. Has the thesis changed?
         2. Apply your "{user.risk_tolerance}" personality. (e.g., If Contrarian, look for panic to buy. If Conservative, avoid volatility).
-        3. Give a specific instruction.
+        3. Use the MATURITY INTELLIGENCE to determine if this is the right time to act.
+        4. Give a SPECIFIC instruction with EXACT dollar amounts.
         
         OUTPUT FORMAT (Markdown):
         
         🧭 **STRATEGIC MEMO ({user.risk_tolerance})**
         
         🧠 **COGNITIVE SYNTHESIS**:
-        (Explain your reasoning. Connect the dots between past events and this new update. specific "Why".)
+        (Explain your reasoning. Connect the dots between past events and this new update. Reference the market cycle phase.)
         
         ⚖️ **THESIS CHECK**:
         [VALIDATED | BROKEN | SHIFTING | NEW]
         
         👉 **DIRECTIVE**:
-        (One sentence, definitive action. e.g., "Allocate 5% capital immediately," or "Liquidate position," or "Sit on hands.")
+        Be SPECIFIC. Include:
+        - Exact dollar amount (e.g., "Allocate $8,500 (8.5% of capital)")
+        - Entry timing (e.g., "Enter within 24 hours" or "Wait for 10% dip")
+        - Exit strategy (e.g., "Take profit at +25%" or "Hold for 6 months")
         """
         
         response = self.subreport_gen.model.generate_content(prompt)
         return response.text
+
