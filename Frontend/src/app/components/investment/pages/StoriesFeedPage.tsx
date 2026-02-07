@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { StoryCard } from '../StoryCard';
-import { Sentiment, Maturity } from '../../../types/investment'
-import { Filter } from 'lucide-react'
 import { useApiContext } from '../../../services/apiContext'
 import { ErrorMessage, LoadingSkeleton } from '../../ErrorBoundary'
 
@@ -13,32 +11,30 @@ export function StoriesFeedPage({ onStoryClick }: StoriesFeedPageProps) {
   const apiContext = useApiContext();
   const { stories } = apiContext;
   const [topicFilter, setTopicFilter] = useState<string>('all');
-  const [maturityFilter, setMaturityFilter] = useState<Maturity | 'all'>('all');
-  const [sentimentFilter, setSentimentFilter] = useState<Sentiment | 'all'>('all');
 
   const topics = Array.from(new Set(stories.data.map((s) => s.topic)));
 
   const filteredStories = stories.data.filter((story) => {
     if (topicFilter !== 'all' && story.topic !== topicFilter) return false;
-    if (maturityFilter !== 'all' && story.maturity !== maturityFilter) return false;
-    if (sentimentFilter !== 'all' && story.sentiment !== sentimentFilter) return false;
     return true;
   });
 
   return (
-    <div className="space-y-8">
-      {/* Header - Professional Paper Style */}
-      <div className="relative">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-1 h-12 bg-gradient-to-b from-[#d4af37] to-[#b8941f] rounded-full"></div>
-          <div>
-            <h1 className="text-4xl font-serif text-[#2c3e50] font-light tracking-tight mb-2">
-              Stories Feed
-            </h1>
-            <p className="text-base text-[#6b7280] font-serif">
-              Tracking {stories.data.length} market stories and developments
-            </p>
-          </div>
+    <div className="max-w-5xl mx-auto space-y-12 pb-12">
+      {/* Header - News Branding */}
+      <div className="border-b-4 border-[#1a1a1a] pb-6 flex items-end justify-between">
+        <div>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-[#1a1a1a] tracking-tight">
+            Global Wire
+          </h1>
+          <p className="text-lg text-[#6b7280] font-serif mt-2 italic">
+            Live market intelligence and analysis
+          </p>
+        </div>
+        <div className="hidden md:block text-right">
+          <p className="text-sm font-serif text-[#9ca3af]">
+            {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
         </div>
       </div>
 
@@ -50,71 +46,68 @@ export function StoriesFeedPage({ onStoryClick }: StoriesFeedPageProps) {
         />
       )}
 
-      {/* Filter Bar - Elegant Design */}
-      <div className="bg-gradient-to-br from-white/80 to-[#faf9f6] backdrop-blur-sm border-2 border-[#e5e3df] rounded-xl p-5 shadow-lg">
-        <div className="flex items-center gap-4 flex-wrap">
-          <div className="flex items-center gap-2 text-sm text-[#6b7280] font-serif uppercase tracking-wider">
-            <Filter className="w-4 h-4 text-[#d4af37]" />
-            <span>Filters:</span>
-          </div>
-
-          {/* Topic Filter */}
-          <select
-            value={topicFilter}
-            onChange={(e) => setTopicFilter(e.target.value)}
-            className="px-4 py-2.5 bg-white border-2 border-[#e5e3df] rounded-lg text-sm text-[#2c3e50] font-serif focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all shadow-sm hover:shadow-md"
+      {/* Simple Category Filter */}
+      <div className="flex overflow-x-auto gap-6 pb-2 border-b border-[#e5e3df] scrollbar-hide">
+        <button
+          onClick={() => setTopicFilter('all')}
+          className={`text-sm font-sans font-bold uppercase tracking-wider whitespace-nowrap pb-2 border-b-2 transition-colors ${topicFilter === 'all'
+              ? 'border-[#d4af37] text-[#1a1a1a]'
+              : 'border-transparent text-[#9ca3af] hover:text-[#4b5563]'
+            }`}
+        >
+          All News
+        </button>
+        {topics.map((topic) => (
+          <button
+            key={topic}
+            onClick={() => setTopicFilter(topic)}
+            className={`text-sm font-sans font-bold uppercase tracking-wider whitespace-nowrap pb-2 border-b-2 transition-colors ${topicFilter === topic
+                ? 'border-[#d4af37] text-[#1a1a1a]'
+                : 'border-transparent text-[#9ca3af] hover:text-[#4b5563]'
+              }`}
           >
-            <option value="all">All Topics</option>
-            {topics.map((topic) => (
-              <option key={topic} value={topic}>
-                {topic}
-              </option>
-            ))}
-          </select>
-
-          {/* Maturity Filter */}
-          <select
-            value={maturityFilter}
-            onChange={(e) => setMaturityFilter(e.target.value as Maturity | 'all')}
-            className="px-4 py-2.5 bg-white border-2 border-[#e5e3df] rounded-lg text-sm text-[#2c3e50] font-serif focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all shadow-sm hover:shadow-md"
-          >
-            <option value="all">All Maturity</option>
-            <option value="Developing">Developing</option>
-            <option value="Mature">Mature</option>
-          </select>
-
-          {/* Sentiment Filter */}
-          <select
-            value={sentimentFilter}
-            onChange={(e) => setSentimentFilter(e.target.value as Sentiment | 'all')}
-            className="px-4 py-2.5 bg-white border-2 border-[#e5e3df] rounded-lg text-sm text-[#2c3e50] font-serif focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition-all shadow-sm hover:shadow-md"
-          >
-            <option value="all">All Sentiment</option>
-            <option value="positive">Positive</option>
-            <option value="neutral">Neutral</option>
-            <option value="negative">Negative</option>
-          </select>
-
-          {/* Results count */}
-          <div className="ml-auto px-4 py-2 bg-gradient-to-r from-[#d4af37]/10 to-[#b8941f]/10 border border-[#d4af37]/30 rounded-lg text-sm text-[#2c3e50] font-serif font-medium">
-            {filteredStories.length} {filteredStories.length === 1 ? 'story' : 'stories'}
-          </div>
-        </div>
+            {topic}
+          </button>
+        ))}
       </div>
 
       {/* Loading State */}
       {stories.loading ? (
-        <LoadingSkeleton count={4} height="h-32" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="col-span-2 space-y-8">
+            <LoadingSkeleton count={3} height="h-32" />
+          </div>
+          <div className="space-y-8">
+            <LoadingSkeleton count={2} height="h-64" />
+          </div>
+        </div>
       ) : filteredStories.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredStories.map((story) => (
-            <StoryCard key={story.id} story={story} onClick={() => onStoryClick(story.id)} />
-          ))}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Main Feed Column */}
+          <div className="lg:col-span-8 flex flex-col gap-8">
+            {filteredStories.map((story) => (
+              <StoryCard key={story.id} story={story} onClick={() => onStoryClick(story.id)} />
+            ))}
+          </div>
+
+          {/* Sidebar Column (Could be used for "Top Stories" or "Trending" later) */}
+          <div className="hidden lg:block lg:col-span-4 border-l border-[#e5e3df] pl-12">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-[#1a1a1a] mb-6">
+              Market Focus
+            </h3>
+            <div className="text-sm text-[#6b7280] font-serif italic mb-4">
+              Select a story to view the interactive relationship graph.
+            </div>
+            {/* Visual Placeholder for where the graph will be in the modal */}
+            <div className="aspect-square bg-[#faf9f6] rounded-full border border-[#e5e3df] flex items-center justify-center opacity-50">
+              <span className="text-[10px] text-[#9ca3af]">Network Visualization</span>
+            </div>
+          </div>
         </div>
       ) : (
-        <div className="bg-gradient-to-br from-white/80 to-[#faf9f6] backdrop-blur-sm border-2 border-[#e5e3df] rounded-xl p-16 text-center shadow-lg">
-          <p className="text-lg text-[#6b7280] font-serif">
-            {stories.data.length === 0 ? 'No stories available' : 'No stories match your filter criteria'}
+        <div className="py-24 text-center">
+          <p className="text-xl text-[#6b7280] font-serif italic">
+            No news available for this category.
           </p>
         </div>
       )}
