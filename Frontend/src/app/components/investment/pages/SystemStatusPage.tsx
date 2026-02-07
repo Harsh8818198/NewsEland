@@ -12,18 +12,35 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 
+import { useApiContext } from '@/app/services/apiContext';
+
 export function SystemStatusPage() {
+  const { systemStatus, actions } = useApiContext();
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     setIsRefreshing(true);
-    setTimeout(() => setIsRefreshing(false), 2000);
+    try {
+      await actions.refreshNews();
+      await actions.fetchSystemStatus(); // Refresh status after scraping
+    } catch (error) {
+      console.error("Failed to refresh news:", error);
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
-  const handleResetMemory = () => {
+  const handleResetMemory = async () => {
     setShowResetConfirm(false);
-    // Handle reset
+    await actions.resetMemory();
+    await actions.fetchSystemStatus();
+  };
+
+  const health = systemStatus.data || {
+    ingestion: { status: 'warning', lastUpdate: 'Connecting...', articlesProcessed: 0 },
+    analysis: { status: 'warning', lastUpdate: 'Connecting...', analysisCount: 0 },
+    memory: { status: 'warning', lastUpdate: 'Connecting...', storiesTracked: 0 }
   };
 
   const modules = [
@@ -32,12 +49,12 @@ export function SystemStatusPage() {
       name: 'Ingestion Module',
       icon: Database,
       description: 'Collects and processes financial news from multiple sources',
-      status: mockSystemHealth.ingestion.status,
-      lastUpdate: mockSystemHealth.ingestion.lastUpdate,
+      status: health.ingestion.status,
+      lastUpdate: health.ingestion.lastUpdate,
       metrics: [
-        { label: 'Articles Processed', value: mockSystemHealth.ingestion.articlesProcessed },
-        { label: 'Sources Active', value: 12 },
-        { label: 'Average Latency', value: '2.3s' },
+        { label: 'Articles Processed', value: health.ingestion.articlesProcessed },
+        { label: 'Sources Active', value: 3 }, // Fixed for now, could be dynamic
+        { label: 'Sources', value: 'TechCrunch, NewsAPI, AlphaVantage' },
       ],
     },
     {
@@ -45,12 +62,12 @@ export function SystemStatusPage() {
       name: 'Analysis Module',
       icon: Zap,
       description: 'Extracts entities, evaluates sentiment, and generates insights',
-      status: mockSystemHealth.analysis.status,
-      lastUpdate: mockSystemHealth.analysis.lastUpdate,
+      status: health.analysis.status,
+      lastUpdate: health.analysis.lastUpdate,
       metrics: [
-        { label: 'Analyses Completed', value: mockSystemHealth.analysis.analysisCount },
-        { label: 'Average Processing Time', value: '1.8s' },
-        { label: 'Accuracy Score', value: '94.2%' },
+        { label: 'Analyses Completed', value: health.analysis.analysisCount },
+        { label: 'Processing', value: 'Gemini 2.0 Flash' },
+        { label: 'Latency', value: 'Real-time' },
       ],
     },
     {
@@ -58,12 +75,12 @@ export function SystemStatusPage() {
       name: 'Memory Module',
       icon: Layers,
       description: 'Tracks stories over time and maintains historical context',
-      status: mockSystemHealth.memory.status,
-      lastUpdate: mockSystemHealth.memory.lastUpdate,
+      status: health.memory.status,
+      lastUpdate: health.memory.lastUpdate,
       metrics: [
-        { label: 'Stories Tracked', value: mockSystemHealth.memory.storiesTracked },
-        { label: 'Total Updates', value: 327 },
-        { label: 'Average Story Age', value: '14 days' },
+        { label: 'Stories Tracked', value: health.memory.storiesTracked },
+        { label: 'Graph Nodes', value: 'Dynamic' },
+        { label: 'Persistence', value: 'JSON Graph' },
       ],
     },
   ];
