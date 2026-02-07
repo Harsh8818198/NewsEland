@@ -62,8 +62,9 @@ backtest = BacktestEngine()
 
 feedback = FeedbackSystem()
 
-# Remove unused initializations or integrate them if needed
-# cognitive & entity_graph are now actively used.
+# Initialize Dynamic Scraper
+from dynamic_scraper import DynamicScraper
+dynamic_scraper = DynamicScraper(scraper, analyzer, memory, extractor, content_fetcher)
 
 print("All Systems Online ✅")
 
@@ -574,3 +575,57 @@ def get_impact_chain(entity_name: str, event_type: str):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
+# ============================================================================
+# DYNAMIC SCRAPER CONTROL ENDPOINTS
+# ============================================================================
+
+class ScraperConfigUpdate(BaseModel):
+    interval_minutes: int = None
+    runtime_hours: int = None
+    auto_start: bool = None
+
+@app.post("/api/scraper/start")
+def start_dynamic_scraper():
+    """Start the dynamic news scraper"""
+    result = dynamic_scraper.start()
+    return result
+
+@app.post("/api/scraper/stop")
+def stop_dynamic_scraper():
+    """Stop the dynamic news scraper"""
+    result = dynamic_scraper.stop()
+    return result
+
+@app.get("/api/scraper/status")
+def get_scraper_status():
+    """Get current scraper status and configuration"""
+    return dynamic_scraper.get_status()
+
+@app.post("/api/scraper/config")
+def update_scraper_config(config: ScraperConfigUpdate):
+    """
+    Update scraper configuration
+    
+    Parameters:
+    - interval_minutes: How often to scrape (minimum 1 minute)
+    - runtime_hours: How long to run (0 = indefinitely)
+    - auto_start: Whether to auto-start on server startup
+    """
+    try:
+        dynamic_scraper.update_config(
+            interval_minutes=config.interval_minutes,
+            runtime_hours=config.runtime_hours,
+            auto_start=config.auto_start
+        )
+        return {
+            "success": True,
+            "message": "Configuration updated",
+            "config": dynamic_scraper.config
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.get("/api/scraper/stats")
+def get_scraper_stats():
+    """Get scraper statistics"""
+    return dynamic_scraper.get_stats()
