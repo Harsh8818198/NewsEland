@@ -9,3 +9,4 @@ interactive_session.py
 *.log
 dedup_cache.json
 entity_cache.json
+entity_graph.json
