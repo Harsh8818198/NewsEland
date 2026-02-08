@@ -143,10 +143,32 @@ export interface SystemHealth {
 }
 
 export interface DashboardStats {
-  totalStories: number;
-  activeStories: number;
-  newUpdatesToday: number;
-  overallSentiment: Sentiment;
+  total_stories: number;
+  total_articles: number;
+  total_errors: number;
+}
+
+// Dynamic Scraper Types
+export interface ScraperConfig {
+  interval_minutes: number;
+  runtime_hours: number;
+  auto_start: boolean;
+}
+
+export interface ScraperStats {
+  started_at: string | null;
+  last_run: string | null;
+  total_runs: number;
+  total_articles: number;
+  total_stories: number;
+  errors: number;
+}
+
+export interface ScraperStatus {
+  is_running: boolean;
+  config: ScraperConfig;
+  stats: ScraperStats;
+  next_run: string | null;
 }
 
 export interface RecentActivity {

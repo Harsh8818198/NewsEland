@@ -268,6 +268,27 @@ export class ApiClient implements IApiService {
     async getDecisionLogic(): Promise<DecisionLogicResponse> {
         return this.httpClient.get<DecisionLogicResponse>('/api/decision-logic')
     }
+
+    // Dynamic Scraper Methods
+    async startScraper(): Promise<any> {
+        return this.httpClient.post('/api/scraper/start')
+    }
+
+    async stopScraper(): Promise<any> {
+        return this.httpClient.post('/api/scraper/stop')
+    }
+
+    async getScraperStatus(): Promise<any> {
+        return this.httpClient.get('/api/scraper/status')
+    }
+
+    async updateScraperConfig(config: any): Promise<any> {
+        return this.httpClient.post('/api/scraper/config', config)
+    }
+
+    async getScraperStats(): Promise<any> {
+        return this.httpClient.get('/api/scraper/stats')
+    }
 }
 
 // Singleton instance

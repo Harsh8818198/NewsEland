@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useApiContext } from '@/app/services/apiContext';
 import { SystemStatusBadge } from '../Badge';
+import { ScraperControl } from '../ScraperControl';
 import { mockSystemHealth } from '@/app/data/investmentMockData';
 import {
   Activity,
@@ -198,6 +199,9 @@ export function SystemStatusPage() {
           );
         })}
       </div>
+
+      {/* Dynamic Scraper Control */}
+      <ScraperControl />
 
       {/* Story Count Metrics */}
       <div className="bg-[var(--fintech-card)] border border-[var(--fintech-border)] rounded-lg p-6 shadow-sm">

@@ -572,9 +572,6 @@ def get_impact_chain(entity_name: str, event_type: str):
     impact = entity_graph.get_impact_chain(entity_name, event_type)
     return impact
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
 # ============================================================================
 # DYNAMIC SCRAPER CONTROL ENDPOINTS
 # ============================================================================
@@ -629,3 +626,11 @@ def update_scraper_config(config: ScraperConfigUpdate):
 def get_scraper_stats():
     """Get scraper statistics"""
     return dynamic_scraper.get_stats()
+
+# ============================================================================
+# SERVER STARTUP
+# ============================================================================
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
