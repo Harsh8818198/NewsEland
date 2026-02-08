@@ -1,0 +1,5 @@
+Analysis failed: RiskEngine.assess_risk() missing 1 required positional argument: 'portfolio_summary'
+Traceback (most recent call last):
+  File "C:\Users\parth\Desktop\alphakore\newsland\NewsEland\backend\server.py", line 695, in analyze_story
+    risk_assessment = risk_engine.assess_risk(story, cognitive_analysis)
+TypeError: RiskEngine.assess_risk() missing 1 required positional argument: 'portfolio_summary'

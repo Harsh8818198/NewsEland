@@ -31,6 +31,13 @@ class ContextMemory:
         self.knowledge_graph = {"stories": {}}
         self._save_graph()
 
+    def get_all_stories(self):
+        """
+        Retrieve all stories from knowledge graph
+        Returns list of story objects
+        """
+        return list(self.knowledge_graph.get('stories', {}).values())
+
     def find_related_story(self, entities):
         """
         Checks if incoming entities match an existing active story.

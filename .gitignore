@@ -107,6 +107,7 @@ entity_cache.json
 test_*.py
 main.py
 interactive_session.py
-
+scraper_config.json
+analysis_storage.json
 # Kiro specs (optional - remove if you want to track them)
  .kiro/

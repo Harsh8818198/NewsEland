@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from typing import List
 import logging
 import json
+from datetime import datetime
 from context_memory import ContextMemory
 from user_profile import UserProfile
 from analysis_engine import AnalysisEngine
@@ -19,6 +20,7 @@ from dotenv import load_dotenv
 from portfolio_risk import PortfolioManager, RiskEngine, ExitStrategyPlanner
 from intelligence_layer import CompetitiveIntelligence, MacroContextEngine, MarketTimingEngine
 from validation_learning import PatternValidator, SentimentTrendAnalyzer, BacktestEngine, FeedbackSystem
+from analysis_storage import AnalysisStorage
 
 load_dotenv(override=True)
 
@@ -61,6 +63,9 @@ sentiment_analyzer = SentimentTrendAnalyzer()
 backtest = BacktestEngine()
 
 feedback = FeedbackSystem()
+
+# Initialize Analysis Storage
+analysis_storage = AnalysisStorage()
 
 # Initialize Dynamic Scraper
 from dynamic_scraper import DynamicScraper
@@ -626,6 +631,178 @@ def update_scraper_config(config: ScraperConfigUpdate):
 def get_scraper_stats():
     """Get scraper statistics"""
     return dynamic_scraper.get_stats()
+
+# ============================================================================
+# ANALYSIS ENDPOINTS
+# ============================================================================
+
+@app.post("/api/stories/{story_id}/analyze")
+def analyze_story(story_id: str):
+    """
+    Trigger comprehensive analysis of a story and store results
+    Runs all analysis engines and saves to persistent storage
+    """
+    try:
+        import traceback
+        logging.info(f"Starting analysis for story: {story_id}")
+        
+        # Get story from memory
+        stories = memory.get_all_stories()
+        story = next((s for s in stories if s.get('id') == story_id), None)
+        
+        if not story:
+            logging.error(f"Story not found: {story_id}")
+            raise HTTPException(status_code=404, detail="Story not found")
+        
+        # Get first event for analysis
+        events = story.get('events', [])
+        if not events:
+            logging.error(f"Story has no events: {story_id}")
+            raise HTTPException(status_code=400, detail="Story has no events to analyze")
+        
+        first_event = events[0]
+        article = {
+            'title': first_event.get('title', story.get('main_topic', '')),
+            'content': first_event.get('content', story.get('summary', ''))
+        }
+        
+        logging.info(f"Analyzing article: {article['title']}")
+
+        # Extract entities
+        entities = extractor.extract_entities(article['title'] + ' ' + str(article['content']))
+        if not entities:
+            entities = {'ORG': [], 'GPE': [], 'PRODUCT': []}
+        
+        # Run comprehensive analysis
+        logging.info(f"Running sentiment analysis...")
+        
+        # 1. Basic sentiment analysis
+        sentiment_analysis = analyzer.analyze_news(article, entities)
+        logging.info("Sentiment analysis done")
+        
+        # 2. Cognitive reasoning
+        logging.info("Running cognitive reasoning...")
+        cognitive_analysis = cognitive.reason_about_news(article, entities, sentiment_analysis)
+        logging.info("Cognitive reasoning done")
+        
+        # 3. Competitive intelligence
+        logging.info("Running competitive intel...")
+        intelligence = competitive_intel.analyze_competitive_landscape(story, cognitive_analysis)
+        logging.info("Competitive intel done")
+        
+        # 4. Risk assessment
+        logging.info("Running risk assessment...")
+        portfolio_summary = portfolio.get_portfolio_summary()
+        risk_assessment = risk_engine.assess_risk(story, cognitive_analysis, portfolio_summary)
+        logging.info("Risk assessment done")
+        
+        # 5. Exit strategy
+        logging.info("Running exit strategy...")
+        exit_strategy = exit_planner.plan_exit(story, cognitive_analysis, risk_assessment)
+        logging.info("Exit strategy done")
+        
+        # Compile complete analysis
+        complete_analysis = {
+            "sentiment": sentiment_analysis,
+            "cognitive": cognitive_analysis,
+            "intelligence": intelligence,
+            "risk": risk_assessment,
+            "exit_strategy": exit_strategy,
+            "analyzed_at": datetime.now().isoformat(),
+            "story_title": story.get('main_topic', 'Unknown Story')
+        }
+        
+        # Save to storage
+        logging.info("Saving analysis...")
+        success = analysis_storage.save_analysis(
+            story_id=story_id,
+            story_title=story.get('main_topic', 'Unknown'),
+            analysis=complete_analysis
+        )
+        
+        if not success:
+            raise HTTPException(status_code=500, detail="Failed to save analysis")
+        
+        logging.info(f"Analysis completed and saved for story: {story_id}")
+        
+        return {
+            "success": True,
+            "story_id": story_id,
+            "analysis": complete_analysis
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        error_msg = f"Analysis failed: {str(e)}\n{traceback.format_exc()}"
+        logging.error(error_msg)
+        with open("last_error.txt", "w") as f:
+            f.write(error_msg)
+        raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
+
+@app.get("/api/analyses")
+def list_analyses(limit: int = 50):
+    """
+    Get list of all stored analyses
+    Returns summary information for each analysis
+    """
+    try:
+        analyses = analysis_storage.list_analyses(limit=limit)
+        return {
+            "success": True,
+            "count": len(analyses),
+            "analyses": analyses
+        }
+    except Exception as e:
+        logging.error(f"Failed to list analyses: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/stories/{story_id}/analysis")
+def get_story_analysis(story_id: str):
+    """
+    Get stored analysis for a specific story
+    Returns None if no analysis exists
+    """
+    try:
+        analysis = analysis_storage.get_analysis(story_id)
+        
+        if not analysis:
+            return {
+                "success": True,
+                "exists": False,
+                "analysis": None
+            }
+        
+        return {
+            "success": True,
+            "exists": True,
+            "analysis": analysis
+        }
+    except Exception as e:
+        logging.error(f"Failed to get analysis: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.put("/api/stories/{story_id}/analysis/notes")
+def update_analysis_notes(story_id: str, notes: dict):
+    """
+    Update user notes for an existing analysis
+    """
+    try:
+        user_notes = notes.get("notes", "")
+        success = analysis_storage.update_notes(story_id, user_notes)
+        
+        if not success:
+            raise HTTPException(status_code=404, detail="Analysis not found")
+        
+        return {
+            "success": True,
+            "message": "Notes updated successfully"
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Failed to update notes: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 # ============================================================================
 # SERVER STARTUP

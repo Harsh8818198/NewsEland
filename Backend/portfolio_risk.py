@@ -239,6 +239,41 @@ class RiskEngine:
 class ExitStrategyPlanner:
     """Tiered exit strategies based on conviction"""
     
+    def plan_exit(self, story: Dict, cognitive_analysis: Dict, risk_assessment: Dict) -> Dict:
+        """
+        Generates an exit plan based on analysis
+        """
+        # Derive conviction
+        conviction_str = cognitive_analysis.get('conviction', '0.5')
+        try:
+            conviction = float(conviction_str.split('/')[0]) / 10 if '/' in str(conviction_str) else float(conviction_str)
+        except:
+            conviction = 0.5
+            
+        # Use a reference price since we don't have live price
+        # The frontend will likely need to fetch the current price
+        reference_price = 100.0
+        
+        plan = self.create_exit_plan(reference_price, conviction, story.get('thesis', {}))
+        
+        # Enrich with risk assessment data
+        if risk_assessment.get('stop_loss'):
+             plan['stop_loss_details'] = risk_assessment['stop_loss']
+             
+        # Normalize triggers to match frontend expectation (optional)
+        # Frontend expects 'trigger_price' (absolute) or 'trail_percent'
+        
+        return {
+            "primary_exit_trigger": f"Price targets based on {plan['strategy_type']} strategy",
+            "stop_loss_price": plan['stop_loss']['price'], # Based on ref price
+            "re_evaluation_conditions": [
+                "Thesis invalidation (e.g. negative clinical trial results)",
+                "Sentiment shift to Bearish > 70%",
+                "Insiders selling > $1M"
+            ],
+            **plan
+        }
+
     def create_exit_plan(self, entry_price: float, conviction: float, thesis: Dict) -> Dict:
         if conviction >= 0.8:
             return self._high_conviction_strategy(entry_price)
