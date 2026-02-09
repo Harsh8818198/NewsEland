@@ -3,7 +3,9 @@ import { FileText, Calendar, Loader2, AlertCircle } from 'lucide-react';
 import { getApiClient, ApiError, type AnalysisSummary } from '@/services/api';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { AnalysisResultModal } from '@/components/AnalysisResultModal';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import AnalysisReport from '@/components/AnalysisReport';
+import { BacktestWidget } from '@/components/BacktestWidget';
 
 export function Analyses() {
     const [analyses, setAnalyses] = useState<AnalysisSummary[]>([]);
@@ -45,7 +47,10 @@ export function Analyses() {
             const response = await api.getAnalysis(storyId);
 
             if (response.success && response.exists && response.analysis) {
-                setSelectedAnalysis(response.analysis);
+                const stored = response.analysis;
+                // Unwrap storage wrapper if present
+                const analysisObj = stored && (stored.analysis || stored.analysis === null) ? stored.analysis || null : stored;
+                setSelectedAnalysis(analysisObj);
                 setIsModalOpen(true);
             } else {
                 setError('Analysis details not found');
@@ -67,6 +72,11 @@ export function Analyses() {
                 <Button onClick={fetchAnalyses} variant="outline" className="btn-newspaper">
                     Refresh Log
                 </Button>
+            </div>
+
+            {/* Backtest Performance Widget */}
+            <div className="max-w-md">
+                <BacktestWidget />
             </div>
 
             {error && (
@@ -127,11 +137,19 @@ export function Analyses() {
                 </div>
             )}
 
-            <AnalysisResultModal
-                analysis={selectedAnalysis}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-            />
+            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-[#f5f2e9] border-2 border-[#1a1a1a]">
+                    <DialogHeader className="border-b border-[#1a1a1a] pb-4">
+                        <DialogTitle className="font-serif text-2xl text-[#1a1a1a]">
+                            {selectedAnalysis?.headline || 'Analysis Report'}
+                        </DialogTitle>
+                        <DialogDescription className="font-serif text-[#6b6b6b]">
+                            Intelligence report from analysis logs
+                        </DialogDescription>
+                    </DialogHeader>
+                    {selectedAnalysis && <AnalysisReport analysis={selectedAnalysis} compact={true} />}
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

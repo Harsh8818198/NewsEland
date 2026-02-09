@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import { TrendingUp, TrendingDown, Minus, AlertCircle, Sparkles } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { AlertCircle, Sparkles, Calendar, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { getApiClient, ApiError } from '@/services/api';
-import type { AnalysisResponse } from '@/services/api';
+import type { AnalysisResponse, AnalysisSummary } from '@/services/api';
+import AnalysisReport from '@/components/AnalysisReport';
 import { toast } from 'sonner';
 
 export function Analyzer() {
@@ -12,6 +14,46 @@ export function Analyzer() {
   const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [analyses, setAnalyses] = useState<AnalysisSummary[]>([]);
+  const [loadingAnalyses, setLoadingAnalyses] = useState(true);
+  const [selectedAnalysis, setSelectedAnalysis] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchAnalyses();
+  }, []);
+
+  const fetchAnalyses = async () => {
+    try {
+      setLoadingAnalyses(true);
+      const api = getApiClient();
+      const response = await api.getAnalyses();
+      if (response.success) {
+        setAnalyses(response.analyses);
+      }
+    } catch (err) {
+      console.error('Failed to load analyses:', err);
+    } finally {
+      setLoadingAnalyses(false);
+    }
+  };
+
+  const handleViewAnalysis = async (storyId: string) => {
+    try {
+      const api = getApiClient();
+      const response = await api.getAnalysis(storyId);
+
+      if (response.success && response.exists && response.analysis) {
+        const stored = response.analysis;
+        const analysisObj = stored && (stored.analysis || stored.analysis === null) ? stored.analysis || null : stored;
+        setSelectedAnalysis(analysisObj);
+        setIsModalOpen(true);
+      }
+    } catch (err) {
+      console.error('Failed to load analysis details:', err);
+      toast.error('Failed to load analysis details');
+    }
+  };
 
   const handleAnalyze = async () => {
     if (!text.trim()) {
@@ -26,6 +68,7 @@ export function Analyzer() {
       const result = await api.analyzeText({ text: text.trim() });
       setAnalysis(result);
       toast.success('Analysis completed');
+      await fetchAnalyses(); // Refresh the analyses list
     } catch (err) {
       if (err instanceof ApiError) {
         setError(err.userMessage);
@@ -44,14 +87,6 @@ export function Analyzer() {
     setAnalysis(null);
     setError(null);
   };
-
-  const sentimentConfig = {
-    Bullish: { icon: TrendingUp, color: 'text-[#006400]', bg: 'bg-[#006400]', label: 'Bullish' },
-    Bearish: { icon: TrendingDown, color: 'text-[#8b0000]', bg: 'bg-[#8b0000]', label: 'Bearish' },
-    Neutral: { icon: Minus, color: 'text-[#4a4a4a]', bg: 'bg-[#4a4a4a]', label: 'Neutral' },
-  };
-
-  const sentiment = analysis ? sentimentConfig[analysis.sentiment?.label as keyof typeof sentimentConfig] || sentimentConfig.Neutral : null;
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -119,105 +154,71 @@ export function Analyzer() {
       )}
 
       {/* Analysis Results */}
-      {analysis && (
-        <div className="space-y-6 animate-in fade-in duration-500">
-          {/* Headline */}
-          <div className="border border-[#1a1a1a] p-6">
-            <p className="text-xs uppercase tracking-wider text-[#6b6b6b] font-serif mb-2">Analyzed Text</p>
-            <p className="headline-secondary">{analysis.headline}</p>
-          </div>
+      {analysis && <AnalysisReport analysis={analysis} compact={false} />}
 
-          {/* Key Metrics */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {sentiment && (
-              <div className="border-2 border-[#1a1a1a] p-4 text-center">
-                <p className="text-xs uppercase tracking-wider text-[#6b6b6b] font-serif mb-2">Sentiment</p>
-                <div className={`inline-flex items-center gap-2 px-4 py-2 ${sentiment.bg} text-[#f5f2e9]`}>
-                  <sentiment.icon className="h-5 w-5" />
-                  <span className="font-serif font-bold">{sentiment.label}</span>
+      {/* Analysis History */}
+      <div className="border-t-2 border-[#1a1a1a] pt-8">
+        <h3 className="section-header mb-6">Analysis History</h3>
+
+        {loadingAnalyses ? (
+          <div className="text-center py-8">
+            <p className="font-serif text-[#6b6b6b]">Loading analysis history...</p>
+          </div>
+        ) : analyses.length === 0 ? (
+          <div className="border border-[#1a1a1a] p-8 text-center bg-[#ede8d8]">
+            <p className="font-serif text-[#6b6b6b]">No analyses yet. Start by submitting a headline above.</p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {analyses.map((record) => (
+              <div
+                key={record.story_id}
+                className="border border-[#1a1a1a] p-4 hover:bg-[#ede8d8] transition-colors flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+              >
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-serif font-bold text-[#1a1a1a] mb-1 truncate">
+                    {record.story_title}
+                  </h4>
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-[#6b6b6b] font-serif">
+                    <span className="flex items-center gap-1">
+                      <Calendar className="h-3 w-3" />
+                      {new Date(record.timestamp).toLocaleDateString()}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      {new Date(record.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-wider bg-[#f5f2e9] px-2 py-0.5 border border-[#1a1a1a]/20">
+                      {record.story_id.substring(0, 8)}...
+                    </span>
+                  </div>
                 </div>
-                <p className="text-sm font-serif text-[#6b6b6b] mt-2">
-                  Score: {(analysis.sentiment.score * 100).toFixed(1)}%
-                </p>
+
+                <Button
+                  onClick={() => handleViewAnalysis(record.story_id)}
+                  className="btn-newspaper bg-[#1a1a1a] text-[#f5f2e9] shrink-0"
+                >
+                  View Report
+                </Button>
               </div>
-            )}
-
-            <div className="border-2 border-[#1a1a1a] p-4 text-center">
-              <p className="text-xs uppercase tracking-wider text-[#6b6b6b] font-serif mb-2">Story Maturity</p>
-              <p className="text-xl font-serif font-bold text-[#1a1a1a]">
-                {analysis.story_context?.maturity || 'New'}
-              </p>
-              <p className="text-sm font-serif text-[#6b6b6b] mt-2">
-                {analysis.story_context?.updates || 0} updates
-              </p>
-            </div>
-
-            <div className="border-2 border-[#1a1a1a] p-4 text-center">
-              <p className="text-xs uppercase tracking-wider text-[#6b6b6b] font-serif mb-2">Story ID</p>
-              <p className="text-sm font-mono text-[#1a1a1a] truncate">
-                {analysis.story_id}
-              </p>
-              <p className="text-sm font-serif text-[#6b6b6b] mt-2 truncate">
-                {analysis.story_context?.topic || 'New Story'}
-              </p>
-            </div>
+            ))}
           </div>
+        )}
+      </div>
 
-          {/* Strategic Advice */}
-          <div className="border-2 border-[#1a1a1a] p-6 bg-[#ede8d8]">
-            <h4 className="text-center uppercase tracking-wider text-sm font-serif font-bold border-b border-[#1a1a1a] pb-2 mb-4">
-              Strategic Recommendation
-            </h4>
-            <p className="article-text text-lg">{analysis.advice}</p>
-          </div>
-
-          {/* Full Report */}
-          {analysis.subreport && (
-            <div className="border border-[#1a1a1a] p-6">
-              <h4 className="text-center uppercase tracking-wider text-sm font-serif font-bold border-b border-[#1a1a1a] pb-2 mb-4">
-                Full Analysis Report
-              </h4>
-              <div className="article-text whitespace-pre-wrap">
-                {analysis.subreport}
-              </div>
-            </div>
-          )}
-
-          {/* Cognitive Analysis */}
-          {analysis.cognitive_analysis && (
-            <div className="border border-[#1a1a1a] p-6">
-              <h4 className="text-center uppercase tracking-wider text-sm font-serif font-bold border-b border-[#1a1a1a] pb-2 mb-4">
-                Cognitive Analysis
-              </h4>
-              <div className="space-y-4">
-                {analysis.cognitive_analysis.conviction !== undefined && (
-                  <div>
-                    <p className="text-xs uppercase tracking-wider text-[#6b6b6b] font-serif mb-2">Conviction Level</p>
-                    <div className="flex items-center gap-4">
-                      <div className="flex-1 h-4 border border-[#1a1a1a]">
-                        <div
-                          className="h-full bg-[#1a1a1a]"
-                          style={{ width: `${analysis.cognitive_analysis.conviction * 100}%` }}
-                        />
-                      </div>
-                      <span className="font-serif font-bold">
-                        {(analysis.cognitive_analysis.conviction * 100).toFixed(0)}%
-                      </span>
-                    </div>
-                  </div>
-                )}
-
-                {analysis.cognitive_analysis.contrarian_angle && (
-                  <div className="border-t border-[#ede8d8] pt-4">
-                    <p className="text-xs uppercase tracking-wider text-[#6b6b6b] font-serif mb-2">Contrarian View</p>
-                    <p className="article-text">{analysis.cognitive_analysis.contrarian_angle}</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
+      {/* Analysis Modal */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-[#f5f2e9] border-2 border-[#1a1a1a]">
+          <DialogHeader className="border-b border-[#1a1a1a] pb-4">
+            <DialogTitle className="font-serif text-2xl text-[#1a1a1a]">
+              {selectedAnalysis?.headline || 'Analysis Report'}
+            </DialogTitle>
+            <DialogDescription className="font-serif text-[#6b6b6b]">
+              From your analysis history
+            </DialogDescription>
+          </DialogHeader>
+          {selectedAnalysis && <AnalysisReport analysis={selectedAnalysis} compact={true} />}
+        </DialogContent>
+      </Dialog>
+    </div>);
 }

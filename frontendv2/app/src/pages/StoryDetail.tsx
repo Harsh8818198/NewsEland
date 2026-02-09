@@ -10,10 +10,12 @@ import { getApiClient, ApiError } from '@/services/api';
 import type { BackendStory, SubreportResponse } from '@/services/api';
 import { toast } from 'sonner';
 
-import { AnalysisResultModal } from '@/components/AnalysisResultModal';
+import AnalysisReport from '@/components/AnalysisReport';
 
 function HypothesisSection({ hypothesis, title }: { hypothesis: any; title: string }) {
   if (!hypothesis) return null;
+
+  const sentimentScore = typeof hypothesis.sentiment_score === 'number' ? hypothesis.sentiment_score : 0;
 
   return (
     <div className="border border-[#1a1a1a] p-6 mb-6">
@@ -29,7 +31,7 @@ function HypothesisSection({ hypothesis, title }: { hypothesis: any; title: stri
           {hypothesis.sentiment_label}
         </span>
         <span className="text-sm font-serif text-[#6b6b6b]">
-          Confidence: {(hypothesis.sentiment_score * 100).toFixed(1)}%
+          Confidence: {(sentimentScore * 100).toFixed(1)}%
         </span>
       </div>
 
@@ -101,9 +103,7 @@ export default function StoryDetail() {
   const [winnersLosers, setWinnersLosers] = useState<any>(null);
   const [risk, setRisk] = useState<any>(null);
   const [exitStrategy, setExitStrategy] = useState<any>(null);
-  const [loadingSubreport, setLoadingSubreport] = useState(false);
-  const [loadingCognitive, setLoadingCognitive] = useState(false);
-  const [loadingOpportunities, setLoadingOpportunities] = useState(false);
+
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [hasAnalysis, setHasAnalysis] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<any>(null);
@@ -164,10 +164,17 @@ export default function StoryDetail() {
       if (exitData.status === 'fulfilled') setExitStrategy(exitData.value);
       else console.error('Exit strategy failed:', exitData.status === 'rejected' ? exitData.reason : 'unknown');
 
-      // Check if analysis exists
+      // Check if analysis exists and unwrap stored structure
       if (analysisData.status === 'fulfilled' && analysisData.value.exists) {
         setHasAnalysis(true);
-        setAnalysisResult(analysisData.value.analysis);
+        const stored = analysisData.value.analysis;
+        // Stored entry may be { timestamp, story_title, analysis, user_notes }
+        // If so, unwrap the inner `analysis` field; otherwise use as-is.
+        if (stored && (stored.analysis || stored.analysis === null)) {
+          setAnalysisResult(stored.analysis || null);
+        } else {
+          setAnalysisResult(stored);
+        }
       }
     } catch (err) {
       if (err instanceof ApiError) {
@@ -337,8 +344,35 @@ export default function StoryDetail() {
         </div>
       </header>
 
+      {/* Story Summary Preview */}
+      <div className="bg-[#ede8d8] border-b-2 border-[#1a1a1a] p-6 mb-8">
+        <div className="max-w-3xl">
+          <div className="mb-4">
+            <p className="text-xs uppercase tracking-wider text-[#6b6b6b] font-serif mb-2">📋 Executive Summary</p>
+            <p className="article-text text-[#1a1a1a]">
+              {story.current_hypothesis?.expected_impact ||
+                'Analysis in progress. Check the Analysis tab for detailed insights.'}
+            </p>
+          </div>
+          {story.current_hypothesis?.sentiment_score !== undefined && (
+            <div className="flex items-center gap-3 pt-4 border-t border-[#1a1a1a]">
+              <span className="text-xs uppercase tracking-wider font-serif text-[#6b6b6b]">Conviction</span>
+              <div className="flex-1 h-2 border border-[#1a1a1a] max-w-xs">
+                <div
+                  className="h-full bg-[#1a1a1a]"
+                  style={{ width: `${(story.current_hypothesis?.sentiment_score ?? 0.5) * 100}%` }}
+                />
+              </div>
+              <span className="font-serif font-bold text-[#1a1a1a] text-sm">
+                {(((story.current_hypothesis?.sentiment_score ?? 0.5) * 100)).toFixed(0)}%
+              </span>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Article Content Tabs */}
-      <Tabs defaultValue="overview" className="w-full">
+      <Tabs defaultValue="analysis" className="w-full">
         <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1 sm:gap-2 mb-6 border-b border-[#1a1a1a] bg-transparent rounded-none h-auto p-0">
           {[
             { value: 'analysis', label: 'Analysis' },
@@ -754,12 +788,15 @@ export default function StoryDetail() {
           </div>
         </TabsContent>
       </Tabs>
-      <AnalysisResultModal
-        analysis={analysisResult}
-        isOpen={isAnalysisModalOpen}
-        onClose={() => setIsAnalysisModalOpen(false)}
-        storyTitle={story.main_topic}
-      />
+      <Dialog open={isAnalysisModalOpen} onOpenChange={setIsAnalysisModalOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#f5f2e9] border-2 border-[#1a1a1a]">
+          <DialogHeader className="border-b border-[#1a1a1a] pb-4">
+            <DialogTitle className="font-serif text-2xl text-[#1a1a1a]">{story.main_topic}</DialogTitle>
+            <DialogDescription className="font-serif text-[#6b6b6b]">Generated analysis</DialogDescription>
+          </DialogHeader>
+          {analysisResult && <AnalysisReport analysis={analysisResult} compact={false} />}
+        </DialogContent>
+      </Dialog>
     </article>
   );
 }

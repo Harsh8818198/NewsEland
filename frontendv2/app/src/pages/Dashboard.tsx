@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { getApiClient, ApiError } from '@/services/api';
 import type { BackendStory, SystemStatusResponse, PortfolioResponse } from '@/services/api';
+import { BacktestWidget } from '@/components/BacktestWidget';
 import { toast } from 'sonner';
 
 function StoryCard({ story }: { story: BackendStory }) {
@@ -238,6 +239,9 @@ export function Dashboard() {
               />
             </div>
           </div>
+
+          {/* Backtest Performance Widget */}
+          <BacktestWidget />
 
           {/* System Status */}
           <div className="border border-[#1a1a1a] p-4">

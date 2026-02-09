@@ -32,8 +32,8 @@ You are a veteran investor with 30 years of Wall Street experience. You've seen 
 
 NEWS HEADLINE: {article['title']}
 
-FULL ARTICLE TEXT:
-{article.get('content', 'N/A')[:3000]}
+            FULL ARTICLE TEXT:
+            {(article.get('content') or article.get('title','N/A'))[:3000]}
 
 ENTITIES DETECTED: {json.dumps(entities)}
 
@@ -128,8 +128,23 @@ Return ONLY valid JSON (no markdown):
             
             response = model.generate_content(prompt)
             cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
-            result = json.loads(cleaned_text)
-            
+            if not cleaned_text:
+                logging.error('Empty response from Gemini for cognitive reasoning')
+                raise ValueError('Empty response from model')
+            try:
+                result = json.loads(cleaned_text)
+            except Exception:
+                import re
+                m = re.search(r'\{[\s\S]*\}', cleaned_text)
+                if m:
+                    try:
+                        result = json.loads(m.group(0))
+                    except Exception as e:
+                        logging.error(f'Failed to parse extracted JSON from cognitive layer: {e} -- raw: {cleaned_text[:200]}')
+                        raise
+                else:
+                    logging.error(f'Unable to parse cognitive response as JSON: {cleaned_text[:200]}')
+                    raise
             logging.info(f"Cognitive reasoning complete. Conviction: {result.get('conviction', 0)}/10")
             
             # Log real-world opportunities
@@ -184,11 +199,25 @@ Return ONLY valid JSON:
             
             response = model.generate_content(prompt)
             cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
-            result = json.loads(cleaned_text)
-            
+            if not cleaned_text:
+                logging.error('Empty response from Gemini for opportunity detection')
+                raise ValueError('Empty response from model')
+            try:
+                result = json.loads(cleaned_text)
+            except Exception:
+                import re
+                m = re.search(r'\{[\s\S]*\}', cleaned_text)
+                if m:
+                    try:
+                        result = json.loads(m.group(0))
+                    except Exception as e:
+                        logging.error(f'Failed to parse extracted JSON from opportunity detection: {e} -- raw: {cleaned_text[:200]}')
+                        raise
+                else:
+                    logging.error(f'Unable to parse opportunity detection response as JSON: {cleaned_text[:200]}')
+                    raise
             if result.get('is_opportunity'):
                 logging.warning(f"🎯 HIGH-VALUE OPPORTUNITY DETECTED: {result['opportunity_type']}")
-            
             return result
         
         except Exception as e:
@@ -249,7 +278,23 @@ Return ONLY valid JSON:
             
             response = model.generate_content(prompt)
             cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
-            result = json.loads(cleaned_text)
+            if not cleaned_text:
+                logging.error('Empty response from Gemini for thesis update')
+                raise ValueError('Empty response from model')
+            try:
+                result = json.loads(cleaned_text)
+            except Exception:
+                import re
+                m = re.search(r'\{[\s\S]*\}', cleaned_text)
+                if m:
+                    try:
+                        result = json.loads(m.group(0))
+                    except Exception as e:
+                        logging.error(f'Failed to parse extracted JSON from thesis update: {e} -- raw: {cleaned_text[:200]}')
+                        raise
+                else:
+                    logging.error(f'Unable to parse thesis update response as JSON: {cleaned_text[:200]}')
+                    raise
             
             # Update thesis
             updated_thesis = {

@@ -8,13 +8,18 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { getApiClient, ApiError } from '@/services/api';
-import type { BackendStory } from '@/services/api';
+import type { BackendStory, AnalysisResponse } from '@/services/api';
+import AnalysisReport from '@/components/AnalysisReport';
 import { toast } from 'sonner';
 
 type MaturityFilter = 'ALL' | 'DEVELOPING' | 'MATURE' | 'ACTIONABLE';
 type SentimentFilter = 'ALL' | 'Bullish' | 'Bearish' | 'Neutral';
 
 function StoryArticle({ story, onArchive }: { story: BackendStory; onArchive?: (id: string) => void }) {
+  const [isAnalysisOpen, setIsAnalysisOpen] = useState(false);
+  const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null);
+  const [loadingAnalysis, setLoadingAnalysis] = useState(false);
+
   const sentimentConfig = {
     Bullish: { icon: TrendingUp, color: 'text-[#006400]', label: 'Bullish' },
     Bearish: { icon: TrendingDown, color: 'text-[#8b0000]', label: 'Bearish' },
@@ -27,8 +32,31 @@ function StoryArticle({ story, onArchive }: { story: BackendStory; onArchive?: (
     ACTIONABLE: 'Actionable',
   };
 
-  const sentiment = sentimentConfig[story.current_hypothesis?.sentiment_label || 'Neutral'];
-  const SentimentIcon = sentiment.icon;
+  const handleViewAnalysis = async () => {
+    try {
+      setLoadingAnalysis(true);
+      const api = getApiClient();
+      const response = await api.getAnalysis(story.id);
+
+      if (response.success && response.exists && response.analysis) {
+        const stored = response.analysis;
+        const analysisObj = stored && (stored.analysis || stored.analysis === null) ? stored.analysis || null : stored;
+        setAnalysis(analysisObj);
+        setIsAnalysisOpen(true);
+      } else {
+        toast.error('No analysis available for this story');
+      }
+    } catch (err) {
+      console.error('Failed to load analysis:', err);
+      toast.error('Failed to load analysis');
+    } finally {
+      setLoadingAnalysis(false);
+    }
+  };
+
+  const sentimentKey = (story.current_hypothesis?.sentiment_label as keyof typeof sentimentConfig) ?? 'Neutral';
+  const sentiment = sentimentConfig[sentimentKey] || sentimentConfig.Neutral;
+  const SentimentIcon = sentiment?.icon ?? Minus;
 
   return (
     <article className="border-b border-[#1a1a1a] pb-6 mb-6">
@@ -61,11 +89,31 @@ function StoryArticle({ story, onArchive }: { story: BackendStory; onArchive?: (
           'Our AI analysis team is monitoring developments in this area. Initial signals suggest potential market impact requiring further investigation.'}
       </p>
 
+      <div className="mb-4 p-4 bg-[#ede8d8] border border-[#1a1a1a] text-sm">
+        <p className="font-serif font-bold text-[#1a1a1a] mb-2">📊 What's Inside:</p>
+        <ul className="text-xs text-[#4a4a4a] space-y-1 font-serif">
+          <li>✓ Current & Previous Hypothesis</li>
+          <li>✓ Chronicle of {story.events.length} Key Events</li>
+          <li>✓ Comprehensive Analysis Report</li>
+          <li>✓ Market Winners & Losers</li>
+          <li>✓ Real-World Investment Actions</li>
+          <li>✓ Risk Assessment & Exit Strategy</li>
+        </ul>
+      </div>
+
       <div className="flex flex-wrap items-center gap-4 text-sm font-serif">
         <span className="text-[#4a4a4a]">{story.updates_count} updates</span>
         <span className="text-[#6b6b6b]">|</span>
+        <button
+          onClick={handleViewAnalysis}
+          disabled={loadingAnalysis}
+          className="text-[#00008b] hover:underline disabled:text-[#6b6b6b] disabled:cursor-not-allowed"
+        >
+          {loadingAnalysis ? 'Loading Analysis...' : 'View Analysis'}
+        </button>
+        <span className="text-[#6b6b6b]">|</span>
         <Link to={`/stories/${story.id}`} className="text-[#00008b] hover:underline">
-          Read Full Analysis &rarr;
+          Full Details &rarr;
         </Link>
 
         {onArchive && story.status === 'ACTIVE' && (
@@ -102,6 +150,19 @@ function StoryArticle({ story, onArchive }: { story: BackendStory; onArchive?: (
           </>
         )}
       </div>
+
+      {/* Analysis Report Modal */}
+      <Dialog open={isAnalysisOpen} onOpenChange={setIsAnalysisOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-[#f5f2e9] border-2 border-[#1a1a1a]">
+          <DialogHeader>
+            <DialogTitle className="font-serif text-2xl text-[#1a1a1a]">Analysis Report</DialogTitle>
+            <DialogDescription className="font-serif text-[#4a4a4a]">
+              {story.main_topic}
+            </DialogDescription>
+          </DialogHeader>
+          {analysis && <AnalysisReport analysis={analysis} compact={true} />}
+        </DialogContent>
+      </Dialog>
     </article>
   );
 }

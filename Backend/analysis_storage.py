@@ -35,6 +35,19 @@ class AnalysisStorage:
             with open(self.storage_file, 'w') as f:
                 json.dump({}, f)
             logging.info(f"Created analysis storage file: {self.storage_file}")
+
+    def _read_data(self) -> Dict:
+        """Read storage file and return dict. Recover from empty or malformed files."""
+        try:
+            with open(self.storage_file, 'r') as f:
+                try:
+                    data = json.load(f)
+                except json.JSONDecodeError:
+                    logging.error(f"Storage file corrupted or empty, resetting: {self.storage_file}")
+                    data = {}
+        except FileNotFoundError:
+            data = {}
+        return data
     
     def save_analysis(self, story_id: str, story_title: str, analysis: Dict, user_notes: str = "") -> bool:
         """
@@ -50,10 +63,9 @@ class AnalysisStorage:
             bool: True if saved successfully
         """
         try:
-            # Load existing data
-            with open(self.storage_file, 'r') as f:
-                data = json.load(f)
-            
+            # Load existing data safely
+            data = self._read_data()
+
             # Create analysis entry
             data[story_id] = {
                 "timestamp": datetime.now().isoformat(),
@@ -61,14 +73,14 @@ class AnalysisStorage:
                 "analysis": analysis,
                 "user_notes": user_notes
             }
-            
-            # Save back to file
+
+            # Save back to file (overwrite)
             with open(self.storage_file, 'w') as f:
                 json.dump(data, f, indent=2, cls=DateTimeEncoder)
-            
+
             logging.info(f"Saved analysis for story: {story_id}")
             return True
-        
+
         except Exception as e:
             logging.error(f"Failed to save analysis: {e}")
             return False
@@ -84,11 +96,8 @@ class AnalysisStorage:
             Dict or None: Analysis data if exists
         """
         try:
-            with open(self.storage_file, 'r') as f:
-                data = json.load(f)
-            
+            data = self._read_data()
             return data.get(story_id)
-        
         except Exception as e:
             logging.error(f"Failed to get analysis: {e}")
             return None
@@ -104,9 +113,8 @@ class AnalysisStorage:
             List of analysis summaries
         """
         try:
-            with open(self.storage_file, 'r') as f:
-                data = json.load(f)
-            
+            data = self._read_data()
+
             # Convert to list and sort by timestamp (newest first)
             analyses = []
             for story_id, analysis_data in data.items():
@@ -116,12 +124,12 @@ class AnalysisStorage:
                     "timestamp": analysis_data.get("timestamp"),
                     "has_notes": bool(analysis_data.get("user_notes"))
                 })
-            
+
             # Sort by timestamp descending
             analyses.sort(key=lambda x: x["timestamp"], reverse=True)
-            
+
             return analyses[:limit]
-        
+
         except Exception as e:
             logging.error(f"Failed to list analyses: {e}")
             return []
@@ -138,22 +146,21 @@ class AnalysisStorage:
             bool: True if updated successfully
         """
         try:
-            with open(self.storage_file, 'r') as f:
-                data = json.load(f)
-            
+            data = self._read_data()
+
             if story_id not in data:
                 logging.warning(f"Analysis not found for story: {story_id}")
                 return False
-            
+
             data[story_id]["user_notes"] = user_notes
             data[story_id]["notes_updated_at"] = datetime.now().isoformat()
-            
+
             with open(self.storage_file, 'w') as f:
                 json.dump(data, f, indent=2)
-            
+
             logging.info(f"Updated notes for story: {story_id}")
             return True
-        
+
         except Exception as e:
             logging.error(f"Failed to update notes: {e}")
             return False
@@ -169,20 +176,19 @@ class AnalysisStorage:
             bool: True if deleted successfully
         """
         try:
-            with open(self.storage_file, 'r') as f:
-                data = json.load(f)
-            
+            data = self._read_data()
+
             if story_id in data:
                 del data[story_id]
-                
+
                 with open(self.storage_file, 'w') as f:
                     json.dump(data, f, indent=2)
-                
+
                 logging.info(f"Deleted analysis for story: {story_id}")
                 return True
-            
+
             return False
-        
+
         except Exception as e:
             logging.error(f"Failed to delete analysis: {e}")
             return False

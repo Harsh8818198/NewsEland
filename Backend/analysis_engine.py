@@ -27,8 +27,8 @@ class AnalysisEngine:
         Orchestrates the analysis: Sentiment -> Patterns -> Second Order Effects
         Now uses full article content if available.
         """
-        # Use full content if available, otherwise fall back to title
-        text_to_analyze = article.get('content', article.get('title', ''))
+        # Use full content if available and non-empty, otherwise fall back to title
+        text_to_analyze = article.get('content') or article.get('title', '')
         
         logging.info(f"Analyzing article: {article.get('title')} ({len(text_to_analyze)} chars)")
         
@@ -67,7 +67,23 @@ class AnalysisEngine:
             """
             response = model.generate_content(prompt)
             cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
-            return json.loads(cleaned_text)
+            if not cleaned_text:
+                logging.error('Empty response from Gemini for deep analysis')
+                raise ValueError('Empty response from model')
+            try:
+                return json.loads(cleaned_text)
+            except Exception:
+                # Try to recover JSON embedded in text
+                import re
+                m = re.search(r'\{[\s\S]*\}', cleaned_text)
+                if m:
+                    try:
+                        return json.loads(m.group(0))
+                    except Exception as e:
+                        logging.error(f'Failed to parse extracted JSON from Gemini deep analysis: {e} -- raw: {cleaned_text[:200]}')
+                        raise
+                logging.error(f'Unable to parse Gemini deep analysis response as JSON: {cleaned_text[:200]}')
+                raise
         except Exception as e:
             logging.error(f"Gemini Analysis Failed: {e}")
             return {
@@ -105,7 +121,22 @@ class AnalysisEngine:
             """
             response = model.generate_content(prompt)
             cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
-            return json.loads(cleaned_text)
+            if not cleaned_text:
+                logging.error('Empty response from Gemini for pattern matching')
+                raise ValueError('Empty response from model')
+            try:
+                return json.loads(cleaned_text)
+            except Exception:
+                import re
+                m = re.search(r'\[[\s\S]*\]', cleaned_text)
+                if m:
+                    try:
+                        return json.loads(m.group(0))
+                    except Exception as e:
+                        logging.error(f'Failed to parse extracted JSON array from Gemini pattern match: {e} -- raw: {cleaned_text[:200]}')
+                        raise
+                logging.error(f'Unable to parse Gemini pattern matching response as JSON: {cleaned_text[:200]}')
+                raise
         except Exception as e:
             logging.error(f"Pattern Matching Failed: {e}")
             # Fallback to a generic pattern if AI fails
@@ -133,7 +164,22 @@ class AnalysisEngine:
         try:
             response = model.generate_content(prompt)
             cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
-            return json.loads(cleaned_text)
+            if not cleaned_text:
+                logging.error('Empty response from Gemini for second-order derivation')
+                raise ValueError('Empty response from model')
+            try:
+                return json.loads(cleaned_text)
+            except Exception:
+                import re
+                m = re.search(r'\[[\s\S]*\]', cleaned_text)
+                if m:
+                    try:
+                        return json.loads(m.group(0))
+                    except Exception as e:
+                        logging.error(f'Failed to parse extracted JSON list from Gemini second-order: {e} -- raw: {cleaned_text[:200]}')
+                        raise
+                logging.error(f'Unable to parse Gemini second-order response as JSON: {cleaned_text[:200]}')
+                raise
         except:
              return ["Market Volatility", "Sector Rotation"]
 
