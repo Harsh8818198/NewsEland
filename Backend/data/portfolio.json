@@ -1,0 +1,23 @@
+{
+  "positions": {
+    "TECH1": {
+      "amount": 15000.0,
+      "shares": 250.0,
+      "entry_price": 60.0,
+      "entry_date": "2026-02-09T22:46:23.512889",
+      "sector": "Technology",
+      "recommendation": {
+        "ticker": "TECH1",
+        "sector": "Technology",
+        "capital_allocation_pct": 15.0
+      },
+      "story_id": "STORY_1770655251"
+    }
+  },
+  "sector_exposure": {
+    "Technology": 0.15
+  },
+  "cash_reserve": 85000.0,
+  "total_deployed": 0.15,
+  "last_updated": "2026-02-09T22:46:23.512889"
+}

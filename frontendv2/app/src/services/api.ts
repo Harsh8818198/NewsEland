@@ -292,14 +292,101 @@ export interface DecisionLogicResponse {
   logic_version: string;
 }
 
-export interface PortfolioResponse {
-  positions?: any[];
-  total_value?: number;
-  total_pnl?: number;
-  total_pnl_pct?: number;
-  cash?: number;
-  [key: string]: any;
+export interface Position {
+  ticker: string;
+  sector: string;
+  entry_price: number;
+  current_price: number;
+  quantity: number;
+  pnl: number;
+  pnl_pct: number;
+  capital_allocation_pct: number;
+  open_date: string;
 }
+
+export interface PortfolioResponse {
+  total_value: number;
+  total_pnl: number;
+  total_pnl_pct: number;
+  cash: number;
+  positions: Position[];
+}
+
+// ============================================================================
+// PORTFOLIO WAR ROOM TYPES
+// ============================================================================
+
+export interface EnhancedPosition extends Position {
+  story_id?: string;
+  story_title?: string;
+  story_maturity?: 'DEVELOPING' | 'MATURE' | 'ACTIONABLE' | 'UNKNOWN';
+  current_sentiment?: {
+    score: number;
+    label: 'Bullish' | 'Bearish' | 'Neutral';
+    trend: 'IMPROVING' | 'DECLINING' | 'STABLE';
+  };
+  ai_signal?: 'BUY' | 'HOLD' | 'EXIT' | 'WATCH';
+  risk_level?: 'LOW' | 'MEDIUM' | 'HIGH';
+  last_story_update?: string;
+}
+
+export interface EnhancedPortfolioResponse {
+  total_value: number;
+  total_pnl: number;
+  total_pnl_pct: number;
+  cash: number;
+  positions: EnhancedPosition[];
+}
+
+export interface PortfolioSignal {
+  ticker: string;
+  signal: 'BUY' | 'HOLD' | 'EXIT' | 'WATCH';
+  confidence: number;
+  reasoning: string;
+}
+
+export interface PortfolioSignalsResponse {
+  signals: PortfolioSignal[];
+}
+
+export interface PortfolioAlert {
+  id: string;
+  ticker: string;
+  type: 'SENTIMENT_CHANGE' | 'STORY_UPDATE' | 'RISK_INCREASE' | 'EXIT_SIGNAL';
+  severity: 'INFO' | 'WARNING' | 'CRITICAL';
+  message: string;
+  story_id: string;
+  timestamp: string;
+  action_required: boolean;
+}
+
+export interface PortfolioAlertsResponse {
+  alerts: PortfolioAlert[];
+  count: number;
+}
+
+export interface InvestmentOpportunity {
+  story_id: string;
+  story_title: string;
+  maturity: string;
+  sentiment: {
+    score: number;
+    label: string;
+  };
+  confidence: number;
+  suggested_ticker: string;
+  suggested_allocation_pct: number;
+  reasoning: string;
+}
+
+export interface InvestmentOpportunitiesResponse {
+  opportunities: InvestmentOpportunity[];
+  count: number;
+}
+
+// ============================================================================
+// END PORTFOLIO WAR ROOM TYPES
+// ============================================================================
 
 export interface TradeRequest {
   ticker: string;
@@ -636,6 +723,23 @@ export class ApiClient implements IApiService {
   // Portfolio Management
   async getPortfolio(): Promise<PortfolioResponse> {
     return this.httpClient.get<PortfolioResponse>('/api/portfolio');
+  }
+
+  // Portfolio War Room - Enhanced Methods
+  async getEnhancedPortfolio(): Promise<EnhancedPortfolioResponse> {
+    return this.httpClient.get<EnhancedPortfolioResponse>('/api/portfolio/enhanced');
+  }
+
+  async getPortfolioSignals(): Promise<PortfolioSignalsResponse> {
+    return this.httpClient.get<PortfolioSignalsResponse>('/api/portfolio/signals');
+  }
+
+  async getPortfolioAlerts(): Promise<PortfolioAlertsResponse> {
+    return this.httpClient.get<PortfolioAlertsResponse>('/api/portfolio/alerts');
+  }
+
+  async getInvestmentOpportunities(): Promise<InvestmentOpportunitiesResponse> {
+    return this.httpClient.get<InvestmentOpportunitiesResponse>('/api/portfolio/opportunities');
   }
 
   async executeTrade(data: TradeRequest): Promise<TradeResponse> {

@@ -21,7 +21,7 @@ class SubReportGenerator:
         self.mock_mode = mock_mode
         if not self.mock_mode:
             try:
-                self.model = genai.GenerativeModel('gemini-2.0-flash')
+                self.model = genai.GenerativeModel('gemini-3-flash-preview')
             except:
                 logging.warning("Failed to init Gemini. Falling back to Mock Mode.")
                 self.mock_mode = True
