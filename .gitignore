@@ -111,3 +111,4 @@ scraper_config.json
 analysis_storage.json
 # Kiro specs (optional - remove if you want to track them)
  .kiro/
+.vercel
