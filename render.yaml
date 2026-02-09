@@ -1,0 +1,13 @@
+version: "3.0"
+services:
+  backend:
+    image: your-backend-image
+    ports:
+      - "80:80"
+    environment:
+      - DATABASE_URL=your_database_url
+      - SECRET_KEY=your_secret_key
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
