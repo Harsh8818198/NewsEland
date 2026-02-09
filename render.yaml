@@ -7,8 +7,7 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
-      - key: DATABASE_URL
-        sync: false
+
       - key: SECRET_KEY
         generateValue: true
       - key: FRONTEND_URL
