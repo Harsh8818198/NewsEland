@@ -17,4 +17,4 @@ services:
       - key: NEWS_API_KEY
         sync: false
       - key: FRONTEND_URL
-        value: https://thefinancechronicals1-1oaza14vx-lazycooks-projects.vercel.app
+        value: https://thefinancechronicals1.vercel.app
