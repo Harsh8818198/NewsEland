@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   TrendingUp, DollarSign, Clock, Save, RefreshCw, AlertCircle, Shield,
-  CheckCircle2, Target, Zap, BarChart3, Brain, TrendingDown, Award
+  CheckCircle2, Target, Zap, Brain, Award
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -218,8 +218,8 @@ export function Profile() {
                 <div>
                   <p className="text-xs uppercase tracking-wider text-[#6b6b6b] font-serif mb-2">Risk Tolerance</p>
                   <span className={`tag-newspaper inline-block ${profile.risk_tolerance === 'Conservative' ? 'bg-[#006400] text-[#f5f2e9]' :
-                      profile.risk_tolerance === 'Moderate' ? 'bg-[#b8860b] text-[#f5f2e9]' :
-                        'bg-[#8b0000] text-[#f5f2e9]'
+                    profile.risk_tolerance === 'Moderate' ? 'bg-[#b8860b] text-[#f5f2e9]' :
+                      'bg-[#8b0000] text-[#f5f2e9]'
                     }`}>
                     {profile.risk_tolerance}
                   </span>
@@ -254,8 +254,8 @@ export function Profile() {
                     key={risk}
                     onClick={() => setRiskTolerance(risk)}
                     className={`p-4 border-2 text-left transition-all ${riskTolerance === risk
-                        ? 'border-[#1a1a1a] bg-[#ede8d8]'
-                        : 'border-[#d4d0c0] hover:border-[#1a1a1a]'
+                      ? 'border-[#1a1a1a] bg-[#ede8d8]'
+                      : 'border-[#d4d0c0] hover:border-[#1a1a1a]'
                       }`}
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -302,8 +302,8 @@ export function Profile() {
                     key={h}
                     onClick={() => setHorizon(h)}
                     className={`p-4 border-2 text-left transition-all ${horizon === h
-                        ? 'border-[#1a1a1a] bg-[#ede8d8]'
-                        : 'border-[#d4d0c0] hover:border-[#1a1a1a]'
+                      ? 'border-[#1a1a1a] bg-[#ede8d8]'
+                      : 'border-[#d4d0c0] hover:border-[#1a1a1a]'
                       }`}
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -365,14 +365,14 @@ export function Profile() {
                     <div
                       key={idx}
                       className={`border-2 p-3 ${insight.type === 'success' ? 'border-[#006400] bg-[#006400]/10' :
-                          insight.type === 'warning' ? 'border-[#8b0000] bg-[#8b0000]/10' :
-                            'border-[#1a1a1a] bg-[#f5f2e9]'
+                        insight.type === 'warning' ? 'border-[#8b0000] bg-[#8b0000]/10' :
+                          'border-[#1a1a1a] bg-[#f5f2e9]'
                         }`}
                     >
                       <div className="flex items-start gap-2 mb-1">
                         <Icon className={`h-4 w-4 mt-0.5 ${insight.type === 'success' ? 'text-[#006400]' :
-                            insight.type === 'warning' ? 'text-[#8b0000]' :
-                              'text-[#1a1a1a]'
+                          insight.type === 'warning' ? 'text-[#8b0000]' :
+                            'text-[#1a1a1a]'
                           }`} />
                         <p className="font-serif text-xs font-bold">{insight.title}</p>
                       </div>
@@ -402,8 +402,8 @@ export function Profile() {
                 <div className="w-full bg-[#ede8d8] h-2 border border-[#1a1a1a]">
                   <div
                     className={`h-full ${riskTolerance === 'Conservative' ? 'bg-[#006400] w-1/3' :
-                        riskTolerance === 'Moderate' ? 'bg-[#b8860b] w-2/3' :
-                          'bg-[#8b0000] w-full'
+                      riskTolerance === 'Moderate' ? 'bg-[#b8860b] w-2/3' :
+                        'bg-[#8b0000] w-full'
                       }`}
                   />
                 </div>
@@ -417,8 +417,8 @@ export function Profile() {
                 <div className="w-full bg-[#ede8d8] h-2 border border-[#1a1a1a]">
                   <div
                     className={`h-full bg-[#1a1a1a] ${horizon === 'Short-term' ? 'w-1/3' :
-                        horizon === 'Medium-term' ? 'w-2/3' :
-                          'w-full'
+                      horizon === 'Medium-term' ? 'w-2/3' :
+                        'w-full'
                       }`}
                   />
                 </div>
