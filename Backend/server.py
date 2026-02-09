@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from typing import List
 import logging
 import json
+import os
 from datetime import datetime
 from context_memory import ContextMemory
 from user_profile import UserProfile
