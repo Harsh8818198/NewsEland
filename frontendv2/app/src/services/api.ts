@@ -1,7 +1,7 @@
 // API Service Layer for AI Investment Intelligence Platform
 // Base URL: http://localhost:8000
 
-const BASE_URL = 'http://localhost:8000';
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 // Custom error class for API errors
 export class ApiError extends Error {
