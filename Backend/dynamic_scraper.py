@@ -34,6 +34,7 @@ class DynamicScraper:
         
         self.is_running = False
         self.stop_event = threading.Event()  # For immediate stop signal
+        self.runtime_limit = None  # Runtime limit for current session
         self.thread: Optional[threading.Thread] = None
         # Persist config alongside other backend data
         self.config_file = os.path.join(DATA_DIR, "scraper_config.json")
@@ -121,7 +122,7 @@ class DynamicScraper:
         self.thread = threading.Thread(target=self._scrape_loop, daemon=True)
         self.thread.start()
         
-        logging.info(f"Dynamic scraper started - Interval: {self.config['interval_minutes']}min, Runtime: {self.config['runtime_hours']}hrs")
+        logging.info(f"Dynamic scraper started - Interval: {self.config['interval_minutes']}min, Runtime: {self.config['runtime_hours']}h {self.config.get('runtime_minutes', 0)}m")
         
         return {
             "success": True,
@@ -241,10 +242,13 @@ class DynamicScraper:
                 break
             
             # Check runtime limit
-            if hasattr(self, 'runtime_limit') and self.runtime_limit and datetime.now() >= self.runtime_limit:
-                logging.warning(f"⏱️ RUNTIME LIMIT REACHED - Stopping mid-cycle. Processed {i}/{len(articles)} articles.")
-                self.is_running = False
-                break
+            if self.runtime_limit:
+                current_time = datetime.now()
+                if current_time >= self.runtime_limit:
+                    logging.warning(f"⏱️ RUNTIME LIMIT REACHED at {current_time.strftime('%H:%M:%S')} (limit was {self.runtime_limit.strftime('%H:%M:%S')})")
+                    logging.warning(f"⏱️ Stopping mid-cycle. Processed {i}/{len(articles)} articles.")
+                    self.is_running = False
+                    break
             
             try:
                 # Fetch full content
