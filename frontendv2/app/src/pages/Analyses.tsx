@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FileText, Calendar, Loader2, AlertCircle, TrendingUp, BarChart3, Brain, Target, Award, Activity } from 'lucide-react';
+import { FileText, Calendar, Loader2, AlertCircle, Brain, Target, Award, Activity } from 'lucide-react';
 import { getApiClient, ApiError, type AnalysisSummary } from '@/services/api';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
