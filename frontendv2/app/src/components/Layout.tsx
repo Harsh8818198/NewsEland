@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -29,6 +29,27 @@ export function Layout({ children }: LayoutProps) {
   });
 
   const isActive = (path: string) => location.pathname === path;
+
+  // Keep-alive ping for backend
+  useEffect(() => {
+    const pingBackend = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        await fetch(`${apiUrl}/api/health`);
+        console.log('Backend ping successful');
+      } catch (error) {
+        console.error('Backend ping failed:', error);
+      }
+    };
+
+    // Initial ping
+    pingBackend();
+
+    // Set up interval for every 60 seconds
+    const intervalId = setInterval(pingBackend, 60000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#f5f2e9]">

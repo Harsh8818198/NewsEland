@@ -1,13 +1,17 @@
-version: "3.0"
 services:
-  backend:
-    image: your-backend-image
-    ports:
-      - "80:80"
-    environment:
-      - DATABASE_URL=your_database_url
-      - SECRET_KEY=your_secret_key
-    deploy:
-      replicas: 2
-      restart_policy:
-        condition: on-failure
+  - type: web
+    name: newseland-backend
+    env: python
+    buildCommand: pip install -r Backend/requirements.txt
+    startCommand: cd Backend && gunicorn -w 4 -k uvicorn.workers.UvicornWorker server:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: newseland-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://your-frontend-app.vercel.app

@@ -27,9 +27,20 @@ load_dotenv(override=True)
 app = FastAPI(title="AI Investment Intelligence API", version="2.0")
 
 # CORS
+# CORS
+origins = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://newseland.vercel.app", # Example Vercel URL
+]
+
+# Add frontend URL from env if present
+if os.getenv("FRONTEND_URL"):
+    origins.append(os.getenv("FRONTEND_URL"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
