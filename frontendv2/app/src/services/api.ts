@@ -431,6 +431,7 @@ export interface ScraperStatusResponse {
   config?: {
     interval_minutes?: number;
     runtime_hours?: number;
+    runtime_minutes?: number;
     auto_start?: boolean;
   };
   last_run?: string;
@@ -441,6 +442,7 @@ export interface ScraperStatusResponse {
 export interface ScraperConfigRequest {
   interval_minutes?: number;
   runtime_hours?: number;
+  runtime_minutes?: number;
   auto_start?: boolean;
 }
 

@@ -71,6 +71,23 @@ analysis_storage = AnalysisStorage()
 from dynamic_scraper import DynamicScraper
 dynamic_scraper = DynamicScraper(scraper, analyzer, memory, extractor, content_fetcher)
 
+# Signal handler for graceful shutdown
+import signal
+import sys
+import os
+
+def signal_handler(sig, frame):
+    logging.warning("\n🛑 Ctrl+C detected - Stopping scraper immediately...")
+    if dynamic_scraper.is_running:
+        dynamic_scraper.stop()
+    logging.info("✅ Scraper stopped. Server will continue running.")
+    logging.info("Press Ctrl+C again to force shutdown.")
+    
+    # Remove the signal handler so next Ctrl+C will actually exit
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+
+signal.signal(signal.SIGINT, signal_handler)
+
 print("All Systems Online ✅")
 
 # ============================================================================
@@ -591,6 +608,7 @@ def get_impact_chain(entity_name: str, event_type: str):
 class ScraperConfigUpdate(BaseModel):
     interval_minutes: int = None
     runtime_hours: int = None
+    runtime_minutes: int = None
     auto_start: bool = None
 
 @app.post("/api/scraper/start")
@@ -617,13 +635,17 @@ def update_scraper_config(config: ScraperConfigUpdate):
     
     Parameters:
     - interval_minutes: How often to scrape (minimum 1 minute)
-    - runtime_hours: How long to run (0 = indefinitely)
+    - runtime_hours: How long to run in hours (0 = indefinitely)
+    - runtime_minutes: Additional minutes to run (0-59)
     - auto_start: Whether to auto-start on server startup
     """
     try:
+        logging.info(f"Received config update request: interval={config.interval_minutes}, hours={config.runtime_hours}, minutes={config.runtime_minutes}, auto_start={config.auto_start}")
+        
         dynamic_scraper.update_config(
             interval_minutes=config.interval_minutes,
             runtime_hours=config.runtime_hours,
+            runtime_minutes=config.runtime_minutes,
             auto_start=config.auto_start
         )
         return {

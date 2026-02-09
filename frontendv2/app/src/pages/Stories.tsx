@@ -176,8 +176,27 @@ export function Stories() {
   const [maturityFilter, setMaturityFilter] = useState<MaturityFilter>('ALL');
   const [sentimentFilter, setSentimentFilter] = useState<SentimentFilter>('ALL');
   const [refreshing, setRefreshing] = useState(false);
+  const [scraperRunning, setScraperRunning] = useState(false);
+  const [stoppingScraper, setStoppingScraper] = useState(false);
+  const [lastFetchTime, setLastFetchTime] = useState(0);
+
+  const checkScraperStatus = async () => {
+    try {
+      const api = getApiClient();
+      const status = await api.getScraperStatus();
+      setScraperRunning(status.is_running || false);
+    } catch (err) {
+      console.error('Failed to check scraper status:', err);
+    }
+  };
 
   const fetchStories = async () => {
+    // Debounce: Don't fetch if we just fetched within last 5 seconds
+    const now = Date.now();
+    if (now - lastFetchTime < 5000) {
+      return;
+    }
+    
     try {
       setLoading(true);
       setError(null);
@@ -190,6 +209,7 @@ export function Stories() {
 
       setActiveStories(activeData.stories);
       setArchivedStories(archivedData.stories);
+      setLastFetchTime(Date.now());
     } catch (err) {
       if (err instanceof ApiError) {
         setError(err.userMessage);
@@ -216,6 +236,26 @@ export function Stories() {
       }
     } finally {
       setRefreshing(false);
+      await checkScraperStatus();
+    }
+  };
+
+  const handleStopScraper = async () => {
+    try {
+      setStoppingScraper(true);
+      const api = getApiClient();
+      await api.stopScraper();
+      toast.success('Scraper stopped successfully');
+      setScraperRunning(false);
+      await fetchStories();
+    } catch (err) {
+      if (err instanceof ApiError) {
+        toast.error(err.userMessage);
+      } else {
+        toast.error('Failed to stop scraper');
+      }
+    } finally {
+      setStoppingScraper(false);
     }
   };
 
@@ -236,7 +276,25 @@ export function Stories() {
 
   useEffect(() => {
     fetchStories();
-  }, []);
+    checkScraperStatus();
+    
+    // Poll scraper status every 10 seconds (reduced from 5)
+    const statusInterval = setInterval(() => {
+      checkScraperStatus();
+    }, 10000);
+    
+    // Auto-refresh stories every 15 seconds when scraper is running (reduced from 10)
+    const refreshInterval = setInterval(() => {
+      if (scraperRunning && !loading && !refreshing) {
+        fetchStories();
+      }
+    }, 15000);
+    
+    return () => {
+      clearInterval(statusInterval);
+      clearInterval(refreshInterval);
+    };
+  }, [scraperRunning, loading, refreshing]);
 
   const filterStories = (stories: BackendStory[]) => {
     return stories.filter((story) => {
@@ -258,6 +316,12 @@ export function Stories() {
         <p className="text-center font-serif text-[#6b6b6b] mt-2">
           Comprehensive coverage of investment narratives and market intelligence
         </p>
+        {scraperRunning && (
+          <div className="mt-3 flex items-center justify-center gap-2 text-sm font-serif text-[#006400]">
+            <RefreshCw className="h-4 w-4 animate-spin" />
+            <span>Live scraping active - Auto-refreshing every 15 seconds</span>
+          </div>
+        )}
       </div>
 
       {/* Error Alert */}
@@ -301,14 +365,25 @@ export function Stories() {
               <option value="Bearish">Bearish</option>
               <option value="Neutral">Neutral</option>
             </select>
-            <Button
-              onClick={handleRefresh}
-              disabled={refreshing}
-              className="btn-newspaper"
-            >
-              <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-              Refresh
-            </Button>
+            {scraperRunning ? (
+              <Button
+                onClick={handleStopScraper}
+                disabled={stoppingScraper}
+                className="btn-newspaper bg-[#8b0000] text-[#f5f2e9] border-[#8b0000] hover:bg-[#6b0000]"
+              >
+                <RefreshCw className={`h-4 w-4 mr-2 ${stoppingScraper ? 'animate-spin' : ''}`} />
+                {stoppingScraper ? 'Stopping...' : 'Stop Scraping'}
+              </Button>
+            ) : (
+              <Button
+                onClick={handleRefresh}
+                disabled={refreshing}
+                className="btn-newspaper"
+              >
+                <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+                Refresh
+              </Button>
+            )}
           </div>
         </div>
       </div>

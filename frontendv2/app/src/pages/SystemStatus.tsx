@@ -46,6 +46,7 @@ export function SystemStatus() {
   
   const [intervalMinutes, setIntervalMinutes] = useState(30);
   const [runtimeHours, setRuntimeHours] = useState(24);
+  const [runtimeMinutes, setRuntimeMinutes] = useState(0);
   const [autoStart, setAutoStart] = useState(false);
 
   const fetchData = async () => {
@@ -64,9 +65,10 @@ export function SystemStatus() {
       if (scraperData.status === 'fulfilled') {
         setScraperStatus(scraperData.value);
         if (scraperData.value.config) {
-          setIntervalMinutes(scraperData.value.config.interval_minutes || 30);
-          setRuntimeHours(scraperData.value.config.runtime_hours || 24);
-          setAutoStart(scraperData.value.config.auto_start || false);
+          setIntervalMinutes(scraperData.value.config.interval_minutes ?? 30);
+          setRuntimeHours(scraperData.value.config.runtime_hours ?? 0);
+          setRuntimeMinutes(scraperData.value.config.runtime_minutes ?? 0);
+          setAutoStart(scraperData.value.config.auto_start ?? false);
         }
       }
       if (statsData.status === 'fulfilled') setScraperStats(statsData.value);
@@ -150,11 +152,14 @@ export function SystemStatus() {
   const handleUpdateConfig = async () => {
     try {
       const api = getApiClient();
-      await api.updateScraperConfig({
+      const configData = {
         interval_minutes: intervalMinutes,
         runtime_hours: runtimeHours,
+        runtime_minutes: runtimeMinutes,
         auto_start: autoStart,
-      });
+      };
+      console.log('Sending config update:', configData);
+      await api.updateScraperConfig(configData);
       toast.success('Configuration updated');
       await fetchData();
     } catch (err) {
@@ -253,14 +258,18 @@ export function SystemStatus() {
           <div className="space-y-4 border-t border-[#ede8d8] pt-4">
             <p className="text-xs uppercase tracking-wider text-[#6b6b6b] font-serif">Configuration</p>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               <div>
                 <Label className="text-xs font-serif text-[#6b6b6b]">Interval (min)</Label>
                 <Input
                   type="number"
                   value={intervalMinutes}
-                  onChange={(e) => setIntervalMinutes(parseInt(e.target.value) || 30)}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    setIntervalMinutes(isNaN(val) ? 30 : Math.max(1, val));
+                  }}
                   className="newspaper-input mt-1"
+                  min="1"
                 />
               </div>
               <div>
@@ -268,8 +277,28 @@ export function SystemStatus() {
                 <Input
                   type="number"
                   value={runtimeHours}
-                  onChange={(e) => setRuntimeHours(parseInt(e.target.value) || 24)}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    setRuntimeHours(isNaN(val) ? 0 : Math.max(0, val));
+                  }}
                   className="newspaper-input mt-1"
+                  placeholder="0 = indefinite"
+                  min="0"
+                />
+              </div>
+              <div>
+                <Label className="text-xs font-serif text-[#6b6b6b]">Runtime (mins)</Label>
+                <Input
+                  type="number"
+                  value={runtimeMinutes}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value);
+                    setRuntimeMinutes(isNaN(val) ? 0 : Math.min(59, Math.max(0, val)));
+                  }}
+                  className="newspaper-input mt-1"
+                  placeholder="0-59"
+                  min="0"
+                  max="59"
                 />
               </div>
             </div>
