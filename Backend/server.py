@@ -303,10 +303,17 @@ def analyze_headline(request: AnalysisRequest):
     # 5. Generate Strategic Advice via DecisionEngine
     advice = decision_engine.generate_advice(current_user, subreport, story)
 
+    # Normalize sentiment for API consumers while keeping rich backend structure
+    raw_sentiment = analysis_result['analysis']['sentiment']
+    api_sentiment = {
+        "score": raw_sentiment.get("sentiment_score", 0),
+        "label": raw_sentiment.get("sentiment_label", "Neutral"),
+    }
+
     return {
         "headline": headline,
         "entities": entities,
-        "sentiment": analysis_result['analysis']['sentiment'],
+        "sentiment": api_sentiment,
         "cognitive_analysis": cognitive_insight,
         "story_id": story.get('id'),
         "advice": advice,

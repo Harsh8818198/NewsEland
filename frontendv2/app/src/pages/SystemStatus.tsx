@@ -195,7 +195,7 @@ export function SystemStatus() {
         <StatBox label="System Status" value={systemStatus?.status || 'Unknown'} />
         <StatBox label="Stories Tracked" value={(systemStatus?.stories_tracked || 0).toString()} />
         <StatBox label="Scraper" value={scraperStatus?.is_running ? 'Running' : 'Stopped'} />
-        <StatBox label="Articles" value={(scraperStats?.articles_scraped || 0).toString()} />
+        <StatBox label="Articles" value={(scraperStats?.total_articles || 0).toString()} />
       </div>
 
       {/* Main Content */}

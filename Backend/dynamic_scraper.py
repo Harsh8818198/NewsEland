@@ -16,6 +16,11 @@ from typing import Optional
 import json
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+
+
 class DynamicScraper:
     def __init__(self, scraper, analyzer, memory, extractor, content_fetcher):
         self.scraper = scraper
@@ -26,7 +31,8 @@ class DynamicScraper:
         
         self.is_running = False
         self.thread: Optional[threading.Thread] = None
-        self.config_file = "scraper_config.json"
+        # Persist config alongside other backend data
+        self.config_file = os.path.join(DATA_DIR, "scraper_config.json")
         
         # Default configuration
         self.config = {

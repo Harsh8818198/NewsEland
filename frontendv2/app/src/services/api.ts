@@ -162,7 +162,7 @@ export interface BackendStory {
   created_at: string;
   main_topic: string;
   maturity: 'DEVELOPING' | 'MATURE' | 'ACTIONABLE';
-  status: 'ACTIVE' | 'INACTIVE';
+  status: 'ACTIVE' | 'INACTIVE' | 'ARCHIVED';
   updates_count: number;
   entities?: string[];
   current_hypothesis: Hypothesis | null;
@@ -376,9 +376,10 @@ export interface PatternValidationResponse {
 }
 
 export interface BacktestReportResponse {
-  performance_metrics?: any;
-  trades?: any[];
-  equity_curve?: any[];
+  total_predictions: number;
+  validated_predictions: number;
+  win_rate: number;
+  avg_return?: number;
   [key: string]: any;
 }
 
@@ -450,11 +451,12 @@ export interface ScraperConfigResponse {
 }
 
 export interface ScraperStatsResponse {
-  total_scraped?: number;
-  successful?: number;
-  failed?: number;
-  avg_time_ms?: number;
-  errors?: string[];
+  started_at?: string | null;
+  last_run?: string | null;
+  total_runs?: number;
+  total_articles?: number;
+  total_stories?: number;
+  errors?: number;
   [key: string]: any;
 }
 

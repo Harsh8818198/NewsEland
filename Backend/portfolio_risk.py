@@ -11,6 +11,11 @@ import json
 import logging
 from typing import Dict, List
 from datetime import datetime
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
 
 # ============================================================================
 # PORTFOLIO MANAGER
@@ -19,9 +24,10 @@ from datetime import datetime
 class PortfolioManager:
     """Tracks positions, sector exposure, validates allocations"""
     
-    def __init__(self, user_profile, portfolio_file='portfolio.json'):
+    def __init__(self, user_profile, portfolio_file: str = None):
         self.user = user_profile
-        self.portfolio_file = portfolio_file
+        # Persist portfolio in backend data directory
+        self.portfolio_file = portfolio_file or os.path.join(DATA_DIR, "portfolio.json")
         self.positions = {}
         self.sector_exposure = {}
         self.cash_reserve = user_profile.capital_available
@@ -123,12 +129,50 @@ class PortfolioManager:
         return {"pnl": pnl, "pnl_pct": pnl_pct}
     
     def get_portfolio_summary(self) -> Dict:
+        """
+        Return a portfolio summary compatible with both backend risk engines
+        and frontend dashboard expectations.
+        """
+        # Transform internal positions dict into a list the frontend can display.
+        position_list = []
+        for ticker, position in self.positions.items():
+            entry_price = position.get("entry_price", 0.0)
+            shares = position.get("shares", 0.0)
+            # In absence of live pricing, treat current price as entry price
+            current_price = entry_price
+            market_value = shares * current_price
+            pnl = 0.0
+            pnl_pct = 0.0
+
+            position_list.append({
+                "ticker": ticker,
+                "sector": position.get("sector", "Unknown"),
+                "shares": shares,
+                "entry_price": entry_price,
+                "current_price": current_price,
+                "market_value": market_value,
+                "pnl": pnl,
+                "pnl_pct": pnl_pct,
+                "story_id": position.get("story_id"),
+            })
+
+        total_value = self.cash_reserve + sum(p["market_value"] for p in position_list)
+        total_pnl = sum(p["pnl"] for p in position_list)
+        total_pnl_pct = (total_pnl / total_value) if total_value > 0 else 0.0
+
         return {
+            # Original fields used by risk engine and other backend code
             "cash_reserve": self.cash_reserve,
             "total_deployed": self.total_deployed,
             "positions_count": len(self.positions),
             "sector_exposure": self.sector_exposure,
-            "positions": self.positions
+            "positions_raw": self.positions,
+            # Frontend‑friendly fields for Dashboard & Portfolio pages
+            "positions": position_list,
+            "total_value": total_value,
+            "total_pnl": total_pnl,
+            "total_pnl_pct": total_pnl_pct,
+            "cash": self.cash_reserve,
         }
 
 

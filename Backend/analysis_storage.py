@@ -4,6 +4,10 @@ from datetime import datetime, date
 from typing import Dict, List, Optional
 import logging
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+
 class DateTimeEncoder(json.JSONEncoder):
     """Custom JSON encoder for datetime and other non-serializable objects"""
     def default(self, obj):
@@ -20,8 +24,9 @@ class AnalysisStorage:
     Stores comprehensive analysis results for future reference
     """
     
-    def __init__(self, storage_file: str = "analysis_storage.json"):
-        self.storage_file = storage_file
+    def __init__(self, storage_file: str = None):
+        # Persist analysis storage under backend data directory
+        self.storage_file = storage_file or os.path.join(DATA_DIR, "analysis_storage.json")
         self._ensure_storage_exists()
     
     def _ensure_storage_exists(self):

@@ -16,6 +16,10 @@ from collections import Counter
 import numpy as np
 import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+
 
 # ============================================================================
 # PATTERN VALIDATOR
@@ -100,8 +104,9 @@ class SentimentTrendAnalyzer:
 class BacktestEngine:
     """Tracks predictions vs actual outcomes"""
     
-    def __init__(self, backtest_file='backtest_results.json'):
-        self.backtest_file = backtest_file
+    def __init__(self, backtest_file: str = None):
+        # Persist backtest results in dedicated data directory
+        self.backtest_file = backtest_file or os.path.join(DATA_DIR, "backtest_results.json")
         self.predictions = {}
         self._load_results()
     
@@ -178,8 +183,9 @@ class BacktestEngine:
 class FeedbackSystem:
     """Captures user feedback for learning"""
     
-    def __init__(self, feedback_file='user_feedback.json'):
-        self.feedback_file = feedback_file
+    def __init__(self, feedback_file: str = None):
+        # Persist feedback in dedicated data directory
+        self.feedback_file = feedback_file or os.path.join(DATA_DIR, "user_feedback.json")
         self.feedback_data = {}
         self.pattern_weights = {}
         self._load_feedback()

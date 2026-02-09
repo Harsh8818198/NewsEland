@@ -4,13 +4,18 @@ import logging
 from datetime import datetime
 from maturity_engine import MaturityEngine
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
+
 class ContextMemory:
     """
     The Hippocampus: Stores the evolving "Narrative" of the market.
     Maps disparate news events into cohesive "Stories" over time.
     """
-    def __init__(self, db_file='knowledge_graph.json'):
-        self.db_file = db_file
+    def __init__(self, db_file=None):
+        # Always store knowledge graph in a stable data directory
+        self.db_file = db_file or os.path.join(DATA_DIR, "knowledge_graph.json")
         self.knowledge_graph = self._load_graph()
         self.maturity_engine = MaturityEngine()  # NEW: AI-driven maturity assessment
 
@@ -69,12 +74,20 @@ class ContextMemory:
         
         timestamp = datetime.now().isoformat()
         
+        # Normalize sentiment shape once so both backend and frontend can use it
+        raw_sentiment = analysis['analysis']['sentiment']
+        normalized_sentiment = {
+            "score": raw_sentiment.get("sentiment_score", 0),
+            "label": raw_sentiment.get("sentiment_label", "Neutral"),
+            **raw_sentiment,
+        }
+
         if topic_id:
             story = self.knowledge_graph['stories'][topic_id]
             # STATE SNAPSHOT LOGIC:
             # Shift current hypothesis to previous to track evolution ("Before vs After")
             story['previous_hypothesis'] = story.get('current_hypothesis', {})
-            story['current_hypothesis'] = analysis['analysis']['sentiment'] # Contains Why/What/How
+            story['current_hypothesis'] = normalized_sentiment  # Contains Why/What/How
             
             # Store latest cognitive analysis
             if cognitive_analysis:
@@ -83,7 +96,7 @@ class ContextMemory:
             event_data = {
                 "date": timestamp,
                 "title": article['title'],
-                "sentiment": analysis['analysis']['sentiment'],
+                "sentiment": normalized_sentiment,
                 "pattern": analysis['analysis']['matched_patterns'][0]['pattern_name'] if analysis['analysis']['matched_patterns'] else "None",
                 "subreport": subreport  # Store subreport
             }
@@ -127,13 +140,13 @@ class ContextMemory:
                 "maturity": "DEVELOPING", # Developing -> Mature -> Archived
                 "entities": related_entities,
                 "updates_count": 1,
-                "current_hypothesis": analysis['analysis']['sentiment'], # Initial State
+                "current_hypothesis": normalized_sentiment, # Initial State
                 "previous_hypothesis": None,
                 "cognitive_analysis": cognitive_analysis, # Store initial cognitive analysis
                 "events": [{
                     "date": timestamp,
                     "title": article['title'],
-                    "sentiment": analysis['analysis']['sentiment'],
+                    "sentiment": normalized_sentiment,
                     "pattern": pattern_name,
                     "subreport": subreport, # Store initial subreport
                     "cognitive_insight": cognitive_analysis.get('so_what', 'N/A') if cognitive_analysis else "N/A",
