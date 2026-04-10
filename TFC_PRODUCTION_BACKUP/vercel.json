@@ -1,0 +1,19 @@
+{
+  "buildCommand": "npm run build",
+  "env": {
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "@clerk-publishable-key",
+    "CLERK_SECRET_KEY": "@clerk-secret-key",
+    "NEXT_PUBLIC_SUPABASE_URL": "@supabase-url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase-anon-key"
+  },
+  "crons": [
+    {
+      "path": "/api/news/ingest",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/news/process",
+      "schedule": "30 */6 * * *"
+    }
+  ]
+}

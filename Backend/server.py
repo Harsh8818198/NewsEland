@@ -33,6 +33,7 @@ app = FastAPI(title="AI Investment Intelligence API", version="2.0")
 origins = [
     "http://localhost:3000",
     "http://localhost:5173",
+    "http://localhost:5174",
     "https://newseland.vercel.app", # Example Vercel URL
 ]
 
