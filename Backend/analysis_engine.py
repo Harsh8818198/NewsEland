@@ -11,8 +11,9 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+DEFAULT_MODEL = os.getenv('DEFAULT_MODEL', 'gemma-4-31b-it')
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-3-flash-preview')
+model = genai.GenerativeModel(DEFAULT_MODEL)
 
 class AnalysisEngine:
     """
@@ -65,25 +66,27 @@ class AnalysisEngine:
             - "how": string (The mechanism of impact on the company/sector)
             - "expected_impact": string (Short-term prediction, less than 1 month)
             """
-            response = model.generate_content(prompt)
+            safety = [
+                {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
+            ]
+            response = model.generate_content(prompt, safety_settings=safety)
             cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
             if not cleaned_text:
                 logging.error('Empty response from Gemini for deep analysis')
                 raise ValueError('Empty response from model')
             try:
-                return json.loads(cleaned_text)
-            except Exception:
-                # Try to recover JSON embedded in text
-                import re
-                m = re.search(r'\{[\s\S]*\}', cleaned_text)
-                if m:
-                    try:
-                        return json.loads(m.group(0))
-                    except Exception as e:
-                        logging.error(f'Failed to parse extracted JSON from Gemini deep analysis: {e} -- raw: {cleaned_text[:200]}')
-                        raise
-                logging.error(f'Unable to parse Gemini deep analysis response as JSON: {cleaned_text[:200]}')
-                raise
+                # Index-based slicing to find the valid JSON block
+                start = raw_text.find('{')
+                end = raw_text.rfind('}')
+                if start != -1 and end != -1:
+                    return json.loads(raw_text[start:end+1])
+                return json.loads(raw_text.replace('```json', '').replace('```', '').strip())
+            except Exception as jse:
+                logging.error(f"JSON Slice/Parse Error: {jse}. Raw: {raw_text[:200]}")
+                raise jse
         except Exception as e:
             logging.error(f"Gemini Analysis Failed: {e}")
             return {

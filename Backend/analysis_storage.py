@@ -3,6 +3,7 @@ import os
 from datetime import datetime, date
 from typing import Dict, List, Optional
 import logging
+from supabase_sync import sync_engine
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
@@ -79,6 +80,17 @@ class AnalysisStorage:
                 json.dump(data, f, indent=2, cls=DateTimeEncoder)
 
             logging.info(f"Saved analysis for story: {story_id}")
+            
+            # BROADCAST TO SUPABASE (SaaS SYNC)
+            # We reconstruct the story object expected by the sync engine
+            sync_engine.sync_story(story_id, {
+                "main_topic": story_title,
+                "subreport": analysis.get("subreport", ""),
+                "current_hypothesis": analysis.get("current_hypothesis", {}),
+                "entities": analysis.get("entities", []),
+                "created_at": datetime.now().isoformat()
+            })
+            
             return True
 
         except Exception as e:

@@ -121,6 +121,13 @@ export function Dashboard() {
 
   useEffect(() => {
     fetchData();
+    
+    // Auto-refresh every 30 seconds to show "pouring in" stories
+    const interval = setInterval(() => {
+      fetchData();
+    }, 30000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   const totalValue = portfolio?.total_value || 0;

@@ -23,6 +23,8 @@ from portfolio_risk import PortfolioManager, RiskEngine, ExitStrategyPlanner
 from intelligence_layer import CompetitiveIntelligence, MacroContextEngine, MarketTimingEngine
 from validation_learning import PatternValidator, SentimentTrendAnalyzer, BacktestEngine, FeedbackSystem
 from analysis_storage import AnalysisStorage
+from supabase_sync import sync_engine
+from airlms_engine import airlms
 
 load_dotenv(override=True)
 
@@ -43,7 +45,7 @@ if os.getenv("FRONTEND_URL"):
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -84,6 +86,14 @@ analysis_storage = AnalysisStorage()
 # Initialize Dynamic Scraper
 from dynamic_scraper import DynamicScraper
 dynamic_scraper = DynamicScraper(scraper, analyzer, memory, extractor, content_fetcher)
+
+@app.on_event("startup")
+async def startup_event():
+    logging.info("🚀 Server starting... Launching Autonomous Scraper Engine")
+    # Set interval to 1 minute for "pouring in" effect
+    dynamic_scraper.update_config(interval_minutes=1)
+    dynamic_scraper.start()
+    logging.info("✅ Scraper active. New stories will pour in every 60 seconds.")
 
 # Signal handler for graceful shutdown
 import signal
@@ -150,27 +160,49 @@ def health_check():
 
 @app.get("/api/stories")
 def get_stories():
-    """Returns all active stories with enhanced intelligence"""
+    """Returns all stories with enhanced intelligence mapped for the original UI"""
     memory.knowledge_graph = memory._load_graph()
     
-    active_stories = []
-    for s_id, data in memory.knowledge_graph.get('stories', {}).items():
-        if data.get('status') == 'ACTIVE':
-            # Enhance story with real-world opportunities if available
-            story_copy = data.copy()
+    stories_list = []
+    stories_obj = memory.knowledge_graph.get('stories', {})
+    if not stories_obj:
+        return {"stories": []}
+        
+    for s_id, data in stories_obj.items():
+        # Create a copy with the ID included
+        story_data = data.copy()
+        story_data['id'] = s_id
+        
+        # BACKWARDS COMPATIBILITY: Map new 5-layer logic into old UI slots
+        cog = story_data.get('cognitive_analysis', {})
+        if cog and isinstance(cog, dict) and 'airlms_result' in cog:
+            air = cog['airlms_result']
+            if not story_data.get('current_hypothesis'): 
+                story_data['current_hypothesis'] = {
+                    'sentiment_score': cog.get('conviction', 0.5),
+                    'sentiment_label': 'Neutral',
+                    'key_event_type': 'Intelligence Update'
+                }
             
-            # Add sentiment trend analysis
-            if len(data.get('events', [])) >= 3:
-                trend = sentiment_analyzer.analyze_trend(data)
-                story_copy['sentiment_trend'] = trend
+            # Map Layers to the "Old UI" boxes (Why, What, How)
+            current = story_data['current_hypothesis']
+            current['why'] = f"{air.get('layer_1_perception', '')}\n\nContext: {air.get('layer_2_contextualization', '')}"
+            current['what'] = air.get('layer_3_analysis', '')
+            current['how'] = f"{air.get('layer_4_synthesis', '')}\n\nRecommendation: {air.get('layer_5_recommendation', '')}"
+            current['expected_impact'] = air.get('layer_5_recommendation', 'Intelligence Synced.')
             
-            # Add pattern validation
-            validation = pattern_validator.validate_pattern_consistency(data)
-            story_copy['pattern_validation'] = validation
-            
-            active_stories.append(story_copy)
+        stories_list.append(story_data)
     
-    return {"stories": sorted(active_stories, key=lambda x: x.get('maturity') in ['MATURE', 'ACTIONABLE'], reverse=True)}
+    # Sort by the LATEST event date (if events exist), otherwise by created_at
+    def get_latest_date(story):
+        events = story.get('events', [])
+        if events:
+            # Sort events by date and get the last one
+            return max([e.get('date', '') for e in events])
+        return story.get('created_at', '')
+
+    stories_list.sort(key=get_latest_date, reverse=True)
+    return {"stories": stories_list}
 
 @app.get("/api/profile")
 def get_profile():
@@ -260,7 +292,8 @@ def get_story_cognitive(story_id: str):
     story = memory.knowledge_graph.get('stories', {}).get(story_id)
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
-    return story.get('cognitive_analysis', {}) or {}
+    cog = story.get('cognitive_analysis')
+    return cog if cog is not None else {}
 
 @app.get("/api/stories/{story_id}/opportunities")
 def get_story_opportunities(story_id: str):
@@ -268,7 +301,7 @@ def get_story_opportunities(story_id: str):
     story = memory.knowledge_graph.get('stories', {}).get(story_id)
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
-    cognitive = story.get('cognitive_analysis', {})
+    cognitive = story.get('cognitive_analysis') or {}
     return {"opportunities": cognitive.get('real_world_opportunities', [])}
 
 @app.get("/api/stories/{story_id}/winners-losers")
@@ -277,10 +310,10 @@ def get_story_winners_losers(story_id: str):
     story = memory.knowledge_graph.get('stories', {}).get(story_id)
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
-    cognitive = story.get('cognitive_analysis', {})
+    cognitive = story.get('cognitive_analysis') or {}
     return {
-        "winners": cognitive.get('winners', []),
-        "losers": cognitive.get('losers', [])
+        "winners": cognitive.get('winners', []) if cognitive.get('winners') is not None else [],
+        "losers": cognitive.get('losers', []) if cognitive.get('losers') is not None else []
     }
 
 @app.get("/api/entities/graph")
@@ -309,22 +342,17 @@ def analyze_headline(request: AnalysisRequest):
         # Fallback if no entities found, still try to analyze
         entities = {'ORG': [], 'GPE': [], 'PRODUCT': []}
 
-    # 1. Basic Analysis (Brain 3)
-    analysis_result = analyzer.analyze_news(article, entities)
-    
-    # 2. Cognitive Analysis (Brain 2 - NEW)
-    cognitive_insight = cognitive.reason_about_news(article, entities, analysis_result)
-    
-    # 3. Store in Memory
-    # First, get the story context to see if it exists (for subreport generation)
-    topic_id = memory.find_related_story(entities)
-    story_context = memory.knowledge_graph['stories'].get(topic_id) if topic_id else None
+    # 1. NEW: TFC.PDF 5-LAYER REASONING (The "Deeping")
+    story_context = memory.knowledge_graph['stories'].get(memory.find_related_story(entities))
+    airlms_result = airlms.deep_reason(headline, story_context or {})
 
-    # Generate Sub-Report (Brain 3 Synthesis)
-    subreport = report_gen.generate_sub_report(article, analysis_result, story_context)
-
-    # Update Story with new event and subreport
-    story = memory.update_story(article, analysis_result, entities, cognitive_analysis=cognitive_insight, subreport=subreport)
+    # 2. Extract specific layers for the old API structure compatibility
+    cognitive_insight = airlms_result.get('analysis', {})
+    subreport = airlms_result.get('synthesis', "")
+    advice = airlms_result.get('recommendation', {}).get('reasoning', "Evaluate for potential entry.")
+    
+    # Update Story with new event and subreport using the new AIRLMS intelligence
+    story = memory.update_story(article, airlms_result, entities, cognitive_analysis=cognitive_insight, subreport=subreport)
 
     # 4. Update Entity Graph
     for entity_type, entity_list in entities.items():
@@ -341,22 +369,38 @@ def analyze_headline(request: AnalysisRequest):
         "label": raw_sentiment.get("sentiment_label", "Neutral"),
     }
 
-    return {
+    result_payload = {
         "headline": headline,
         "entities": entities,
-        "sentiment": api_sentiment,
-        "cognitive_analysis": cognitive_insight,
+        "sentiment": {"score": airlms_result.get('recommendation', {}).get('confidence', 0.5), "label": "BULLISH" if "ENTRY" in str(airlms_result) else "NEUTRAL"},
+        "cognitive_analysis": airlms_result,
         "story_id": story.get('id'),
         "advice": advice,
         "subreport": subreport,
         "story_context": {
             "topic": story.get('main_topic', 'Unknown'),
             "maturity": story.get('maturity', 'DEVELOPING'),
-            "updates": story.get('updates_count', 1)
+            "updates": story.get('updates_count', 1),
+            "layers": airlms_result # THE 5 LAYERS FROM PDF
         },
         "user_profile": current_user.get_risk_profile_description(),
-        "message": "Analysis complete with Cognitive Layer & Strategic Synthesis"
+        "message": "Analysis complete with TFC AIRLMS 5-Layer Engine"
     }
+
+    # BROADCAST SIGNAL TO SUPABASE (SaaS SYNC)
+    sync_engine.sync_signal(
+        user_id="USER_GLOBAL_SYNC", 
+        story_id=story.get('id'),
+        signal_data={
+            "ticker": entities.get('ORG', ['MARKET'])[0] if entities.get('ORG') else 'MARKET',
+            "signal": airlms_result.get('recommendation', {}).get('signal', 'WATCH'),
+            "confidence": airlms_result.get('recommendation', {}).get('confidence', 0.5),
+            "reasoning": advice,
+            "reasoning_layers": airlms_result # PASSING ALL 5 LAYERS TO DASHBOARD
+        }
+    )
+
+    return result_payload
 
 @app.post("/api/analyze/batch")
 def batch_analyze(request: BatchAnalysisRequest):

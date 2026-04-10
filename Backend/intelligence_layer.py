@@ -15,9 +15,18 @@ import google.generativeai as genai
 import os
 import json
 
+# Configure model from env
+model_name = os.getenv('DEFAULT_MODEL', 'gemma-4-31b-it')
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-3-flash-preview')
+model = genai.GenerativeModel(model_name)
 
+# Shared safety settings for all engines
+SAFETY_SETTINGS = [
+    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
+]
 
 # ============================================================================
 # COMPETITIVE INTELLIGENCE
@@ -57,7 +66,7 @@ Return ONLY valid JSON:
 }}
 """
             
-            response = model.generate_content(prompt)
+            response = model.generate_content(prompt, safety_settings=SAFETY_SETTINGS)
             cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
             return json.loads(cleaned_text)
         
@@ -84,17 +93,17 @@ Based on current market conditions, provide:
 5. SECTOR ROTATION: Which sectors are in favor?
 
 Return ONLY valid JSON:
-{
+{{
     "market_regime": "BULL",
     "vix": 18,
     "fed_policy": "NEUTRAL",
     "recession_probability": 0.25,
     "sector_rotation": "Technology leading",
     "risk_level": "MEDIUM"
-}
+}}
 """
             
-            response = model.generate_content(prompt)
+            response = model.generate_content(prompt, safety_settings=SAFETY_SETTINGS)
             cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
             return json.loads(cleaned_text)
         

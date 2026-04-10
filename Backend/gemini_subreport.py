@@ -21,7 +21,8 @@ class SubReportGenerator:
         self.mock_mode = mock_mode
         if not self.mock_mode:
             try:
-                self.model = genai.GenerativeModel('gemini-3-flash-preview')
+                model_name = os.getenv('DEFAULT_MODEL', 'gemma-4-31b-it')
+                self.model = genai.GenerativeModel(model_name)
             except:
                 logging.warning("Failed to init Gemini. Falling back to Mock Mode.")
                 self.mock_mode = True
@@ -35,7 +36,13 @@ class SubReportGenerator:
 
         try:
             prompt = self._construct_prompt(article, analysis_result, story_context)
-            response = self.model.generate_content(prompt)
+            safety = [
+                {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
+            ]
+            response = self.model.generate_content(prompt, safety_settings=safety)
             return response.text
         except Exception as e:
             logging.error(f"Gemini Report Gen Failed: {e}")

@@ -4,8 +4,18 @@ from typing import Dict, List, Any
 import google.generativeai as genai
 import os
 
+# Configure model from env
+model_name = os.getenv('DEFAULT_MODEL', 'gemma-4-31b-it')
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-3-flash-preview')
+model = genai.GenerativeModel(model_name)
+
+# Shared safety settings for all engines
+SAFETY_SETTINGS = [
+    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
+]
 
 class CognitiveLayer:
     """
@@ -126,25 +136,20 @@ Return ONLY valid JSON (no markdown):
 }}
 """
             
-            response = model.generate_content(prompt)
-            cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
-            if not cleaned_text:
-                logging.error('Empty response from Gemini for cognitive reasoning')
-                raise ValueError('Empty response from model')
+            response = model.generate_content(prompt, safety_settings=SAFETY_SETTINGS)
+            raw_text = response.text
+            import re
             try:
-                result = json.loads(cleaned_text)
-            except Exception:
-                import re
-                m = re.search(r'\{[\s\S]*\}', cleaned_text)
-                if m:
-                    try:
-                        result = json.loads(m.group(0))
-                    except Exception as e:
-                        logging.error(f'Failed to parse extracted JSON from cognitive layer: {e} -- raw: {cleaned_text[:200]}')
-                        raise
+                # Robust extraction
+                json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                if json_match:
+                    result = json.loads(json_match.group())
                 else:
-                    logging.error(f'Unable to parse cognitive response as JSON: {cleaned_text[:200]}')
-                    raise
+                    result = json.loads(raw_text.replace('```json', '').replace('```', '').strip())
+            except Exception as jse:
+                logging.error(f"Cognitive JSON Parse Error: {jse}. Raw: {raw_text[:200]}")
+                raise jse
+
             logging.info(f"Cognitive reasoning complete. Conviction: {result.get('conviction', 0)}/10")
             
             # Log real-world opportunities
@@ -197,25 +202,19 @@ Return ONLY valid JSON:
 }}
 """
             
-            response = model.generate_content(prompt)
-            cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
-            if not cleaned_text:
-                logging.error('Empty response from Gemini for opportunity detection')
-                raise ValueError('Empty response from model')
+            response = model.generate_content(prompt, safety_settings=SAFETY_SETTINGS)
+            raw_text = response.text
+            import re
             try:
-                result = json.loads(cleaned_text)
-            except Exception:
-                import re
-                m = re.search(r'\{[\s\S]*\}', cleaned_text)
-                if m:
-                    try:
-                        result = json.loads(m.group(0))
-                    except Exception as e:
-                        logging.error(f'Failed to parse extracted JSON from opportunity detection: {e} -- raw: {cleaned_text[:200]}')
-                        raise
+                json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                if json_match:
+                    result = json.loads(json_match.group())
                 else:
-                    logging.error(f'Unable to parse opportunity detection response as JSON: {cleaned_text[:200]}')
-                    raise
+                    result = json.loads(raw_text.replace('```json', '').replace('```', '').strip())
+            except Exception as jse:
+                logging.error(f"Opportunity Detection JSON Parse Error: {jse}. Raw: {raw_text[:200]}")
+                raise jse
+                
             if result.get('is_opportunity'):
                 logging.warning(f"🎯 HIGH-VALUE OPPORTUNITY DETECTED: {result['opportunity_type']}")
             return result
@@ -276,25 +275,18 @@ Return ONLY valid JSON:
 }}
 """
             
-            response = model.generate_content(prompt)
-            cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
-            if not cleaned_text:
-                logging.error('Empty response from Gemini for thesis update')
-                raise ValueError('Empty response from model')
+            response = model.generate_content(prompt, safety_settings=SAFETY_SETTINGS)
+            raw_text = response.text
+            import re
             try:
-                result = json.loads(cleaned_text)
-            except Exception:
-                import re
-                m = re.search(r'\{[\s\S]*\}', cleaned_text)
-                if m:
-                    try:
-                        result = json.loads(m.group(0))
-                    except Exception as e:
-                        logging.error(f'Failed to parse extracted JSON from thesis update: {e} -- raw: {cleaned_text[:200]}')
-                        raise
+                json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                if json_match:
+                    result = json.loads(json_match.group())
                 else:
-                    logging.error(f'Unable to parse thesis update response as JSON: {cleaned_text[:200]}')
-                    raise
+                    result = json.loads(raw_text.replace('```json', '').replace('```', '').strip())
+            except Exception as jse:
+                logging.error(f"Thesis Update JSON Parse Error: {jse}. Raw: {raw_text[:200]}")
+                raise jse
             
             # Update thesis
             updated_thesis = {
@@ -334,7 +326,7 @@ Return ONLY valid JSON:
             "next_moves": [],
             "conviction": 0,
             "contrarian_angle": "N/A",
-            "real_world_opportunities": []  # NEW
+            "real_world_opportunities": [] 
         }
 
 if __name__ == "__main__":

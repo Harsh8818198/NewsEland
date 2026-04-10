@@ -5,8 +5,10 @@ from datetime import datetime
 import google.generativeai as genai
 import os
 
+# Configure model from env
+model_name = os.getenv('DEFAULT_MODEL', 'gemma-4-31b-it')
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel('gemini-3-flash-preview')
+model = genai.GenerativeModel(model_name)
 
 class MaturityEngine:
     """
@@ -82,9 +84,26 @@ Return ONLY valid JSON (no markdown):
 }}
 """
             
-            response = model.generate_content(prompt)
-            cleaned_text = response.text.replace('```json', '').replace('```', '').strip()
-            result = json.loads(cleaned_text)
+            safety = [
+                {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_NONE"},
+                {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE"},
+            ]
+            response = model.generate_content(prompt, safety_settings=safety)
+            raw_text = response.text
+            
+            import re
+            try:
+                # Robust extraction
+                json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+                if json_match:
+                    result = json.loads(json_match.group())
+                else:
+                    result = json.loads(raw_text.replace('```json', '').replace('```', '').strip())
+            except Exception as jse:
+                logging.error(f"Maturity JSON Parse Error: {jse}. Raw: {raw_text[:200]}")
+                raise jse
             
             return self._format_recommendation(result, story)
         
